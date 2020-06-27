@@ -13,6 +13,6 @@ Product::Product(string name, float p, float f, float c): name_(name), fet_(p), 
 
 float Product::GetKCalories(){
   return 
-  Nutrition::GetKCalories4GrFat(fet_) +
-  Nutrition::GetKCalories4GrProtein(protein_) +
-  Nutrition::GetKCalories4GrCarbohydrate(carbohydrate_);};
+  Nutrition::GetKCFat(fet_) +
+  Nutrition::GetKCProtein(protein_) +
+  Nutrition::GetKCCarb(carbohydrate_);};

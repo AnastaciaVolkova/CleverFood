@@ -1,5 +1,6 @@
 /*!
 \file Declaration of Nutrition class 
+\author Anastacia Volkova
 */
 #ifndef NUTRITION_
 #define NUTRITION_

@@ -14,7 +14,9 @@
 */
 class Target{
 public:
-  //! Constructor  
+  //! Default constructor
+  Target() = default;
+  //! Constructor
   /*!
   \param [in] calories total kcalories pro day
   \param [in] protein_procent protein portion pro day (%)
@@ -22,6 +24,7 @@ public:
   \param [in] carbohydrate_procent carbohydrate portion pro day
   */
   Target(float k_calories, float protein_procent, float fat_procent, float carbohydrate_procent);
+
 private:
   float carb_gr_, fat_gr_, prot_gr_;
   Product product_;

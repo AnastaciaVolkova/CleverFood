@@ -20,14 +20,24 @@ SOURCES += \
     ./src/main.cpp \
     ./src/mainwindow.cpp \
     ./src/nutrition.cpp \
-    src/target.cpp
+    src/controller.cpp \
+    src/controller_im.cpp \
+    src/controller_iv.cpp \
+    src/model.cpp \
+    src/target.cpp \
+    src/target_generator.cpp
 
 HEADERS += \
     ./include/mainwindow.h \
     ./include/nutrition.hpp \
     ./include/product.hpp \
     ./include/product_generator.hpp \
-    ./include/target.hpp
+    ./include/target.hpp \
+    include/controller.hpp \
+    include/controller_im.hpp \
+    include/controller_iv.hpp \
+    include/model.hpp \
+    include/target_generator.hpp
 
 FORMS += \
     ./forms/mainwindow.ui
