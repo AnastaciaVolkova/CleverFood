@@ -13,7 +13,7 @@
 */
 class Product{
 private:
-  float fet_, protein_, carbohydrate_;
+  float fat_gr_, protein_gr_, carbohydrate_gr_;
   
   std::string name_;  // Name of the product.
 public:
@@ -34,5 +34,14 @@ public:
   \return returns kilocallories
   */
   float GetKCalories();
+
+  //! Getter for protein in grams
+  int GetProteinGr();
+
+  //! Getter for fat in grams
+  int GetFatGr();
+
+  //! Getter for carbohydrates in grams
+  int GetCarbGr();
 };
 #endif PRODUCT_HPP_
