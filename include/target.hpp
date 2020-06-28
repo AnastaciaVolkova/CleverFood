@@ -34,8 +34,10 @@ public:
   //! Getter for carbohydrates in grams
   int GetCarbGr();
 
+  //! Getter for kilocalories
+  int GetKCal();
+
 private:
-  float carb_gr_, fat_gr_, prot_gr_;
   Product product_;
 };
 #endif

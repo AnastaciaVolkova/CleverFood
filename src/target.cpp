@@ -14,8 +14,10 @@ Target::Target(float k_calories, float protein_procent, float fat_procent, float
   Nutrition::GetGrCarb(carbohydrate_procent/100.0f));
 };
 
-int Target::GetProteinGr(){return prot_gr_;};
+int Target::GetProteinGr(){return product_.GetProteinGr();};
 
-int Target::GetFatGr(){return fat_gr_;};
+int Target::GetFatGr(){return product_.GetFatGr();};
 
-int Target::GetCarbGr(){return carb_gr_;};
+int Target::GetCarbGr(){return product_.GetCarbGr();};
+
+int Target::GetKCal(){return product_.GetKCalories();};
