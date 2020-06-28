@@ -25,6 +25,15 @@ public:
   */
   Target(float k_calories, float protein_procent, float fat_procent, float carbohydrate_procent);
 
+  //! Getter for protein in grams
+  int GetProteinGr();
+
+  //! Getter for fat in grams
+  int GetFatGr();
+
+  //! Getter for carbohydrates in grams
+  int GetCarbGr();
+
 private:
   float carb_gr_, fat_gr_, prot_gr_;
   Product product_;
