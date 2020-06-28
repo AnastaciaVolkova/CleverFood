@@ -7,17 +7,23 @@
 #define CONTROLLER_HPP_
 
 #include "controller_im.hpp"
+#include "controller_iv.hpp"
 #include "target_generator.hpp"
 #include <string>
 class Model;
 class MainWindow;
 
-class Controller : public ControllerIm{
+class Controller : public ControllerIm, public ControllerIv{
 public:
     Controller();
     void SetModel(Model* model);
     void SetView(MainWindow* view );
-    virtual std::unique_ptr<Target> GetTarget() override;    
+    virtual std::unique_ptr<Target> GetTarget() override;
+    virtual void ShowTarget(std::string calories,
+                            std::string protein,
+                            std::string fat,
+                            std::string carb) override;
+    virtual void ShowAllElements() override;
 private:
     Model* model_;
     MainWindow* view_;
