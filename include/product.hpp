@@ -36,12 +36,12 @@ public:
   float GetKCalories();
 
   //! Getter for protein in grams
-  int GetProteinGr();
+  float GetProteinGr();
 
   //! Getter for fat in grams
-  int GetFatGr();
+  float GetFatGr();
 
   //! Getter for carbohydrates in grams
-  int GetCarbGr();
+  float GetCarbGr();
 };
 #endif PRODUCT_HPP_
