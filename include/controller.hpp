@@ -19,10 +19,10 @@ public:
     void SetModel(Model* model);
     void SetView(MainWindow* view );
     virtual std::unique_ptr<Target> GetTarget() override;
-    virtual void ShowTarget(std::string calories,
-                            std::string protein,
-                            std::string fat,
-                            std::string carb) override;
+    virtual void ShowTarget(float calories,
+                            float protein,
+                            float fat,
+                            float carb) override;
     virtual void ShowAllElements() override;
 private:
     Model* model_;
