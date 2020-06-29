@@ -13,9 +13,9 @@ Model::Model(ControllerIm* controller):controller_(controller){
 
 void Model::SignalToShow(){
     controller_->ShowTarget(
-                to_string(target_->GetKCal()),
-                to_string(target_->GetProteinGr()),
-                to_string(target_->GetFatGr()),
-                to_string(target_->GetCarbGr())
+                target_->GetKCal(),
+                target_->GetProteinGr(),
+                target_->GetFatGr(),
+                target_->GetCarbGr()
                 );
 }
