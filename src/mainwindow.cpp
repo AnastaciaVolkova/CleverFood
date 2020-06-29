@@ -21,6 +21,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::show(){
     QMainWindow::show();
+    controller_->ShowAllElements();
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -28,9 +29,8 @@ void MainWindow::on_pushButton_3_clicked()
 }
 
 void MainWindow::ShowTarget(string calories, string protein, string fat, string carb){
-    ui->te_kc->setText(QString::fromStdString("Hello"));
-    /*ui->te_kc->setText(QString::fromStdString(calories));
+    ui->te_kc->setText(QString::fromStdString(calories));
     ui->te_p->setText(QString::fromStdString(protein));
     ui->te_f->setText(QString::fromStdString(fat));
-    ui->te_c->setText(QString::fromStdString(carb));*/
+    ui->te_c->setText(QString::fromStdString(carb));
 };
