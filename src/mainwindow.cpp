@@ -1,13 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "qstring.h"
 
 using std::make_unique;
+using std::string;
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(ControllerIv* controller,
+                       QWidget *parent)
     : QMainWindow(parent)
+    , controller_(controller)
     , ui(new Ui::MainWindow)
 {
-    target_generator_ = make_unique<TargetGeneratorText>("data/target.txt");
     ui->setupUi(this);
 }
 
@@ -16,8 +19,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::show(){
+    QMainWindow::show();
+}
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    target_ = target_generator_->GetTarget();
 }
+
+void MainWindow::ShowTarget(string calories, string protein, string fat, string carb){
+    ui->te_kc->setText(QString::fromStdString("Hello"));
+    /*ui->te_kc->setText(QString::fromStdString(calories));
+    ui->te_p->setText(QString::fromStdString(protein));
+    ui->te_f->setText(QString::fromStdString(fat));
+    ui->te_c->setText(QString::fromStdString(carb));*/
+};

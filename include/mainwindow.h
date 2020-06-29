@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <memory>
-#include "target.hpp"
-#include "target_generator.hpp"
+#include <string>
+#include "controller_iv.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,15 +15,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(ControllerIv* controller, QWidget *parent = nullptr);
     ~MainWindow();
-
+    void show();
+    void ShowTarget(std::string calories, std::string protein, std::string fat, std::string carb);
 private slots:
     void on_pushButton_3_clicked();
-
 private:
+    ControllerIv* controller_;
     Ui::MainWindow *ui;
-    std::unique_ptr<Target> target_;
-    std::unique_ptr<TargetGenerator> target_generator_;
 };
 #endif // MAINWINDOW_H
