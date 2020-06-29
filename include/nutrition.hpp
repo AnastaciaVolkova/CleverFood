@@ -6,9 +6,9 @@
 #define NUTRITION_
 class Nutrition{
 private:
-  static constexpr float kc4g_fat = 9.29f;
-  static constexpr float kc4g_protein = 4.1f;
-  static constexpr float kc4g_carbohydrate = 4.1f;
+  static constexpr float kc4g_fat = 9.0f;
+  static constexpr float kc4g_protein = 4.0f;
+  static constexpr float kc4g_carbohydrate = 4.0f;
 public:
   static float GetKCProtein(float grams);
   static float GetKCFat(float grams);
