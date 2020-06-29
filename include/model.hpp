@@ -18,9 +18,11 @@ class Model{
 public:
     //! Class contains
     Model(ControllerIm* controller);
+    void SignalToShow();
+
 private:    
     ControllerIm* controller_;
-    std::unique_ptr<Target> target_;
+    std::unique_ptr<Target> target_;    
 };
 
 #endif // MODEL_HPP_
