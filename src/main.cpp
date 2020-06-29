@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Controller controller;
-    MainWindow w;
+    MainWindow w(&controller);
     Model model(&controller);
     controller.SetView(&w);
     controller.SetModel(&model);
