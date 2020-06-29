@@ -31,5 +31,5 @@ void Controller::SetView(MainWindow *view){view_ = view;}
 void Controller::SetModel(Model *model){model_ = model;}
 
 void Controller::ShowAllElements(){
-
+    model_->SignalToShow();
 }
