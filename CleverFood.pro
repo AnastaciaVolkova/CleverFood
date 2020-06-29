@@ -21,7 +21,6 @@ SOURCES += \
     ./src/mainwindow.cpp \
     ./src/nutrition.cpp \
     src/controller.cpp \
-    src/controller_iv.cpp \
     src/model.cpp \
     src/target.cpp \
     src/target_generator.cpp
