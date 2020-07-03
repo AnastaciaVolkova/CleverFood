@@ -21,6 +21,8 @@ public:
     void ShowTarget(std::string calories, std::string protein, std::string fat, std::string carb);
 private slots:
     void on_pushButton_3_clicked();
+    void on_te_kc_t_editingFinished();
+
 private:
     ControllerIv* controller_;
     Ui::MainWindow *ui;

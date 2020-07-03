@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qstring.h"
+#include <QDebug>
+#include <QPalette>
 
 using std::make_unique;
 using std::string;
@@ -34,3 +36,14 @@ void MainWindow::ShowTarget(string calories, string protein, string fat, string 
     ui->te_f->setText(QString::fromStdString(fat));
     ui->te_c->setText(QString::fromStdString(carb));
 };
+
+void MainWindow::on_te_kc_t_editingFinished()
+{
+    QPalette p;
+    if (controller_->CheckTargetKC(ui->te_kc_t->text())){
+        p.setColor(QPalette::Text, Qt::black);
+    } else {
+        p.setColor(QPalette::Text, Qt::red);
+    }
+    ui->te_kc_t->setPalette(p);
+}
