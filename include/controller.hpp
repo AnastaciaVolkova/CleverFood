@@ -24,11 +24,13 @@ public:
                             float fat,
                             float carb) override;
     virtual void ShowAllElements() override;
+    virtual bool CheckTargetKC(QString kc ) override;
 private:
     Model* model_;
     MainWindow* view_;
     std::unique_ptr<TargetGenerator> target_generator_;
     const std::string data_file_name_ = "../data/target.txt";
+    bool CheckDigitInputs(QString in_val);
 };
 
 #endif // CONTROLLER_HPP_
