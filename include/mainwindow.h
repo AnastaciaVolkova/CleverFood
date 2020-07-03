@@ -23,6 +23,12 @@ private slots:
     void on_pushButton_3_clicked();
     void on_te_kc_t_editingFinished();
 
+    void on_te_p_t_editingFinished();
+
+    void on_te_f_t_editingFinished();
+
+    void on_te_c_t_editingFinished();
+
 private:
     ControllerIv* controller_;
     Ui::MainWindow *ui;
