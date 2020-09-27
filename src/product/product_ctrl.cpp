@@ -1,4 +1,7 @@
 #include "product/product_ctrl.hpp"
+#ifndef QT_VERSION
+#include "view.hpp"
+#endif
 
 #include <fstream>
 #include <sstream>
@@ -18,4 +21,12 @@ ProductCtrl::ProductCtrl(string file) {
             model_->AddProduct(tokens[0], stof(tokens[1]), stof(tokens[2]), stof(tokens[3]));
     }
     ifs.close();
+};
+
+void ProductCtrl::SetView(ProductView* view) { view_ = view; };
+
+void ProductCtrl::Show() {
+    vector<vector<string>> records;
+    model_->GetProducts(records);
+    view_->Show(records);
 };
