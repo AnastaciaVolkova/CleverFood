@@ -28,6 +28,9 @@ public:
   \param [in] c carbohydrate in gramms
   */
   Product(std::string name, float p, float f, float c);  
+
+  //! Less operator
+  bool operator< (const Product& other) const;
   
   //! Getter of product calories 
   /*

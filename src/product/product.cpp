@@ -4,13 +4,18 @@
 \author Anastacia Volkova
 */
 
-#include "product.hpp"
-#include "nutrition.hpp"
+#include "../../include/product/product.hpp"
+#include "../../include/product/nutrition.hpp"
+
+#if QT_VERSION
 #include <QDebug>
+#endif
 
 using std::string;
 
 Product::Product(string name, float p, float f, float c): name_(name), fat_gr_(f), protein_gr_(p), carbohydrate_gr_(c){};
+
+bool Product::operator< (const Product& other) const { return name_ < other.name_; };
 
 float Product::GetKCalories(){
     return (Nutrition::GetKCProtein(protein_gr_)+
