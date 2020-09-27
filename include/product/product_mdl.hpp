@@ -14,6 +14,12 @@ private:
 public:
     ProductMdl(IMProductCtrl* controller) :controller_(controller) {};
     /*!
+    * \brief Read products table.
+    * \param name [in|out] Records to insert. Successfully inserted records are removed from parameter.
+    */
+    void Inititalize(std::vector<std::vector<std::string>>& records);
+
+    /*!
     * \brief Add record to products table.
     * \param name Product name.
     * \param p Weight of protein in gramms per 100 grammm of product.
