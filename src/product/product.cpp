@@ -28,3 +28,5 @@ float Product::GetProteinGr(){return protein_gr_;};
 float Product::GetFatGr(){return fat_gr_;};
 
 float Product::GetCarbGr(){return carbohydrate_gr_;};
+
+std::string Product::GetName() { return name_; };

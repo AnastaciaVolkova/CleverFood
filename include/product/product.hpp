@@ -32,6 +32,9 @@ public:
   //! Less operator
   bool operator< (const Product& other) const;
   
+  //! Getter of product name
+  std::string GetName();
+
   //! Getter of product calories 
   /*
   \return returns kilocallories
