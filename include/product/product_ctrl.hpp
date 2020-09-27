@@ -8,7 +8,7 @@
 
 class ProductView;
 
-class ProductCtrl:public IMProductCtrl, public IVProductCtrl {
+class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
 private:
     std::unique_ptr<ProductMdl> model_;
     ProductView* view_;
@@ -20,6 +20,6 @@ public:
     \brief Set view for controller.
     \param view Pointer to view. This view will be manipulated by controller.
     */
-    void SetView(ProductView* view) { view_ = view; };
+    void SetView(ProductView* view) override { view_ = view; };
 };
 #endif
