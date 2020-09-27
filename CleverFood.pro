@@ -16,10 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ./src/product.cpp \
+    ./src/product/product.cpp \
     ./src/main.cpp \
     ./src/mainwindow.cpp \
-    ./src/nutrition.cpp \
+    ./src/product/nutrition.cpp \
+    ./src/product/product_ctrl.cpp \
+    ./src/product/product_mdl.cpp \
     src/controller.cpp \
     src/model.cpp \
     src/target.cpp \
@@ -27,9 +29,12 @@ SOURCES += \
 
 HEADERS += \
     ./include/mainwindow.h \
-    ./include/nutrition.hpp \
-    ./include/product.hpp \
-    ./include/product_generator.hpp \
+    ./include/product/nutrition.hpp \
+    ./include/product/product.hpp \
+    ./include/product/product_ctrl.hpp \
+    ./include/product/product_ctrl_im.hpp \
+    ./include/product/product_ctrl_iv.hpp \
+    ./include/product/product_mdl.hpp \
     ./include/target.hpp \
     include/controller.hpp \
     include/controller_im.hpp \
