@@ -30,3 +30,7 @@ void ProductCtrl::Show() {
     model_->GetProducts(records);
     view_->Show(records);
 };
+
+bool ProductCtrl::AddProduct(std::string name, float p, float f, float c) {
+    return model_->AddProduct(name, p, f, c);
+};
