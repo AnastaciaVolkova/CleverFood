@@ -8,5 +8,6 @@ class ProductView;
 class IVProductCtrl {
 public:
     virtual void SetView(ProductView* view) = 0;
+    virtual void Show() = 0;
 };
 #endif
