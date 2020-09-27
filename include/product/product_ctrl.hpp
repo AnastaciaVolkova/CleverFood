@@ -3,19 +3,23 @@
 #include "product/product_mdl.hpp"
 #include "product/product_ctrl_iv.hpp"
 #include "product/product_ctrl_im.hpp"
+#include <memory>
+#include <string>
 
 class ProductView;
 
 class ProductCtrl:public IMProductCtrl, public IVProductCtrl {
 private:
-    ProductMdl* model_;
+    std::unique_ptr<ProductMdl> model_;
     ProductView* view_;
 public:
+    ProductCtrl() :ProductCtrl("../data/products.txt") {};
+
+    ProductCtrl(std::string file);
     /*!
-    \brief Transfere product to model.
-    \params product Product to transfer to model.
+    \brief Set view for controller.
+    \param view Pointer to view. This view will be manipulated by controller.
     */
-    void SetModel(ProductMdl* model) { model_ = model; }
     void SetView(ProductView* view) { view_ = view; };
 };
 #endif
