@@ -17,6 +17,7 @@ public:
             float fat,
             float carb
             ) = 0;
+    virtual void ShowProducts() = 0;
 };
 
 #endif // CONTROLLER_IM_HPP

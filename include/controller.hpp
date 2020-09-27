@@ -24,6 +24,7 @@ public:
                             float fat,
                             float carb) override;
     virtual void ShowAllElements() override;
+    virtual void ShowProducts() override;
     virtual bool CheckTargetKC(QString kc ) override;
 private:
     Model* model_;

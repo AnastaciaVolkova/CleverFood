@@ -45,6 +45,10 @@ void Controller::ShowTarget(
                 iss_c.str());
 };
 
+void Controller::ShowProducts(){
+
+}
+
 void Controller::SetView(MainWindow *view){view_ = view;}
 
 void Controller::SetModel(Model *model){model_ = model;}
