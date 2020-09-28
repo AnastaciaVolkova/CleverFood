@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 class IMProductCtrl {
+public:
     virtual void Store(std::vector<std::vector<std::string>>& records) = 0;
 };
 #endif
