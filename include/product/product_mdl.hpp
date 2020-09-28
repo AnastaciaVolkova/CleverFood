@@ -41,5 +41,8 @@ public:
 
     //! \brief Clear records to save
     void ClearSave();
+
+    //! \brief Save data
+    void Save();
 };
 #endif
