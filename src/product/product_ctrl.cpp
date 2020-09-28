@@ -10,9 +10,9 @@
 
 using namespace std;
 
-ProductCtrl::ProductCtrl(string file) {
+ProductCtrl::ProductCtrl(string file):store_filename_(file) {
     model_ = std::make_unique<ProductMdl>(this);
-    ifstream ifs(file);
+    ifstream ifs(store_filename_);
     string line;
     vector<vector<string>> records;
     while (getline(ifs, line)) {
