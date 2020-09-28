@@ -6,12 +6,14 @@ using std::string;
 using std::stof;
 
 ProductMdl::~ProductMdl() {
-    vector<vector<string>> records;
-    for (auto s : to_save_) {
-        auto it = products_.find(Product(s,0,0,0));
-        records.push_back({it->GetName(), to_string(it->GetProteinGr()), to_string(it->GetFatGr()), to_string(it->GetCarbGr())});
+    if (to_save_.size() != 0) {
+        vector<vector<string>> records;
+        for (auto s : to_save_) {
+            auto it = products_.find(Product(s, 0, 0, 0));
+            records.push_back({ it->GetName(), to_string(it->GetProteinGr()), to_string(it->GetFatGr()), to_string(it->GetCarbGr()) });
+        }
+        controller_->Store(records);
     }
-    controller_->Store(records);
 };
 
 bool ProductMdl::AddProduct(string name, float p, float f, float c, bool is_ini) {
