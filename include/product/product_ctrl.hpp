@@ -27,6 +27,9 @@ public:
     //! Show all product elements in view.
     void Show() override;
 
+    //! Store new records to databased.
+    void Store(std::vector<std::vector<std::string>>& records) override;
+
     /*!
     * \brief Add product to products base.
     * \param name Product name.

@@ -35,3 +35,15 @@ void ProductCtrl::Show() {
 bool ProductCtrl::AddProduct(std::string name, float p, float f, float c) {
     return model_->AddProduct(name, p, f, c);
 };
+
+void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
+    ofstream ofs(store_filename_, std::ios_base::app);
+    for (auto record : records) {
+        string record_ln = 0;
+        for (string field : record)
+            record_ln += field + " ";
+        record_ln.erase(record_ln.size()-1);
+        ofs << record_ln << "\n";
+    };
+    ofs.close();
+};
