@@ -5,9 +5,13 @@ using std::vector;
 using std::string;
 using std::stof;
 
+ProductMdl::~ProductMdl() {
+};
 
 bool ProductMdl::AddProduct(string name, float p, float f, float c) {
     auto pr = products_.emplace(name, p, f, c);
+    if (pr.second)
+        to_save_.push_back(name);
     return pr.second;
 };
 

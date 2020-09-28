@@ -11,8 +11,11 @@ private:
     using ProductTbl = std::set<Product>;
     IMProductCtrl* controller_;
     ProductTbl products_;
+    //! Products to save to database.
+    std::vector<std::string> to_save_;
 public:
     ProductMdl(IMProductCtrl* controller) :controller_(controller) {};
+    ~ProductMdl();
     /*!
     * \brief Read products table.
     * \param name [in|out] Records to insert. Successfully inserted records are removed from parameter.
