@@ -33,21 +33,21 @@ public:
     bool operator< (const Product& other) const;
 
     //! Getter of product name
-    std::string GetName();
+    std::string GetName() const;
 
     //! Getter of product calories 
     /*
     \return returns kilocallories
     */
-    float GetKCalories();
+    float GetKCalories() const;
 
     //! Getter for protein in grams
-    float GetProteinGr();
+    float GetProteinGr() const;
 
     //! Getter for fat in grams
-    float GetFatGr();
+    float GetFatGr() const;
 
     //! Getter for carbohydrates in grams
-    float GetCarbGr();
+    float GetCarbGr() const;
 };
 #endif PRODUCT_HPP_

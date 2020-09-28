@@ -17,16 +17,16 @@ Product::Product(string name, float p, float f, float c) : name_(name), fat_gr_(
 
 bool Product::operator< (const Product& other) const { return name_ < other.name_; };
 
-float Product::GetKCalories() {
+float Product::GetKCalories() const {
     return (Nutrition::GetKCProtein(protein_gr_) +
         Nutrition::GetKCFat(fat_gr_) +
         Nutrition::GetKCCarb(carbohydrate_gr_));
 };
 
-float Product::GetProteinGr() { return protein_gr_; };
+float Product::GetProteinGr() const { return protein_gr_; };
 
-float Product::GetFatGr() { return fat_gr_; };
+float Product::GetFatGr() const { return fat_gr_; };
 
-float Product::GetCarbGr() { return carbohydrate_gr_; };
+float Product::GetCarbGr() const { return carbohydrate_gr_; };
 
-std::string Product::GetName() { return name_; };
+std::string Product::GetName() const { return name_; };
