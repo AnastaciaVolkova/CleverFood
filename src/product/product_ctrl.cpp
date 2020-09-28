@@ -50,3 +50,6 @@ void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
         ofs.close();
     }
 };
+
+void ProductCtrl::Save() {
+};
