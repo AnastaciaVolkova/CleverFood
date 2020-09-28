@@ -6,11 +6,17 @@ using std::string;
 using std::stof;
 
 ProductMdl::~ProductMdl() {
+    vector<vector<string>> records;
+    for (auto s : to_save_) {
+        auto it = products_.find(Product(s,0,0,0));
+        records.push_back({it->GetName(), to_string(it->GetProteinGr()), to_string(it->GetFatGr()), to_string(it->GetCarbGr())});
+    }
+    controller_->Store(records);
 };
 
-bool ProductMdl::AddProduct(string name, float p, float f, float c) {
+bool ProductMdl::AddProduct(string name, float p, float f, float c, bool is_ini) {
     auto pr = products_.emplace(name, p, f, c);
-    if (pr.second)
+    if ((pr.second) && (!is_ini))
         to_save_.push_back(name);
     return pr.second;
 };
@@ -19,7 +25,7 @@ void ProductMdl::Inititalize(vector<vector<string>>& records) {
     vector<vector<string>>::iterator it;
     vector<vector<vector<string>>::iterator> it_to_remove;
     for (it = records.begin(); it != records.end(); it++) {
-        if (AddProduct((*it)[0], stof((*it)[1]), stof((*it)[2]), stof((*it)[3])))
+        if (AddProduct((*it)[0], stof((*it)[1]), stof((*it)[2]), stof((*it)[3]), true))
             it_to_remove.push_back(it);
     }
     for (auto it_r = it_to_remove.rbegin(); it_r != it_to_remove.rend(); it_r++) {

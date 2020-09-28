@@ -28,9 +28,10 @@ public:
     * \param p Weight of protein in gramms per 100 grammm of product.
     * \param f Weight of fet in gramms per 100 grammm of product.
     * \param c Weight of carbohydrate in gramms per 100 grammm of product.
+    * \param is_ini true if method is called during initialization.
     * \return Return true if insertion of record was successful.
     */
-    bool AddProduct(std::string name, float p, float f, float c);
+    bool AddProduct(std::string name, float p, float f, float c, bool is_ini = false);
 
     /*!
     * \brief Write to method parameters all records.
