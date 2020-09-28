@@ -38,5 +38,8 @@ public:
     * \params products [out] records with all products {name, protein, fet, carbohydrate}
     */
     void GetProducts(std::vector<std::vector<std::string>>& products);
+
+    //! \brief Clear records to save
+    void ClearSave();
 };
 #endif

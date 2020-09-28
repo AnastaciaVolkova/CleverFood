@@ -42,3 +42,5 @@ void ProductMdl::GetProducts(vector<vector<string>>& products) {
             to_string(record.GetCarbGr()) });
     }
 };
+
+void ProductMdl::ClearSave() { to_save_.clear(); };

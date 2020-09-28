@@ -46,6 +46,7 @@ void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
             record_ln.erase(record_ln.size() - 1);
             ofs << record_ln << "\n";
         };
+        model_->ClearSave();
         ofs.close();
     }
 };
