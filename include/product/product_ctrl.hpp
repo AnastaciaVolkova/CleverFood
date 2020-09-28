@@ -11,9 +11,9 @@ class ProductView;
 
 class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
 private:
-    std::unique_ptr<ProductMdl> model_;
     ProductView* view_;
     std::string store_filename_;
+    std::unique_ptr<ProductMdl> model_;
 public:
     ProductCtrl() :ProductCtrl("../data/products.txt") {};
 
