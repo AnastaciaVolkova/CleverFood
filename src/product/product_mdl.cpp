@@ -50,5 +50,11 @@ void ProductMdl::Save() {
 }
 
 bool ProductMdl::UpdateProduct(std::string name, Parameter parameter, float meaning) {
+    switch (parameter) {
+    case Parameter::protein: products_[name].SetProteinGr(meaning); break;
+    case Parameter::fet: products_[name].SetFatGr(meaning); break;
+    case Parameter::carbohydrate: products_[name].SetCarbGr(meaning); break;
+    default: return false;
+    }
     return true;
 };
