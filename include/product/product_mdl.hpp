@@ -11,8 +11,6 @@ private:
     using ProductTbl = std::set<Product>;
     IMProductCtrl* controller_;
     ProductTbl products_;
-    //! Products to save to database.
-    std::vector<std::string> to_save_;
 public:
     ProductMdl(IMProductCtrl* controller) :controller_(controller) {};
     ~ProductMdl();
@@ -38,9 +36,6 @@ public:
     * \params products [out] records with all products {name, protein, fet, carbohydrate}
     */
     void GetProducts(std::vector<std::vector<std::string>>& products);
-
-    //! \brief Clear records to save
-    void ClearSave();
 
     //! \brief Save data
     void Save();
