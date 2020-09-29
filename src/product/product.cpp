@@ -30,3 +30,9 @@ float Product::GetFatGr() const { return fat_gr_; };
 float Product::GetCarbGr() const { return carbohydrate_gr_; };
 
 std::string Product::GetName() const { return name_; };
+
+bool Product::SetProteinGr(float p) { protein_gr_ = p; return true; };
+
+bool Product::SetFatGr(float f) { fat_gr_ = f; return true; };
+
+bool Product::SetCarbGr(float c) { carbohydrate_gr_ = c; return true; };

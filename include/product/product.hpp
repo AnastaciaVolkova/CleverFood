@@ -49,5 +49,26 @@ public:
 
     //! Getter for carbohydrates in grams
     float GetCarbGr() const;
+
+    /*!
+    * \brief Setter for protein.
+    * \param p Protein number in grams.
+    * \return Returns true if set was successful, otherwise false and previous value remains.
+    */
+    bool SetProteinGr(float p);
+
+    /*!
+    * \brief Setter for fat.
+    * \param f Fat number in grams.
+    * \return Returns true if set was successful, otherwise false and previous value remains.
+    */
+    bool SetFatGr(float f);
+
+    /*!
+    * \brief Setter for carbohydrate.
+    * \param c Carbohydrate number in grams.
+    * \return Returns true if set was successful, otherwise false and previous value remains.
+    */
+    bool SetCarbGr(float c);
 };
 #endif PRODUCT_HPP_
