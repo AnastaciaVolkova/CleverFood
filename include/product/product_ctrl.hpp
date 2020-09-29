@@ -41,5 +41,14 @@ public:
     * \param p Carbohydrate in gram per 100 gram of product
     */
     bool AddProduct(std::string name, float p, float f, float c) override;
+
+    /*!
+    * \brief Update product in products base.
+    * \param name Product name to update.
+    * \param parameter Parameter to update.
+    * \param meaning New meaning of parameter.
+    * \return true if update was sucessfull.
+    */
+    bool UpdateProduct(std::string name, Parameter parameter, std::string meaning) override;
 };
 #endif

@@ -8,10 +8,12 @@ class ProductView;
 
 class IVProductCtrl {
 public:
+    enum class Parameter{protein, fet, carbohydrate};
     virtual void SetView(ProductView* view) = 0;
     virtual void Show() = 0;
     virtual void Save() = 0;
     virtual bool AddProduct(std::string name, float p, float f, float c) = 0;
+    virtual bool UpdateProduct(std::string name, Parameter parameter, std::string meaning) = 0;
     virtual ~IVProductCtrl() {};
 };
 #endif
