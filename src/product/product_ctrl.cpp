@@ -38,7 +38,7 @@ bool ProductCtrl::AddProduct(std::string name, float p, float f, float c) {
 
 void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
     if (records.size() != 0) {
-        ofstream ofs(store_filename_, std::ios_base::app);
+        ofstream ofs(store_filename_);
         for (auto record : records) {
             string record_ln = "";
             for (string field : record)
