@@ -57,3 +57,7 @@ void ProductCtrl::Save() {
 bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::string meaning) {
     return false;
 };
+
+bool ProductCtrl::DeleteProduct(std::string name) {
+    return false;
+};

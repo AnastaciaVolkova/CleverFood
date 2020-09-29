@@ -14,6 +14,7 @@ public:
     virtual void Save() = 0;
     virtual bool AddProduct(std::string name, float p, float f, float c) = 0;
     virtual bool UpdateProduct(std::string name, Parameter parameter, std::string meaning) = 0;
+    virtual bool DeleteProduct(std::string name) = 0;
     virtual ~IVProductCtrl() {};
 };
 #endif

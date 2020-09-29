@@ -50,5 +50,12 @@ public:
     * \return true if update was sucessfull.
     */
     bool UpdateProduct(std::string name, Parameter parameter, std::string meaning) override;
+
+    /*!
+    * \brief Delete product.
+    * \param name Name of product to delete.
+    * \return true if delete operation was successfull.
+    */
+    bool DeleteProduct(std::string name) override;
 };
 #endif
