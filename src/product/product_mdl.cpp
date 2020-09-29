@@ -58,3 +58,8 @@ bool ProductMdl::UpdateProduct(std::string name, Parameter parameter, float mean
     }
     return true;
 };
+
+bool ProductMdl::DeleteProduct(std::string name) {
+    size_t n = products_.erase(name);
+    return n != 0;
+};

@@ -68,5 +68,5 @@ bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::stri
 };
 
 bool ProductCtrl::DeleteProduct(std::string name) {
-    return false;
+    return model_->DeleteProduct(name);
 };

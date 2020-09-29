@@ -49,5 +49,12 @@ public:
     * \return returns true if update was successful.
     */
     bool UpdateProduct(std::string name, Parameter parameter, float meaning);
+
+    /*!
+    * \brief Delete product.
+    * \param name Name of product to delete.
+    * \return returns true if product was deleted.
+    */
+    bool DeleteProduct(std::string name);
 };
 #endif
