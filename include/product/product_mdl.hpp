@@ -2,14 +2,14 @@
 #define PRODUCT_MDL_HPP
 #include "product/product_ctrl_im.hpp"
 #include "product/product.hpp"
-#include <set>
+#include <map>
 #include <string>
 #include <vector>
 #include <algorithm>
 
 class ProductMdl {
 private:
-    using ProductTbl = std::set<Product>;
+    using ProductTbl = std::map<std::string, Product>;
     IMProductCtrl* controller_;
     ProductTbl products_;
 public:

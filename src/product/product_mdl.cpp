@@ -4,13 +4,14 @@ using std::to_string;
 using std::vector;
 using std::string;
 using std::stof;
+using std::make_pair;
 
 ProductMdl::~ProductMdl() {
     Save();
 };
 
 bool ProductMdl::AddProduct(string name, float p, float f, float c) {
-    auto pr = products_.emplace(name, p, f, c);
+    auto pr = products_.emplace(make_pair(name, Product(name, p, f, c)));
     return pr.second;
 };
 
@@ -29,17 +30,21 @@ void ProductMdl::Inititalize(vector<vector<string>>& records) {
 void ProductMdl::GetProducts(vector<vector<string>>& products) {
     products.clear();
     for (auto record : products_) {
-        products.push_back({ record.GetName(),
-            to_string(record.GetProteinGr()),
-            to_string(record.GetFatGr()),
-            to_string(record.GetCarbGr()) });
+        products.push_back({ record.second.GetName(),
+            to_string(record.second.GetProteinGr()),
+            to_string(record.second.GetFatGr()),
+            to_string(record.second.GetCarbGr()) });
     }
 };
 
 void ProductMdl::Save() {
     vector<vector<string>> records;
     for (auto s : products_) {
-        records.push_back({ s.GetName(), to_string(s.GetProteinGr()), to_string(s.GetFatGr()), to_string(s.GetCarbGr()) });
+        records.push_back({
+            s.second.GetName(),
+            to_string(s.second.GetProteinGr()),
+            to_string(s.second.GetFatGr()),
+            to_string(s.second.GetCarbGr()) });
     }
     controller_->Store(records);
 }
