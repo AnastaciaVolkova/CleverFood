@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 class ProductMdl {
 private:
@@ -12,6 +13,7 @@ private:
     IMProductCtrl* controller_;
     ProductTbl products_;
 public:
+    enum class Parameter {protein, fet, carbohydrate};
     ProductMdl(IMProductCtrl* controller) :controller_(controller) {};
     ~ProductMdl();
     /*!
@@ -38,5 +40,14 @@ public:
 
     //! \brief Save data
     void Save();
+
+    /*!
+    * \brief Update product parameters.
+    * \param name Name of product.
+    * \param parameter Parameter to update.
+    * \param meaning New value of parameter.
+    * \return returns true if update was successful.
+    */
+    bool UpdateProduct(std::string name, Parameter parameter, float meaning);
 };
 #endif

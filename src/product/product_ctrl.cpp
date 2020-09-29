@@ -54,8 +54,17 @@ void ProductCtrl::Save() {
     model_->Save();
 };
 
+
+
 bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::string meaning) {
-    return false;
+    ProductMdl::Parameter param_m;
+    switch (parameter) {
+    case Parameter::protein: param_m = ProductMdl::Parameter::protein; break;
+    case Parameter::fet: param_m = ProductMdl::Parameter::fet; break;
+    case Parameter::carbohydrate: param_m = ProductMdl::Parameter::carbohydrate; break;
+    default:return false;
+    }
+    return model_->UpdateProduct(name, param_m, stof(meaning));
 };
 
 bool ProductCtrl::DeleteProduct(std::string name) {

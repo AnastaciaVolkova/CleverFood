@@ -43,3 +43,7 @@ void ProductMdl::Save() {
     }
     controller_->Store(records);
 }
+
+bool ProductMdl::UpdateProduct(std::string name, Parameter parameter, float meaning) {
+    return true;
+};
