@@ -1,5 +1,6 @@
 #ifndef STORAGE_I_HPP_
 #define STORAGE_I_HPP_
+#include <string>
 class StorageI {
 public:
     virtual bool Open() = 0;
