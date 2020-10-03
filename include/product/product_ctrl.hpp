@@ -13,7 +13,6 @@ class ProductView;
 class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
 private:
     ProductView* view_;
-    std::string store_filename_;
     std::unique_ptr<ProductMdl> model_;
     std::unique_ptr<StorageI> storage_;
 public:

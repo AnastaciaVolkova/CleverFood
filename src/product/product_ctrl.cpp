@@ -18,17 +18,12 @@ using std::transform;
 using std::count;
 
 
-ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) :store_filename_(file), storage_(move(storage)) {
+ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) : storage_(move(storage)) {
     model_ = std::make_unique<ProductMdl>(this);
-    ifstream ifs(store_filename_);
     string line;
     vector<vector<string>> records;
-    while (getline(ifs, line)) {
-        istringstream iss(line);
-        vector<string> tokens(std::istream_iterator<string>{iss}, std::istream_iterator<string>());
-        records.push_back(tokens);
-    }
-    ifs.close();
+    storage_->Open();
+    storage_->Select(records);
     model_->Inititalize(records);
 };
 
@@ -60,24 +55,13 @@ bool ProductCtrl::AddProduct(std::string name, std::string p, std::string f, std
 };
 
 void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
-    if (records.size() != 0) {
-        ofstream ofs(store_filename_);
-        for (auto record : records) {
-            string record_ln = "";
-            for (string field : record)
-                record_ln += field + " ";
-            record_ln.erase(record_ln.size() - 1);
-            ofs << record_ln << "\n";
-        };
-        ofs.close();
-    }
+    if (storage_.get() != nullptr)
+        storage_->Save(records);
 };
 
 void ProductCtrl::Save() {
     model_->Save();
 };
-
-
 
 bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::string meaning) {
     ProductMdl::Parameter param_m;
