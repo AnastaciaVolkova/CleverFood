@@ -40,7 +40,7 @@ public:
     * \param p Fet in gram per 100 gram of product
     * \param p Carbohydrate in gram per 100 gram of product
     */
-    bool AddProduct(std::string name, float p, float f, float c) override;
+    bool AddProduct(std::string name, std::string p, std::string f, std::string c) override;
 
     /*!
     * \brief Update product in products base.

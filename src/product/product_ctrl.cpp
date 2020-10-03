@@ -40,9 +40,23 @@ void ProductCtrl::Show() {
     view_->Show(records);
 };
 
-bool ProductCtrl::AddProduct(std::string name, float p, float f, float c) {
+bool ProductCtrl::AddProduct(std::string name, std::string p, std::string f, std::string c) {
+    size_t pos;
     std::transform(name.begin(), name.end(), name.begin(), std::tolower);
-    return model_->AddProduct(name, p, f, c);
+
+    pos = p.find(',');
+    if (pos != string::npos)
+        p.replace(pos, 1, ".");
+
+    pos = f.find(',');
+    if (pos != string::npos)
+        f.replace(pos, 1, ".");
+
+    pos = c.find(',');
+    if (pos != string::npos)
+        c.replace(pos, 1, ".");
+
+    return model_->AddProduct(name, stof(p), stof(f), stof(c));
 };
 
 void ProductCtrl::Store(std::vector<std::vector<std::string>>& records) {
@@ -95,6 +109,6 @@ bool ProductCtrl::IsDigitF(std::string s) {
     if (n >= 2)
         return false;
     auto it = s.begin();
-    while ( (it != s.end())&&((*it=='.')|(*it==',')|(isdigit(*it))) ) { it++; };
+    while ((it != s.end()) && ((*it == '.') | (*it == ',') | (isdigit(*it)))) { it++; };
     return it == s.end();
 };
