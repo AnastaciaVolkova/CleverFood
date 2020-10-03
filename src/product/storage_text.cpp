@@ -37,6 +37,7 @@ void StorageText::Select(std::vector<std::vector<std::string>>& records) {
         }
         fs_.seekg(0);
     }
+    fs_.close();
 };
 
 StorageText::~StorageText() {};

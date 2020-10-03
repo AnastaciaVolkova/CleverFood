@@ -1,4 +1,5 @@
 #include "product/product_ctrl.hpp"
+
 #ifndef QT_VERSION
 #include "view.hpp"
 #endif
@@ -9,8 +10,12 @@
 #include <vector>
 
 using namespace std;
+using std::string;
+using std::unique_ptr;
+using std::move;
 
-ProductCtrl::ProductCtrl(string file) :store_filename_(file) {
+
+ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) :store_filename_(file), storage_(move(storage)) {
     model_ = std::make_unique<ProductMdl>(this);
     ifstream ifs(store_filename_);
     string line;

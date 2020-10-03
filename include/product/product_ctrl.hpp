@@ -3,6 +3,7 @@
 #include "product/product_mdl.hpp"
 #include "product/product_ctrl_iv.hpp"
 #include "product/product_ctrl_im.hpp"
+#include "product/storage_i.hpp"
 #include <memory>
 #include <string>
 
@@ -14,10 +15,9 @@ private:
     ProductView* view_;
     std::string store_filename_;
     std::unique_ptr<ProductMdl> model_;
+    std::unique_ptr<StorageI> storage_;
 public:
-    ProductCtrl() :ProductCtrl("../data/products.txt") {};
-
-    ProductCtrl(std::string file);
+    ProductCtrl(std::unique_ptr<StorageI> storage, std::string file);
     /*!
     * \brief Set view for controller.
     * \param view Pointer to view. This view will be manipulated by controller.
