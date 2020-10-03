@@ -75,6 +75,7 @@ bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::stri
 };
 
 bool ProductCtrl::DeleteProduct(std::string name) {
+    std::transform(name.begin(), name.end(), name.begin(), std::tolower);
     return model_->DeleteProduct(name);
 };
 
