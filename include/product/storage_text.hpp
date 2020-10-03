@@ -27,6 +27,12 @@ public:
     bool Update() override;
     bool Add() override;
     bool Delete() override;
+
+    /*!
+    * \brief Select records by meaning of field.
+    * \param records [out] Records which were found with a given field meaning.
+    */
+    virtual void Select(std::vector<std::vector<std::string>>& records) override;
     ~StorageText() override;
 };
 #endif
