@@ -24,6 +24,15 @@ bool StorageText::Save(const vector<vector<string>> records) {
     fs_.open(file_name_, std::ifstream::out);
     if (!fs_.is_open())
         return false;
+    if (records.size() != 0) {
+        for (auto record : records) {
+            string record_ln = "";
+            for (string field : record)
+                record_ln += field + " ";
+            record_ln.erase(record_ln.size() - 1);
+            fs_ << record_ln << "\n";
+        };
+    }
     return true;
 };
 
