@@ -6,9 +6,7 @@ using std::string;
 using std::stof;
 using std::make_pair;
 
-ProductMdl::~ProductMdl() {
-    Save();
-};
+ProductMdl::~ProductMdl() {};
 
 bool ProductMdl::AddProduct(string name, float p, float f, float c) {
     auto pr = products_.emplace(make_pair(name, Product(name, p, f, c)));
