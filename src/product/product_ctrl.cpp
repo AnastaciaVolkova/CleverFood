@@ -8,11 +8,13 @@
 #include <sstream>
 #include <iterator>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 using std::string;
 using std::unique_ptr;
 using std::move;
+using std::transform;
 
 
 ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) :store_filename_(file), storage_(move(storage)) {
@@ -38,6 +40,7 @@ void ProductCtrl::Show() {
 };
 
 bool ProductCtrl::AddProduct(std::string name, float p, float f, float c) {
+    std::transform(name.begin(), name.end(), name.begin(), std::tolower);
     return model_->AddProduct(name, p, f, c);
 };
 
