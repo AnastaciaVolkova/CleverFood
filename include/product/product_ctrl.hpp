@@ -57,5 +57,37 @@ public:
     * \return true if delete operation was successfull.
     */
     bool DeleteProduct(std::string name) override;
+
+    /*!
+    * \brief Check correctness of a given product name.
+    * \param name Given name.
+    * \return Return true if a given meaning is correct.
+    */
+    bool CheckName(std::string name);
+
+    /*
+    * \brief Check correctness of a given protein meaning.
+    * \param meaning Given protein meaning.
+    * \return Return true if a given meaning is correct.
+    */
+    bool CheckProtein(std::string meaning);
+
+    /*
+    * \brief Check correctness of a given protein meaning.
+    * \param meaning Given fat meaning.
+    * \return Return true if a given meaning is correct.
+    */
+    bool CheckFat(std::string meaning);
+
+    /*
+    * \brief Check correctness of a given protein meaning.
+    * \param meaning Given carbohydrate meaning.
+    * \return Return true if a given meaning is correct.
+    */
+    bool CheckCarbo(std::string meaning);
+
+private:
+    //! Check if given string can be converted to flaot
+    bool IsDigitF(std::string s);
 };
 #endif

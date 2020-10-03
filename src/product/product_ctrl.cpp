@@ -15,6 +15,7 @@ using std::string;
 using std::unique_ptr;
 using std::move;
 using std::transform;
+using std::count;
 
 
 ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) :store_filename_(file), storage_(move(storage)) {
@@ -77,4 +78,23 @@ bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::stri
 
 bool ProductCtrl::DeleteProduct(std::string name) {
     return model_->DeleteProduct(name);
+};
+
+bool ProductCtrl::CheckName(std::string name) { return true; };
+
+bool ProductCtrl::CheckProtein(std::string meaning) { return IsDigitF(meaning); };
+
+bool ProductCtrl::CheckFat(std::string meaning) { return IsDigitF(meaning); };
+
+bool ProductCtrl::CheckCarbo(std::string meaning) { return IsDigitF(meaning); };
+
+bool ProductCtrl::IsDigitF(std::string s) {
+    if (!isdigit(s[0]))
+        return false;
+    size_t n = count_if(s.begin(), s.end(), [](char a) {return (a == ',') || (a == '.'); });
+    if (n >= 2)
+        return false;
+    auto it = s.begin();
+    while ( (it != s.end())&&((*it=='.')|(*it==',')|(isdigit(*it))) ) { it++; };
+    return it == s.end();
 };
