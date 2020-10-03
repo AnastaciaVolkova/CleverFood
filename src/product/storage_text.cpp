@@ -18,7 +18,14 @@ void StorageText::Close() {
     fs_.close();
 };
 
-bool StorageText::Save() { return true; };
+bool StorageText::Save(const vector<vector<string>> records) {
+    if (fs_.is_open())
+        fs_.close();
+    fs_.open(file_name_, std::ifstream::out);
+    if (!fs_.is_open())
+        return false;
+    return true;
+};
 
 bool StorageText::Update() { return true; };
 
@@ -37,7 +44,6 @@ void StorageText::Select(std::vector<std::vector<std::string>>& records) {
         }
         fs_.seekg(0);
     }
-    fs_.close();
 };
 
 StorageText::~StorageText() {};

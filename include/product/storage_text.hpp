@@ -23,7 +23,7 @@ public:
 
     //! Close connection.
     void Close() override;
-    bool Save() override;
+    bool Save(const std::vector<std::vector<std::string>> records) override;
     bool Update() override;
     bool Add() override;
     bool Delete() override;
