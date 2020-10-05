@@ -16,7 +16,7 @@ private:
     std::unique_ptr<ProductMdl> model_;
     std::unique_ptr<StorageI> storage_;
 public:
-    ProductCtrl(std::unique_ptr<StorageI> storage, std::string file);
+    ProductCtrl(std::unique_ptr<StorageI> storage);
     /*!
     * \brief Set view for controller.
     * \param view Pointer to view. This view will be manipulated by controller.

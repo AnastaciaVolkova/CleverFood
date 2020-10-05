@@ -18,7 +18,7 @@ using std::transform;
 using std::count;
 
 
-ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage, string file) : storage_(move(storage)) {
+ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)) {
     model_ = std::make_unique<ProductMdl>(this);
     string line;
     vector<vector<string>> records;
