@@ -1,9 +1,9 @@
 #ifndef PRODUCT_CTRL_HPP_
 #define PRODUCT_CTRL_HPP_
-#include "product/product_mdl.hpp"
-#include "product/product_ctrl_iv.hpp"
-#include "product/product_ctrl_im.hpp"
-#include "product/storage_i.hpp"
+#include "product_mdl.hpp"
+#include "product_ctrl_iv.hpp"
+#include "product_ctrl_im.hpp"
+#include "storage_i.hpp"
 #include <memory>
 #include <string>
 

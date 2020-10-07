@@ -1,4 +1,4 @@
-#include "product/storage_text.hpp"
+#include "storage_text.hpp"
 #include <sstream>
 
 using std::string;

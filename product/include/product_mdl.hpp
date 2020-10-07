@@ -1,7 +1,7 @@
 #ifndef PRODUCT_MDL_HPP
 #define PRODUCT_MDL_HPP
-#include "product/product_ctrl_im.hpp"
-#include "product/product.hpp"
+#include "product_ctrl_im.hpp"
+#include "product.hpp"
 #include <map>
 #include <string>
 #include <vector>

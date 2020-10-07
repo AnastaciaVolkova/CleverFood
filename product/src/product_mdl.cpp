@@ -1,4 +1,4 @@
-#include "product/product_mdl.hpp"
+#include "product_mdl.hpp"
 
 using std::to_string;
 using std::vector;

@@ -1,4 +1,4 @@
-#include "../../include/product/nutrition.hpp"
+#include "nutrition.hpp"
 
 float Nutrition::GetKCProtein(float grams){return grams * kc4g_protein;};
 float Nutrition::GetKCFat(float grams){return grams * kc4g_fat;};

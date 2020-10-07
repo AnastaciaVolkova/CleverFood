@@ -4,8 +4,8 @@
 \author Anastacia Volkova
 */
 
-#include "../../include/product/product.hpp"
-#include "../../include/product/nutrition.hpp"
+#include "product.hpp"
+#include "nutrition.hpp"
 
 #if QT_VERSION
 #include <QDebug>

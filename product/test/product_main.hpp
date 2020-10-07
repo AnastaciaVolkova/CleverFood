@@ -1,6 +1,6 @@
 #ifndef VIEW_HPP
 #define VIEW_HPP
-#include "product/product_ctrl_iv.hpp"
+#include "product_ctrl_iv.hpp"
 
 #include <string>
 #include <vector>
@@ -53,7 +53,7 @@ private:
     void AddRoutine() {
         string name, p, f, c;
         bool to_continue;
-        
+
         cout << "Enter name:" << endl;
         cin >> name;
         to_continue = controller_->CheckName(name);
@@ -124,10 +124,10 @@ private:
         cout << "Enter parameter: protein - p, fet - f, carbohydrate - c" << endl;
         cin >> in_param;
         switch (in_param) {
-            case 'p': param = IVProductCtrl::Parameter::protein; break;
-            case 'f': param = IVProductCtrl::Parameter::fet; break;
-            case 'c': param = IVProductCtrl::Parameter::carbohydrate; break;
-            default: return; 
+        case 'p': param = IVProductCtrl::Parameter::protein; break;
+        case 'f': param = IVProductCtrl::Parameter::fet; break;
+        case 'c': param = IVProductCtrl::Parameter::carbohydrate; break;
+        default: return;
         }
         cout << "Enter value: " << endl;
         cin >> meaning;
