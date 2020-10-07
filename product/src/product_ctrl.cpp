@@ -71,6 +71,10 @@ void ProductCtrl::Save() {
 
 bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::string meaning) {
     ProductMdl::Parameter param_m;
+    if (((parameter == Parameter::protein) || (parameter == Parameter::fet) || (parameter == Parameter::carbohydrate))
+        && (!IsDigitF(meaning)))
+        return false;
+
     switch (parameter) {
     case Parameter::protein: param_m = ProductMdl::Parameter::protein; break;
     case Parameter::fet: param_m = ProductMdl::Parameter::fet; break;
