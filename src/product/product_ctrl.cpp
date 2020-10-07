@@ -1,7 +1,7 @@
 #include "product/product_ctrl.hpp"
 
 #ifndef QT_VERSION
-#include "view.hpp"
+#include "product/test/product_main.hpp"
 #endif
 
 #include <fstream>
@@ -88,8 +88,8 @@ bool ProductCtrl::CheckFat(std::string meaning) { return IsDigitF(meaning); };
 bool ProductCtrl::CheckCarbo(std::string meaning) { return IsDigitF(meaning); };
 
 bool ProductCtrl::IsDigitF(std::string s) {
-    if (!isdigit(s[0]))
-        return false;
+    //if (!isdigit(s[0]))
+    //    return false;
     size_t n = count_if(s.begin(), s.end(), [](char a) {return (a == ',') || (a == '.'); });
     if (n >= 2)
         return false;
