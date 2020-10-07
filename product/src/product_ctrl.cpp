@@ -42,14 +42,20 @@ bool ProductCtrl::AddProduct(std::string name, std::string p, std::string f, std
     pos = p.find(',');
     if (pos != string::npos)
         p.replace(pos, 1, ".");
+    if (!IsDigitF(p))
+        return false;
 
     pos = f.find(',');
     if (pos != string::npos)
         f.replace(pos, 1, ".");
+    if (!IsDigitF(f))
+        return false;
 
     pos = c.find(',');
     if (pos != string::npos)
         c.replace(pos, 1, ".");
+    if (!IsDigitF(c))
+        return false;
 
     return model_->AddProduct(name, stof(p), stof(f), stof(c));
 };
@@ -88,8 +94,6 @@ bool ProductCtrl::CheckFat(std::string meaning) { return IsDigitF(meaning); };
 bool ProductCtrl::CheckCarbo(std::string meaning) { return IsDigitF(meaning); };
 
 bool ProductCtrl::IsDigitF(std::string s) {
-    //if (!isdigit(s[0]))
-    //    return false;
     size_t n = count_if(s.begin(), s.end(), [](char a) {return (a == ',') || (a == '.'); });
     if (n >= 2)
         return false;
