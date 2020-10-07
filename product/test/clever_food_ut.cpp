@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
-#include "product/product_ctrl_iv.hpp"
-#include "product/product_ctrl.hpp"
-#include "product/storage_text.hpp"
+#include "product_ctrl_iv.hpp"
+#include "product_ctrl.hpp"
+#include "storage_text.hpp"
 
 //enum class Parameter { protein, fet, carbohydrate };
 //virtual void SetView(ProductView* view) = 0;
