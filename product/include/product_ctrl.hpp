@@ -3,6 +3,7 @@
 #include "product_mdl.hpp"
 #include "product_ctrl_iv.hpp"
 #include "product_ctrl_im.hpp"
+#include "product_view_i.hpp"
 #include "storage_i.hpp"
 #include <memory>
 #include <string>
@@ -12,7 +13,7 @@ class ProductView;
 
 class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
 private:
-    ProductView* view_;
+    IProductView* view_;
     std::unique_ptr<ProductMdl> model_;
     std::unique_ptr<StorageI> storage_;
 public:
@@ -21,7 +22,7 @@ public:
     * \brief Set view for controller.
     * \param view Pointer to view. This view will be manipulated by controller.
     */
-    void SetView(ProductView* view) override;
+    void SetView(IProductView* view) override;
 
     //! Show all product elements in view.
     void Show() override;

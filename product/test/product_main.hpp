@@ -1,6 +1,7 @@
 #ifndef VIEW_HPP
 #define VIEW_HPP
 #include "product_ctrl_iv.hpp"
+#include "product_view_i.hpp"
 
 #include <string>
 #include <vector>
@@ -11,12 +12,12 @@ using std::cout;
 using std::endl;
 using std::string;
 
-class ProductView {
+class ProductView:public IProductView {
 private:
     IVProductCtrl* controller_;
 public:
     ProductView(IVProductCtrl* controller) :controller_(controller) {}
-    void Show(std::vector<std::vector<std::string>> records) {
+    void Show(std::vector<std::vector<std::string>> records) override {
         for (auto a : records) {
             for (auto t : a)
                 std::cout << t << " ";
@@ -24,7 +25,7 @@ public:
         }
         std::cout << std::endl;
     }
-    void Run() {
+    void Run() override{
         char c = ' ';
         while (c != 'q') {
             cout << "Enter command to do: q - exit, a - add, d - delete, u - update, s - show" << endl;
@@ -49,6 +50,7 @@ public:
             }
         }
     }
+    ~ProductView() {};
 private:
     void AddRoutine() {
         string name, p, f, c;
@@ -132,6 +134,6 @@ private:
         cout << "Enter value: " << endl;
         cin >> meaning;
         controller_->UpdateProduct(name, param, meaning);
-    }
+    }    
 };
 #endif

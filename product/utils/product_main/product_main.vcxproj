@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -146,6 +146,18 @@
     <ClCompile Include="..\..\src\product_mdl.cpp" />
     <ClCompile Include="..\..\src\storage_text.cpp" />
     <ClCompile Include="..\..\test\product_main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\nutrition.hpp" />
+    <ClInclude Include="..\..\include\product.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl_im.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl_iv.hpp" />
+    <ClInclude Include="..\..\include\product_mdl.hpp" />
+    <ClInclude Include="..\..\include\product_view_i.hpp" />
+    <ClInclude Include="..\..\include\storage_i.hpp" />
+    <ClInclude Include="..\..\include\storage_text.hpp" />
+    <ClInclude Include="..\..\test\product_main.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

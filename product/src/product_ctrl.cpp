@@ -27,7 +27,7 @@ ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage))
     model_->Inititalize(records);
 };
 
-void ProductCtrl::SetView(ProductView* view) { view_ = view; };
+void ProductCtrl::SetView(IProductView* view) { view_ = view; };
 
 void ProductCtrl::Show() {
     vector<vector<string>> records;
