@@ -55,4 +55,7 @@ void StorageText::Select(std::vector<std::vector<std::string>>& records) {
     }
 };
 
-StorageText::~StorageText() {};
+StorageText::~StorageText() {
+    if (fs_.is_open())
+        fs_.close();
+};
