@@ -48,6 +48,8 @@ void ProductMdl::Save() {
 }
 
 bool ProductMdl::UpdateProduct(std::string name, Parameter parameter, float meaning) {
+    if (products_.find(name) == products_.end())
+        return false;
     switch (parameter) {
     case Parameter::protein: products_[name].SetProteinGr(meaning); break;
     case Parameter::fet: products_[name].SetFatGr(meaning); break;
