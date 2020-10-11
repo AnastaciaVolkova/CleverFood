@@ -153,6 +153,25 @@ TEST(IVProductCtrl, UpdateProduct) {
     EXPECT_EQ(m_out, m_ref);
 }
 
+TEST(IVProductCtrl, DeleteProduct) {
+    std::unique_ptr<IVProductCtrl> product_ctrl =
+        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>("../../test/test_data.txt")));
+    std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
+    product_ctrl->SetView(product_view.get());
+
+    EXPECT_TRUE(product_ctrl->DeleteProduct("mandel"));
+    EXPECT_FALSE(product_ctrl->DeleteProduct("fff"));
+    product_ctrl->Show();
+    MyMap m_out;
+    UnitTestView* ut = dynamic_cast<UnitTestView*>(product_view.get());
+    ut->Output2Map(m_out.data);
+    MyMap m_ref{
+    {"avocado", std::vector<float>{ 4.1f, 20.1f, 6.2f }},
+    {"eier", std::vector<float>{12.7f, 11.5f, 0.7f}},
+    };
+    EXPECT_EQ(m_out, m_ref);
+}
+
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
     RUN_ALL_TESTS();
