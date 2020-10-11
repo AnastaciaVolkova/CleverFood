@@ -145,7 +145,7 @@
     <ClCompile Include="..\..\src\product_ctrl.cpp" />
     <ClCompile Include="..\..\src\product_mdl.cpp" />
     <ClCompile Include="..\..\src\storage_text.cpp" />
-    <ClCompile Include="..\..\test\product_main.cpp" />
+    <ClCompile Include="..\..\application\console\product_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\nutrition.hpp" />
@@ -157,7 +157,7 @@
     <ClInclude Include="..\..\include\product_view_i.hpp" />
     <ClInclude Include="..\..\include\storage_i.hpp" />
     <ClInclude Include="..\..\include\storage_text.hpp" />
-    <ClInclude Include="..\..\test\product_main.hpp" />
+    <ClInclude Include="..\..\application\console\product_main.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

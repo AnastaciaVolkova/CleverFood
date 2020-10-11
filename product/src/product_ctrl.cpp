@@ -1,7 +1,7 @@
 #include "product_ctrl.hpp"
 
 #ifndef QT_VERSION
-#include "../test/product_main.hpp"
+#include "../application/console/product_main.hpp"
 #endif
 
 #include <fstream>
