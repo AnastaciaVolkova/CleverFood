@@ -81,6 +81,10 @@ bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::stri
     case Parameter::carbohydrate: param_m = ProductMdl::Parameter::carbohydrate; break;
     default:return false;
     }
+    size_t pos = meaning.find(',');
+    if (pos != string::npos)
+        meaning.replace(pos, 1, ".");
+
     return model_->UpdateProduct(name, param_m, stof(meaning));
 };
 
