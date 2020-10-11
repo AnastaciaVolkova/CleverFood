@@ -8,13 +8,13 @@
 #include <sstream>
 #include <algorithm>
 #include <initializer_list>
+#include <fstream>
 
-//virtual void SetView(ProductView* view) = 0;
+constexpr char data_path[] = "../../test/test_data.txt";
+
 //virtual void Show() = 0;
 //virtual void Save() = 0;
-//virtual bool DeleteProduct(std::string name) = 0;
 //virtual bool CheckName(std::string name) = 0;
-//virtual ~IVProductCtrl() {};
 
 struct MyMap {
     using ViewOut = std::map<std::string, std::vector<float>>;
@@ -53,9 +53,11 @@ public:
         }
     };
 
-    void Output2Map(MyMap::ViewOut& out_m) {
+    void Output2Map(MyMap::ViewOut& out_m, std::string x_str = "") {
+        if (x_str.size() == 0)
+            x_str = output_str;
         out_m.clear();
-        std::istringstream iss(output_str);
+        std::istringstream iss(x_str);
         std::string line;
         while (std::getline(iss, line)) {
             std::istringstream s(line);
@@ -68,7 +70,7 @@ public:
 class IVProductCtrlTest : public ::testing::Test {
 protected:
     void SetUp() override {
-        product_ctrl = std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>("../../test/test_data.txt")));
+        product_ctrl = std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path)));
         product_view = std::make_unique<UnitTestView>();
         product_ctrl->SetView(product_view.get());
         data_to_check_true = { "3.4", "3.48", "39.57", "12.7", "4", ".5", "6.",
@@ -107,7 +109,7 @@ TEST_F(IVProductCtrlTest, CheckCarbo) {
 
 TEST(IVProductCtrl, AddProduct) {
     std::unique_ptr<IVProductCtrl> product_ctrl =
-        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>("../../test/test_data.txt")));
+        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path)));
     std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
     product_ctrl->SetView(product_view.get());
 
@@ -135,7 +137,7 @@ TEST(IVProductCtrl, AddProduct) {
 
 TEST(IVProductCtrl, UpdateProduct) {
     std::unique_ptr<IVProductCtrl> product_ctrl =
-        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>("../../test/test_data.txt")));
+        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path)));
     std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
     product_ctrl->SetView(product_view.get());
 
@@ -155,7 +157,7 @@ TEST(IVProductCtrl, UpdateProduct) {
 
 TEST(IVProductCtrl, DeleteProduct) {
     std::unique_ptr<IVProductCtrl> product_ctrl =
-        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>("../../test/test_data.txt")));
+        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path)));
     std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
     product_ctrl->SetView(product_view.get());
 
@@ -169,6 +171,49 @@ TEST(IVProductCtrl, DeleteProduct) {
     {"avocado", std::vector<float>{ 4.1f, 20.1f, 6.2f }},
     {"eier", std::vector<float>{12.7f, 11.5f, 0.7f}},
     };
+    EXPECT_EQ(m_out, m_ref);
+}
+
+TEST(IVProductCtrl, Save) {
+    std::string data_path_new(data_path);
+    data_path_new.replace(data_path_new.find("data"), 4, "data_new");
+
+    std::ifstream ifs(data_path);
+    std::ofstream ofs(data_path_new);
+    ofs << ifs.rdbuf();
+    ifs.close();
+    ofs.close();
+
+    std::unique_ptr<IVProductCtrl> product_ctrl =
+        std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path_new)));
+    std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
+    product_ctrl->SetView(product_view.get());
+
+    EXPECT_TRUE(product_ctrl->DeleteProduct("mandel"));
+    EXPECT_TRUE(product_ctrl->UpdateProduct("eier", IVProductCtrl::Parameter::carbohydrate, "0.5"));
+    EXPECT_TRUE(product_ctrl->AddProduct("pizza", "10.1", "20,5", "16"));
+    EXPECT_TRUE(product_ctrl->UpdateProduct("pizza", IVProductCtrl::Parameter::carbohydrate, "16,6"));
+
+    product_ctrl->Save();
+    IVProductCtrl* p = product_ctrl.release();
+    delete p;
+
+    ifs.open(data_path_new);
+    std::ostringstream oss;
+    oss << ifs.rdbuf();
+    ifs.close();
+    std::string x_str = oss.str();
+
+    MyMap m_out;
+    UnitTestView* ut = dynamic_cast<UnitTestView*>(product_view.get());
+    ut->Output2Map(m_out.data, x_str);
+
+    MyMap m_ref{
+    {"avocado", std::vector<float>{ 4.1f, 20.1f, 6.2f }},
+    {"eier", std::vector<float>{12.7f, 11.5f, 0.5f}},
+    {"pizza", std::vector<float>{10.1f, 20.5f, 16.6f}},
+    };
+
     EXPECT_EQ(m_out, m_ref);
 }
 
