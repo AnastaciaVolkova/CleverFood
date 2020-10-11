@@ -149,6 +149,17 @@
     <ClCompile Include="..\..\src\storage_text.cpp" />
     <ClCompile Include="..\..\test\clever_food_ut.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\nutrition.hpp" />
+    <ClInclude Include="..\..\include\product.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl_im.hpp" />
+    <ClInclude Include="..\..\include\product_ctrl_iv.hpp" />
+    <ClInclude Include="..\..\include\product_mdl.hpp" />
+    <ClInclude Include="..\..\include\product_view_i.hpp" />
+    <ClInclude Include="..\..\include\storage_i.hpp" />
+    <ClInclude Include="..\..\include\storage_text.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
