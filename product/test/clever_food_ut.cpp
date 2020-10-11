@@ -12,10 +12,6 @@
 
 constexpr char data_path[] = "../../test/test_data.txt";
 
-//virtual void Show() = 0;
-//virtual void Save() = 0;
-//virtual bool CheckName(std::string name) = 0;
-
 struct MyMap {
     using ViewOut = std::map<std::string, std::vector<float>>;
     ViewOut data;
@@ -141,8 +137,12 @@ TEST(IVProductCtrl, UpdateProduct) {
     std::unique_ptr<IProductView> product_view = std::make_unique<UnitTestView>();
     product_ctrl->SetView(product_view.get());
 
-    EXPECT_TRUE(product_ctrl->UpdateProduct("mandel", IVProductCtrl::Parameter::carbohydrate, "5,9"));
+    EXPECT_TRUE(product_ctrl->UpdateProduct("mandel", IVProductCtrl::Parameter::protein, "24.5"));
+    EXPECT_TRUE(product_ctrl->UpdateProduct("mandel", IVProductCtrl::Parameter::fet, "53,6"));
+    EXPECT_TRUE(product_ctrl->UpdateProduct("mandel", IVProductCtrl::Parameter::carbohydrate, "30.5"));
+
     EXPECT_FALSE(product_ctrl->UpdateProduct("fff", IVProductCtrl::Parameter::carbohydrate, "20,5"));
+
     product_ctrl->Show();
     MyMap m_out;
     UnitTestView* ut = dynamic_cast<UnitTestView*>(product_view.get());
@@ -150,7 +150,7 @@ TEST(IVProductCtrl, UpdateProduct) {
     MyMap m_ref{
     {"avocado", std::vector<float>{ 4.1f, 20.1f, 6.2f }},
     {"eier", std::vector<float>{12.7f, 11.5f, 0.7f}},
-    {"mandel", std::vector<float>{ 24.0f, 53.0f, 5.9f }}
+    {"mandel", std::vector<float>{ 24.5f, 53.6f, 30.5f }}
     };
     EXPECT_EQ(m_out, m_ref);
 }
