@@ -1,10 +1,17 @@
 #include "product_mdl.hpp"
+#include <iomanip>
+#include <sstream>
 
 using std::to_string;
 using std::vector;
 using std::string;
 using std::stof;
 using std::make_pair;
+using std::fixed;
+using std::setprecision;
+using std::istringstream;
+using std::ostringstream;
+
 
 ProductMdl::~ProductMdl() {};
 
@@ -28,10 +35,20 @@ void ProductMdl::Inititalize(vector<vector<string>>& records) {
 void ProductMdl::GetProducts(vector<vector<string>>& products) {
     products.clear();
     for (auto record : products_) {
-        products.push_back({ record.second.GetName(),
-            to_string(record.second.GetProteinGr()),
-            to_string(record.second.GetFatGr()),
-            to_string(record.second.GetCarbGr()) });
+        string p, f, c;
+        ostringstream oss;
+        oss << fixed << setprecision(2) << record.second.GetProteinGr();
+        p = oss.str();
+
+        oss.str("");
+        oss << fixed << setprecision(2) << record.second.GetFatGr();
+        f = oss.str();
+
+        oss.str("");
+        oss << fixed << setprecision(2) << record.second.GetCarbGr();
+        c = oss.str();
+
+        products.push_back({ record.second.GetName(), p, f, c });
     }
 };
 
