@@ -103,6 +103,17 @@ TEST_F(IVProductCtrlTest, CheckCarbo) {
         EXPECT_FALSE(product_ctrl->CheckCarbo(a));
 }
 
+TEST_F(IVProductCtrlTest, CheckName) {
+    EXPECT_TRUE(product_ctrl->CheckName("Milch"));
+    EXPECT_TRUE(product_ctrl->CheckName("mIlcH_2-"));
+    EXPECT_TRUE(product_ctrl->CheckName("Milch.Fet3.5%"));
+    EXPECT_FALSE(product_ctrl->CheckName("1Milch"));
+    EXPECT_FALSE(product_ctrl->CheckName("\"\""));
+    EXPECT_FALSE(product_ctrl->CheckName(""));
+    EXPECT_FALSE(product_ctrl->CheckName("3.5Milch"));
+    EXPECT_FALSE(product_ctrl->CheckName("_Milch"));
+}
+
 TEST(IVProductCtrl, AddProduct) {
     std::unique_ptr<IVProductCtrl> product_ctrl =
         std::make_unique<ProductCtrl>(std::move(std::make_unique<StorageText>(data_path)));
