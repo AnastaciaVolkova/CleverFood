@@ -1,4 +1,3 @@
 ProductCtrl::ProductCtrl process if file doesn't exist
 ProductCtrl::UpdateProduct add possibility to change product name
 ProductCtrl Add check if view was initialized
-ProductCtrl make precision for output
