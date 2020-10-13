@@ -8,14 +8,17 @@
 #include <sstream>
 #include <iterator>
 #include <vector>
+#include <regex>
 #include <algorithm>
 
-using namespace std;
 using std::string;
+using std::vector;
 using std::unique_ptr;
 using std::move;
 using std::transform;
 using std::count;
+using std::regex;
+using std::smatch;
 
 
 ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)) {
@@ -37,7 +40,7 @@ void ProductCtrl::Show() {
 
 bool ProductCtrl::AddProduct(std::string name, std::string p, std::string f, std::string c) {
     size_t pos;
-    std::transform(name.begin(), name.end(), name.begin(), std::tolower);
+    transform(name.begin(), name.end(), name.begin(), ::tolower);
 
     pos = p.find(',');
     if (pos != string::npos)
@@ -89,11 +92,16 @@ bool ProductCtrl::UpdateProduct(std::string name, Parameter parameter, std::stri
 };
 
 bool ProductCtrl::DeleteProduct(std::string name) {
-    std::transform(name.begin(), name.end(), name.begin(), std::tolower);
+    transform(name.begin(), name.end(), name.begin(), ::tolower);
     return model_->DeleteProduct(name);
 };
 
-bool ProductCtrl::CheckName(std::string name) { return true; };
+bool ProductCtrl::CheckName(std::string name) {
+    regex re("^[a-z,A-Z]+.+");
+    smatch sm;
+    bool f = std::regex_match(name, sm, re);
+    return f;
+};
 
 bool ProductCtrl::CheckProtein(std::string meaning) { return IsDigitF(meaning); };
 
