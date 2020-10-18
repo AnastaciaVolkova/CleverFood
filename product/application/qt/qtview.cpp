@@ -116,5 +116,11 @@ void QTView::on_product_tbl_cellDoubleClicked(int row, int column)
 
 void QTView::on_add_btn_pressed()
 {
-    qInfo() << "Pressed";
+    if (controller_->EnterProduct()){
+        ui->status_lbl->setText("Successfully added");
+        ui->status_lbl->setStyleSheet("QLabel{color:green}");
+    } else {
+        ui->status_lbl->setText("Product was not added");
+        ui->status_lbl->setStyleSheet("QLabel{color:red}");
+    };
 }
