@@ -36,6 +36,12 @@
     <ClCompile Include="..\..\src\storage_text.cpp">
       <Filter>Source Files\product</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\state.cpp">
+      <Filter>Source Files\product</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\context.cpp">
+      <Filter>Source Files\product</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\nutrition.hpp">

@@ -140,10 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\context.cpp" />
     <ClCompile Include="..\..\src\nutrition.cpp" />
     <ClCompile Include="..\..\src\product.cpp" />
     <ClCompile Include="..\..\src\product_ctrl.cpp" />
     <ClCompile Include="..\..\src\product_mdl.cpp" />
+    <ClCompile Include="..\..\src\state.cpp" />
     <ClCompile Include="..\..\src\storage_text.cpp" />
     <ClCompile Include="..\..\application\console\product_main.cpp" />
   </ItemGroup>

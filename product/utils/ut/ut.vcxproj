@@ -142,14 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\context.cpp" />
     <ClCompile Include="..\..\src\nutrition.cpp" />
     <ClCompile Include="..\..\src\product.cpp" />
     <ClCompile Include="..\..\src\product_ctrl.cpp" />
     <ClCompile Include="..\..\src\product_mdl.cpp" />
+    <ClCompile Include="..\..\src\state.cpp" />
     <ClCompile Include="..\..\src\storage_text.cpp" />
     <ClCompile Include="..\..\test\clever_food_ut.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\context.hpp" />
     <ClInclude Include="..\..\include\nutrition.hpp" />
     <ClInclude Include="..\..\include\product.hpp" />
     <ClInclude Include="..\..\include\product_ctrl.hpp" />
@@ -157,6 +160,7 @@
     <ClInclude Include="..\..\include\product_ctrl_iv.hpp" />
     <ClInclude Include="..\..\include\product_mdl.hpp" />
     <ClInclude Include="..\..\include\product_view_i.hpp" />
+    <ClInclude Include="..\..\include\state.hpp" />
     <ClInclude Include="..\..\include\storage_i.hpp" />
     <ClInclude Include="..\..\include\storage_text.hpp" />
   </ItemGroup>
