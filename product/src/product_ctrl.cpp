@@ -10,6 +10,7 @@
 #include <vector>
 #include <regex>
 #include <algorithm>
+#include "context.hpp"
 
 using std::string;
 using std::vector;
@@ -116,4 +117,62 @@ bool ProductCtrl::IsDigitF(std::string s) {
     auto it = s.begin();
     while ((it != s.end()) && ((*it == '.') | (*it == ',') | (isdigit(*it)))) { it++; };
     return it == s.end();
+};
+
+void ProductCtrl::EnterAdd() {context_.HandleLastRowGo();};
+
+bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
+
+bool ProductCtrl::AllOK(){return context_.AllOK();};
+
+bool ProductCtrl::EnterName(std::string n){
+    bool is_ok = ProductCtrl::CheckName(n);
+    if (is_ok){
+        context_.fields_[Context::Fields::kName] = n;
+        context_.HandleVEnter();
+    }
+    else{
+        context_.fields_[Context::Fields::kName] = "";
+        context_.HandleInvEnter();
+    }
+    return is_ok;
+};
+
+bool ProductCtrl::EnterProtein(std::string p){
+    bool is_ok = ProductCtrl::CheckProtein(p);
+    if (is_ok){
+        context_.fields_[Context::Fields::kProtein] = p;
+        context_.HandleVEnter();
+    }
+    else{
+        context_.fields_[Context::Fields::kProtein] = "";
+        context_.HandleInvEnter();
+    }
+    return is_ok;
+};
+
+bool ProductCtrl::EnterFat(std::string f) {
+    bool is_ok = ProductCtrl::CheckFat(f);
+    if (is_ok){
+        context_.fields_[Context::Fields::kFat] = f;
+        context_.HandleVEnter();
+    }
+    else{
+        context_.fields_[Context::Fields::kFat] = "";
+        context_.HandleInvEnter();
+    }
+    return is_ok;
+};
+
+bool ProductCtrl::EnterCarbo(std::string c){
+    bool is_ok = ProductCtrl::CheckCarbo(c);
+    if (is_ok){
+        context_.fields_[Context::Fields::kCarb] = c;
+        context_.HandleVEnter();
+    }
+    else{
+        context_.fields_[Context::Fields::kCarb] = "";
+        context_.HandleInvEnter();
+    }
+    return is_ok;
 };

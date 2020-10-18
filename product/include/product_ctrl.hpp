@@ -5,14 +5,15 @@
 #include "product_ctrl_im.hpp"
 #include "product_view_i.hpp"
 #include "storage_i.hpp"
+#include "context.hpp"
 #include <memory>
 #include <string>
 
 class ProductView;
 
-
 class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
 private:
+    Context context_;
     IProductView* view_;
     std::unique_ptr<ProductMdl> model_;
     std::unique_ptr<StorageI> storage_;
@@ -86,8 +87,50 @@ public:
     */
     bool CheckCarbo(std::string meaning);
 
+    /*
+     * \brief Enter to Add State.
+     */
+    virtual void EnterAdd() override;
+
+    /*
+     * \brief Check if product is ready to be added.
+     * \return true if it is possible to add product.
+     */
+    virtual bool IsReadyToAdd() override;
+
+    /*
+     * \brief Check if entered data are valid.
+     * \return true if all entered data are valid.
+     */
+    virtual bool AllOK() override;
+
+    /*
+    *  \brief Enter name.
+    *  \return true if name was entered successfully.
+    */
+    virtual bool ProductCtrl::EnterName(std::string n) override;
+
+    /*
+    *  \brief Enter protein.
+    *  \return true if protein was entered successfully.
+    */
+    virtual bool ProductCtrl::EnterProtein(std::string p) override;
+
+    /*
+    *  \brief Enter fat.
+    *  \return true if fat was entered successfully.
+    *
+    */
+    virtual bool ProductCtrl::EnterFat(std::string f) override;
+
+    /*
+    *  \brief Enter carbohydrate.
+    *  \return true if carbohydrate was entered successfully.
+    */
+    virtual bool ProductCtrl::EnterCarbo(std::string c) override;
+
 private:
-    //! Check if given string can be converted to flaot
+    //! Check if given string can be converted to float.
     bool IsDigitF(std::string s);
 };
 #endif
