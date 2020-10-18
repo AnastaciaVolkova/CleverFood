@@ -18,14 +18,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ../../../application/qt/main.cpp \
     ../../../application/qt/qtview.cpp \
+    ../../../src/context.cpp \
     ../../../src/nutrition.cpp \
     ../../../src/product.cpp \
     ../../../src/product_ctrl.cpp \
     ../../../src/product_mdl.cpp \
+    ../../../src/state.cpp \
     ../../../src/storage_text.cpp
 
 HEADERS += \
     ../../../application/qt/qtview.h \
+    ../../../include/context.hpp \
     ../../../include/nutrition.hpp \
     ../../../include/product.hpp \
     ../../../include/product_ctrl.hpp \
@@ -33,6 +36,7 @@ HEADERS += \
     ../../../include/product_ctrl_iv.hpp \
     ../../../include/product_mdl.hpp \
     ../../../include/product_view_i.hpp \
+    ../../../include/state.hpp \
     ../../../include/storage_i.hpp \
     ../../../include/storage_text.hpp
     
