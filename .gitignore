@@ -2,3 +2,9 @@ build*/
 *.user
 .vs/
 Debug/
+.idea/
+client.py
+server.py
+test_data_new.txt
+message.txt
+products.txt
