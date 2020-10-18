@@ -101,6 +101,8 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
                 }
                 if (controller_->IsReadyToAdd())
                     ui->add_btn->setEnabled(true);
+                else
+                    ui->add_btn->setEnabled(false);
             };
         }
 }
@@ -110,4 +112,9 @@ void QTView::on_product_tbl_cellDoubleClicked(int row, int column)
     if (row == ui->product_tbl->rowCount()-1){
         controller_->EnterAdd();
     }
+}
+
+void QTView::on_add_btn_pressed()
+{
+    qInfo() << "Pressed";
 }
