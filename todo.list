@@ -2,3 +2,4 @@ ProductCtrl::ProductCtrl process if file doesn't exist
 ProductCtrl::UpdateProduct add possibility to change product name
 ProductCtrl Add check if view was initialized
 QT: Enter to add state via key click
+ProductCtrl trim entered name
