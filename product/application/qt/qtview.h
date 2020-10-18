@@ -2,6 +2,7 @@
 #define QTVIEW_H
 
 #include <QWidget>
+#include <QKeyEvent>
 #include <memory>
 #include <QTableWidgetItem>
 #include "product_view_i.hpp"
@@ -26,10 +27,19 @@ public:
     virtual void Run()override{};
 protected:
     void showEvent(QShowEvent *event) override;
+private slots:
+    void on_product_tbl_cellChanged(int row, int column);
+
+    void on_product_tbl_cellDoubleClicked(int row, int column);
+
 private:
     Ui::QTView *ui;
     std::unique_ptr<IVProductCtrl> controller_;
     std::map<std::string, std::vector<std::unique_ptr<QTableWidgetItem>>> cells_;
-
+    struct NewValue{
+        std::string protein="", fat="", carb="", name="";
+        bool IsCorrect(){return ((protein!="")&&(fat!="0")&&(carb!=""));};
+    };
+    NewValue value_;
 };
 #endif // QTVIEW_H
