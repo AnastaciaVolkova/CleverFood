@@ -176,3 +176,13 @@ bool ProductCtrl::EnterCarbo(std::string c){
     }
     return is_ok;
 };
+
+bool ProductCtrl::EnterProduct(){
+    if (IsReadyToAdd())
+        return AddProduct(context_.fields_[Context::Fields::kName],
+                          context_.fields_[Context::Fields::kProtein],
+                          context_.fields_[Context::Fields::kFat],
+                          context_.fields_[Context::Fields::kCarb]);
+    else
+        return false;
+};

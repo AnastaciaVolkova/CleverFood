@@ -114,20 +114,26 @@ public:
     *  \brief Enter protein.
     *  \return true if protein was entered successfully.
     */
-    virtual bool ProductCtrl::EnterProtein(std::string p) override;
+    virtual bool EnterProtein(std::string p) override;
 
     /*
     *  \brief Enter fat.
     *  \return true if fat was entered successfully.
     *
     */
-    virtual bool ProductCtrl::EnterFat(std::string f) override;
+    virtual bool EnterFat(std::string f) override;
 
     /*
     *  \brief Enter carbohydrate.
     *  \return true if carbohydrate was entered successfully.
     */
-    virtual bool ProductCtrl::EnterCarbo(std::string c) override;
+    virtual bool EnterCarbo(std::string c) override;
+
+    /*
+    *  \brief Enter product.
+    *  \return true if product was entered successfully.
+    */
+    virtual bool EnterProduct() override;
 
 private:
     //! Check if given string can be converted to float.
