@@ -38,10 +38,6 @@ private:
     Ui::QTView *ui;
     std::unique_ptr<IVProductCtrl> controller_;
     std::map<std::string, std::vector<std::unique_ptr<QTableWidgetItem>>> cells_;
-    struct NewValue{
-        std::string protein="", fat="", carb="", name="";
-        bool IsCorrect(){return ((protein!="")&&(fat!="0")&&(carb!=""));};
-    };
-    NewValue value_;
+    void AddNewRow();
 };
 #endif // QTVIEW_H

@@ -36,7 +36,7 @@ QTView::~QTView()
 void QTView::Show(std::vector<std::vector<std::string>> records) {
     ui->product_tbl->blockSignals(true);
     ui->product_tbl->setColumnCount(records[0].size());
-    ui->product_tbl->setRowCount(records.size()+1);
+    ui->product_tbl->setRowCount(records.size());
     ui->product_tbl->setHorizontalHeaderLabels(QStringList({"Product", "Proteins", "Fats", "Carbohydrates"}));
 
     for (size_t r = 0; r < records.size(); r++){
@@ -57,17 +57,7 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
             ui->product_tbl->setItem(r, c, cells_[records[r][0]][c].get());
     }
 
-    vector<std::unique_ptr<QTableWidgetItem>> row;
-    for (int c = 0; c < ui->product_tbl->columnCount(); c++)
-        row.push_back(std::make_unique<QTableWidgetItem>(QString("")));
-
-    if (cells_.find("") == cells_.end()){
-        cells_.emplace(make_pair("", std::move(row)));
-    }
-
-    for (int c = 0; c < ui->product_tbl->columnCount(); c++){
-        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, cells_[""][c].get());
-    }
+    AddNewRow();
     ui->product_tbl->blockSignals(false);
 };
 
@@ -119,8 +109,28 @@ void QTView::on_add_btn_pressed()
     if (controller_->EnterProduct()){
         ui->status_lbl->setText("Successfully added");
         ui->status_lbl->setStyleSheet("QLabel{color:green}");
+        ui->add_btn->setEnabled(false);
     } else {
         ui->status_lbl->setText("Product was not added");
         ui->status_lbl->setStyleSheet("QLabel{color:red}");
+        ui->add_btn->setEnabled(false);
     };
+    ui->product_tbl->blockSignals(true);
+    AddNewRow();
+    ui->product_tbl->blockSignals(false);
 }
+
+void QTView::AddNewRow(){
+    ui->product_tbl->setRowCount(ui->product_tbl->rowCount()+1);
+    vector<std::unique_ptr<QTableWidgetItem>> row;
+    for (int c = 0; c < ui->product_tbl->columnCount(); c++)
+        row.push_back(std::make_unique<QTableWidgetItem>(QString("")));
+
+    if (cells_.find("") == cells_.end()){
+        cells_.emplace(make_pair("", std::move(row)));
+    }
+
+    for (int c = 0; c < ui->product_tbl->columnCount(); c++){
+        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, cells_[""][c].get());
+    }
+};
