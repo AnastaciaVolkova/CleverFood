@@ -11,11 +11,11 @@ public:
     enum class Fields {kName = 0, kProtein, kFat, kCarb} ;
     std::map<Fields, std::string> fields_;
 private:
-    std::unique_ptr<IState> cur_state_;
-    std::unique_ptr<NoState> not_state_;
-    std::unique_ptr<AddOK> add_ok_state_;
-    std::unique_ptr<AddNOK> add_nok_state_;
-    std::unique_ptr<AddReady> add_ready_;
+    std::shared_ptr<IState> cur_state_;
+    std::shared_ptr<NoState> not_state_;
+    std::shared_ptr<AddOK> add_ok_state_;
+    std::shared_ptr<AddNOK> add_nok_state_;
+    std::shared_ptr<AddReady> add_ready_;
 public:
     Context();
 
@@ -23,15 +23,15 @@ public:
 
     bool Ready();
 
-    void SetState(std::unique_ptr<IState> new_state);
+    void SetState(std::shared_ptr<IState> new_state);
 
-    std::unique_ptr<IState> GetNoState();
+    std::shared_ptr<IState> GetNoState();
 
-    std::unique_ptr<IState> GetAddOKState();
+    std::shared_ptr<IState> GetAddOKState();
 
-    std::unique_ptr<IState> GetAddReady();
+    std::shared_ptr<IState> GetAddReady();
 
-    std::unique_ptr<IState> GetAddNOKState();
+    std::shared_ptr<IState> GetAddNOKState();
 
     void HandleVEnter();
 
@@ -42,5 +42,9 @@ public:
     void HandleOtRowGo();
 
     void HandleOtRowCellEnter();
+
+    void HandleAddPressed();
+
+    std::string PrintCurrentState();
 };
 #endif
