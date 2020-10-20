@@ -150,6 +150,7 @@
     <ClCompile Include="..\..\application\console\product_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\context.hpp" />
     <ClInclude Include="..\..\include\nutrition.hpp" />
     <ClInclude Include="..\..\include\product.hpp" />
     <ClInclude Include="..\..\include\product_ctrl.hpp" />
