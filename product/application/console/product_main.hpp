@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-class ProductView:public IProductView {
+class ProductView :public IProductView {
 private:
     IVProductCtrl* controller_;
 public:
@@ -25,13 +25,14 @@ public:
         }
         std::cout << std::endl;
     }
-    void Run() override{
+    void Run() override {
         char c = ' ';
         while (c != 'q') {
             cout << "Enter command to do: q - exit, a - add, d - delete, u - update, s - show" << endl;
             cin >> c;
             switch (c) {
             case 'a':
+                controller_->EnterAdd();
                 AddRoutine();
                 break;
             case 'd':
@@ -58,50 +59,52 @@ private:
 
         cout << "Enter name:" << endl;
         cin >> name;
-        to_continue = controller_->CheckName(name);
+
+        to_continue = controller_->EnterName(name);
         while (!to_continue) {
             cout << "Invalid name. Enter again. To go to upper menu enter q." << endl;
             cin >> name;
-            to_continue = controller_->CheckName(name) || (name == "q");
+            to_continue = controller_->EnterName(name) || (name == "q");
         }
         if (name == "q")
             return;
 
         cout << "Enter protein: " << endl;
         cin >> p;
-        to_continue = controller_->CheckProtein(p);
+        to_continue = controller_->EnterProtein(p);
         while (!to_continue) {
             cout << "Invalid protein value. Enter again. To go to upper menu enter q." << endl;
             cin >> p;
-            to_continue = controller_->CheckProtein(p) || (p == "q");
+            to_continue = controller_->EnterProtein(p) || (p == "q");
         }
         if (p == "q")
             return;
 
         cout << "Enter fat: " << endl;
         cin >> f;
-        to_continue = controller_->CheckFat(f);
+        to_continue = controller_->EnterFat(f);
         while (!to_continue) {
             cout << "Invalid fat value. Enter again. To go to upper menu enter q." << endl;
             cin >> f;
-            to_continue = controller_->CheckFat(f) || (f == "q");
+            to_continue = controller_->EnterFat(f) || (f == "q");
         }
         if (f == "q")
             return;
 
         cout << "Enter carbohydrate: " << endl;
         cin >> c;
-        to_continue = controller_->CheckCarbo(c);
+        to_continue = controller_->EnterCarbo(c);
         while (!to_continue) {
             cout << "Invalid name. Enter again. To go to upper menu enter q." << endl;
             cin >> c;
-            to_continue = controller_->CheckCarbo(c) || (c == "q");
+            to_continue = controller_->EnterCarbo(c) || (c == "q");
         }
         if (c == "q")
             return;
 
-        if (!controller_->AddProduct(name, p, f, c))
-            cout << "Was not added";
+        if (controller_->AllOK())
+            if (!controller_->EnterProduct())
+                cout << "Was not added";
     };
     void DeleteRoutine() {
         string name;
@@ -134,6 +137,6 @@ private:
         cout << "Enter value: " << endl;
         cin >> meaning;
         controller_->UpdateProduct(name, param, meaning);
-    }    
+    }
 };
 #endif
