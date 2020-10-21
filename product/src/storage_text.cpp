@@ -33,6 +33,7 @@ bool StorageText::Save(const vector<vector<string>> records) {
             fs_ << record_ln << "\n";
         };
     }
+    fs_.close();
     return true;
 };
 

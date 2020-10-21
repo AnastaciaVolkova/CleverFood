@@ -123,3 +123,10 @@ void QTView::AddNewRow(){
         ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, row_to_add_[c].get());
     }
 };
+
+void QTView::on_save_btn_pressed()
+{
+    controller_->Save();
+    ui->status_lbl->setText("Successfully saved");
+    ui->status_lbl->setStyleSheet("QLabel{color:green}");
+}

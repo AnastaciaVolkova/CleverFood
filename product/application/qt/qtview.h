@@ -32,6 +32,8 @@ private slots:
 
     void on_product_tbl_cellDoubleClicked(int row, int column);
 
+    void on_save_btn_pressed();
+
 private:
     Ui::QTView *ui;
     std::unique_ptr<IVProductCtrl> controller_;
