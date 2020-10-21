@@ -7,14 +7,14 @@
 #include <QTableWidgetItem>
 #include "product_view_i.hpp"
 #include "product_ctrl_iv.hpp"
-#include <map>
+#include <unordered_map>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QTView; }
 QT_END_NAMESPACE
 
 class QTView;
-
 
 class QTView : public QWidget, IProductView
 {
@@ -37,7 +37,8 @@ private slots:
 private:
     Ui::QTView *ui;
     std::unique_ptr<IVProductCtrl> controller_;
-    std::map<std::string, std::vector<std::unique_ptr<QTableWidgetItem>>> cells_;
+    std::unordered_map<std::string, std::vector<std::unique_ptr<QTableWidgetItem>>> cells_;
     void AddNewRow();
+    std::vector<std::unique_ptr<QTableWidgetItem>> row_to_add_;
 };
 #endif // QTVIEW_H

@@ -52,7 +52,7 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
         }
     }
 
-    for (int r = 0; r < ui->product_tbl->rowCount()-1; r++){
+    for (int r = 0; r < ui->product_tbl->rowCount(); r++){
         for (int c = 0; c < ui->product_tbl->columnCount(); c++)
             ui->product_tbl->setItem(r, c, cells_[records[r][0]][c].get());
     }
@@ -63,38 +63,36 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
 
 void QTView::on_product_tbl_cellChanged(int row, int column)
 {
-    if (cells_.find("") != cells_.end()){
-        if (row == ui->product_tbl->rowCount()-1){
-                std::string meaning = ui->product_tbl->item(row, column)->text().toStdString();
-                std::vector<bool(IVProductCtrl::*)(std::string)> v{
-                    &IVProductCtrl::EnterName,
-                    &IVProductCtrl::EnterProtein,
-                    &IVProductCtrl::EnterFat,
-                    &IVProductCtrl::EnterCarbo,
-                };
-                IVProductCtrl* p = controller_.get();
-                std::string s = ui->product_tbl->item(row, column)->text().toStdString();
-                if (!(p->*v[column])(s)){
-                    ui->product_tbl->item(row, column)->setBackground(Qt::red);
-                    ui->status_lbl->setText("Invalid value");
-                    ui->status_lbl->setStyleSheet("QLabel{color:red}");
+    if (row == ui->product_tbl->rowCount()-1){
+            std::string meaning = ui->product_tbl->item(row, column)->text().toStdString();
+            std::vector<bool(IVProductCtrl::*)(std::string)> v{
+                &IVProductCtrl::EnterName,
+                &IVProductCtrl::EnterProtein,
+                &IVProductCtrl::EnterFat,
+                &IVProductCtrl::EnterCarbo,
+            };
+            IVProductCtrl* p = controller_.get();
+            std::string s = ui->product_tbl->item(row, column)->text().toStdString();
+            if (!(p->*v[column])(s)){
+                ui->product_tbl->item(row, column)->setBackground(Qt::red);
+                ui->status_lbl->setText("Invalid value");
+                ui->status_lbl->setStyleSheet("QLabel{color:red}");
+            }
+            else{
+                if (p->AllOK()){
+                    ui->status_lbl->setText("All OK");
+                    ui->status_lbl->setStyleSheet("QLabel{color:green}");
                 }
                 else{
-                    if (p->AllOK()){
-                        ui->status_lbl->setText("All OK");
-                        ui->status_lbl->setStyleSheet("QLabel{color:green}");
-                    }
-                    else{
-                        ui->status_lbl->setText("There are errors");
-                        ui->status_lbl->setStyleSheet("QLabel{color:red}");}
-                    ui->product_tbl->item(row, column)->setBackground(Qt::white);
-                }
-                if (controller_->IsReadyToAdd())
-                    ui->add_btn->setEnabled(true);
-                else
-                    ui->add_btn->setEnabled(false);
-            };
-        }
+                    ui->status_lbl->setText("There are errors");
+                    ui->status_lbl->setStyleSheet("QLabel{color:red}");}
+                ui->product_tbl->item(row, column)->setBackground(Qt::white);
+            }
+            if (controller_->IsReadyToAdd())
+                ui->add_btn->setEnabled(true);
+            else
+                ui->add_btn->setEnabled(false);
+        };
 }
 
 void QTView::on_product_tbl_cellDoubleClicked(int row, int column)
@@ -110,27 +108,26 @@ void QTView::on_add_btn_pressed()
         ui->status_lbl->setText("Successfully added");
         ui->status_lbl->setStyleSheet("QLabel{color:green}");
         ui->add_btn->setEnabled(false);
+        cells_.emplace(std::make_pair(row_to_add_[0]->text().toStdString(), std::move(row_to_add_)));
+        ui->product_tbl->blockSignals(true);
+        AddNewRow();
+        ui->product_tbl->blockSignals(false);
     } else {
         ui->status_lbl->setText("Product was not added");
         ui->status_lbl->setStyleSheet("QLabel{color:red}");
         ui->add_btn->setEnabled(false);
     };
-    ui->product_tbl->blockSignals(true);
-    AddNewRow();
-    ui->product_tbl->blockSignals(false);
+
 }
 
 void QTView::AddNewRow(){
     ui->product_tbl->setRowCount(ui->product_tbl->rowCount()+1);
-    vector<std::unique_ptr<QTableWidgetItem>> row;
-    for (int c = 0; c < ui->product_tbl->columnCount(); c++)
-        row.push_back(std::make_unique<QTableWidgetItem>(QString("")));
 
-    if (cells_.find("") == cells_.end()){
-        cells_.emplace(make_pair("", std::move(row)));
-    }
+    row_to_add_.clear();
+    for (int c = 0; c < ui->product_tbl->columnCount(); c++)
+        row_to_add_.push_back(std::make_unique<QTableWidgetItem>(QString("")));
 
     for (int c = 0; c < ui->product_tbl->columnCount(); c++){
-        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, cells_[""][c].get());
+        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, row_to_add_[c].get());
     }
 };
