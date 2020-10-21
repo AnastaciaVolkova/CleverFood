@@ -102,7 +102,7 @@ private:
         if (c == "q")
             return;
 
-        if (controller_->AllOK())
+        if (controller_->IsReadyToAdd())
             if (!controller_->EnterProduct())
                 cout << "Was not added";
     };
