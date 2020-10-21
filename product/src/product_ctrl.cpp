@@ -21,6 +21,8 @@ using std::count;
 using std::regex;
 using std::smatch;
 
+#define DEBUG_INFO
+
 
 ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)) {
     model_ = std::make_unique<ProductMdl>(this);
@@ -119,13 +121,24 @@ bool ProductCtrl::IsDigitF(std::string s) {
     return it == s.end();
 };
 
-void ProductCtrl::EnterAdd() {context_.HandleLastRowGo();};
+void ProductCtrl::EnterAdd() {
+#if defined(DEBUG_INFO)
+    std::cout << "EnterAdd <-" << context_.PrintCurrentState() << " ";
+#endif
+    context_.HandleLastRowGo();
+#if defined(DEBUG_INFO)
+    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+#endif
+};
 
 bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
 
 bool ProductCtrl::AllOK(){return context_.AllOK();};
 
 bool ProductCtrl::EnterName(std::string n){
+#if defined(DEBUG_INFO)
+    std::cout << "EnterName <-" << context_.PrintCurrentState() << " ";
+#endif
     bool is_ok = ProductCtrl::CheckName(n);
     if (is_ok){
         context_.fields_[Context::Fields::kName] = n;
@@ -135,10 +148,16 @@ bool ProductCtrl::EnterName(std::string n){
         context_.fields_[Context::Fields::kName] = "";
         context_.HandleInvEnter();
     }
+#if defined(DEBUG_INFO)
+    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+#endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterProtein(std::string p){
+#if defined(DEBUG_INFO)
+    std::cout << "Enter Protein <-" << context_.PrintCurrentState() << " ";
+#endif
     bool is_ok = ProductCtrl::CheckProtein(p);
     if (is_ok){
         context_.fields_[Context::Fields::kProtein] = p;
@@ -148,10 +167,16 @@ bool ProductCtrl::EnterProtein(std::string p){
         context_.fields_[Context::Fields::kProtein] = "";
         context_.HandleInvEnter();
     }
+#if defined(DEBUG_INFO)
+    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+#endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterFat(std::string f) {
+#if defined(DEBUG_INFO)
+    std::cout << "Enter Fat <-" << context_.PrintCurrentState() << " ";
+#endif
     bool is_ok = ProductCtrl::CheckFat(f);
     if (is_ok){
         context_.fields_[Context::Fields::kFat] = f;
@@ -161,10 +186,16 @@ bool ProductCtrl::EnterFat(std::string f) {
         context_.fields_[Context::Fields::kFat] = "";
         context_.HandleInvEnter();
     }
+#if defined(DEBUG_INFO)
+    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+#endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterCarbo(std::string c){
+#if defined(DEBUG_INFO)
+    std::cout << "Enter Carbo <-" << context_.PrintCurrentState() << " ";
+#endif
     bool is_ok = ProductCtrl::CheckCarbo(c);
     if (is_ok){
         context_.fields_[Context::Fields::kCarb] = c;
@@ -174,10 +205,20 @@ bool ProductCtrl::EnterCarbo(std::string c){
         context_.fields_[Context::Fields::kCarb] = "";
         context_.HandleInvEnter();
     }
+#if defined(DEBUG_INFO)
+    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+#endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterProduct(){
+#if defined(DEBUG_INFO)
+    std::cout << "Enter product <-" << context_.PrintCurrentState() << " ";
+#endif
+    context_.HandleAddPressed();
+#if defined(DEBUG_INFO)
+    std::cout << "<-" << context_.PrintCurrentState() << std::endl;
+#endif
     if (IsReadyToAdd())
         return AddProduct(context_.fields_[Context::Fields::kName],
                           context_.fields_[Context::Fields::kProtein],
