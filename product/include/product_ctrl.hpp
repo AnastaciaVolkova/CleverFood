@@ -108,7 +108,7 @@ public:
     *  \brief Enter name.
     *  \return true if name was entered successfully.
     */
-    virtual bool ProductCtrl::EnterName(std::string n) override;
+    virtual bool EnterName(std::string n) override;
 
     /*
     *  \brief Enter protein.
