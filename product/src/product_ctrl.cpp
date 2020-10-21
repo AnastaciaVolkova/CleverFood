@@ -1,6 +1,6 @@
 #include "product_ctrl.hpp"
 
-#ifndef QT_VERSION
+#ifndef QT_CORE_LIB
 #include "../application/console/product_main.hpp"
 #endif
 
@@ -22,6 +22,15 @@ using std::regex;
 using std::smatch;
 
 #define DEBUG_INFO
+
+#if defined(DEBUG_INFO)
+#if defined(QT_CORE_LIB)
+#include <QDebug>
+#define print_debug(x) qInfo() << QString::fromStdString(x)
+#else
+#define print_debug(x) std::cout << x << std::endl
+#endif
+#endif
 
 
 ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)) {
@@ -123,11 +132,12 @@ bool ProductCtrl::IsDigitF(std::string s) {
 
 void ProductCtrl::EnterAdd() {
 #if defined(DEBUG_INFO)
-    std::cout << "EnterAdd <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterAdd: " + context_.PrintCurrentState();
 #endif
     context_.HandleLastRowGo();
 #if defined(DEBUG_INFO)
-    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
 };
 
@@ -137,7 +147,7 @@ bool ProductCtrl::AllOK(){return context_.AllOK();};
 
 bool ProductCtrl::EnterName(std::string n){
 #if defined(DEBUG_INFO)
-    std::cout << "EnterName <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterName: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckName(n);
     if (is_ok){
@@ -149,14 +159,15 @@ bool ProductCtrl::EnterName(std::string n){
         context_.HandleInvEnter();
     }
 #if defined(DEBUG_INFO)
-    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterProtein(std::string p){
 #if defined(DEBUG_INFO)
-    std::cout << "Enter Protein <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterProtein: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckProtein(p);
     if (is_ok){
@@ -168,14 +179,15 @@ bool ProductCtrl::EnterProtein(std::string p){
         context_.HandleInvEnter();
     }
 #if defined(DEBUG_INFO)
-    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterFat(std::string f) {
 #if defined(DEBUG_INFO)
-    std::cout << "Enter Fat <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterFat: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckFat(f);
     if (is_ok){
@@ -187,14 +199,15 @@ bool ProductCtrl::EnterFat(std::string f) {
         context_.HandleInvEnter();
     }
 #if defined(DEBUG_INFO)
-    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterCarbo(std::string c){
 #if defined(DEBUG_INFO)
-    std::cout << "Enter Carbo <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterCarbo: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckCarbo(c);
     if (is_ok){
@@ -206,18 +219,20 @@ bool ProductCtrl::EnterCarbo(std::string c){
         context_.HandleInvEnter();
     }
 #if defined(DEBUG_INFO)
-    std::cout << "->" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
     return is_ok;
 };
 
 bool ProductCtrl::EnterProduct(){
 #if defined(DEBUG_INFO)
-    std::cout << "Enter product <-" << context_.PrintCurrentState() << " ";
+    std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
 #endif
     context_.HandleAddPressed();
 #if defined(DEBUG_INFO)
-    std::cout << "<-" << context_.PrintCurrentState() << std::endl;
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
 #endif
     if (IsReadyToAdd())
         return AddProduct(context_.fields_[Context::Fields::kName],
