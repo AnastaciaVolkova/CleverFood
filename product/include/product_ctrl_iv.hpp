@@ -19,7 +19,9 @@ public:
     virtual bool CheckFat(std::string meaning) = 0;
     virtual bool CheckCarbo(std::string meaning) = 0;
     virtual void EnterAdd() = 0;
+    virtual void StartToUpdate() = 0;
     virtual bool IsReadyToAdd() = 0;
+    virtual bool IsReadyToUpdate() = 0;
     virtual bool AllOK() = 0;
     virtual ~IVProductCtrl() {};
     virtual bool EnterName(std::string n) = 0;

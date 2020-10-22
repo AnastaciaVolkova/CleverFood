@@ -141,7 +141,20 @@ void ProductCtrl::EnterAdd() {
 #endif
 };
 
+void ProductCtrl::StartToUpdate(){
+#if defined(DEBUG_INFO)
+    std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
+#endif
+    context_.HandleLastRowGo();
+#if defined(DEBUG_INFO)
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
+#endif
+};
+
 bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
+
+bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
 bool ProductCtrl::AllOK(){return context_.AllOK();};
 

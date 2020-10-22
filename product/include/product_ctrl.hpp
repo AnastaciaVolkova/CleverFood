@@ -93,10 +93,21 @@ public:
     virtual void EnterAdd() override;
 
     /*
+     *  \brief Go to update state.
+     */
+    virtual void StartToUpdate() override;
+
+    /*
      * \brief Check if product is ready to be added.
      * \return true if it is possible to add product.
      */
     virtual bool IsReadyToAdd() override;
+
+    /*
+     * \brief Check if product is ready to be updated.
+     * \return true if it is possible to update product.
+     */
+    virtual bool IsReadyToUpdate() override;
 
     /*
      * \brief Check if entered data are valid.
