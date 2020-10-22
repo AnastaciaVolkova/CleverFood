@@ -16,12 +16,16 @@ private:
     std::shared_ptr<AddOK> add_ok_state_;
     std::shared_ptr<AddNOK> add_nok_state_;
     std::shared_ptr<AddReady> add_ready_;
+    std::shared_ptr<UpdateOK> update_ok_state_;
+    std::shared_ptr<UpdateNOK> update_nok_state_;
 public:
     Context();
 
     bool AllOK();
 
     bool Ready();
+
+    bool ReadyToUpdate();
 
     void SetState(std::shared_ptr<IState> new_state);
 
@@ -32,6 +36,10 @@ public:
     std::shared_ptr<IState> GetAddReady();
 
     std::shared_ptr<IState> GetAddNOKState();
+
+    std::shared_ptr<IState> GetUpdateOKState();
+
+    std::shared_ptr<IState> GetUpdateNOKState();
 
     void HandleVEnter();
 
