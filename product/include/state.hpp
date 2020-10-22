@@ -62,4 +62,26 @@ public:
     virtual operator std::string() const override;
 };
 
+class UpdateOK: public IState{
+public:
+    UpdateOK(Context* context);
+    virtual void HandleVEnter() override;
+    virtual void HandleInvEnter() override;
+    virtual void HandleLastRowGo() override;
+    virtual void HandleOtRowGo() override;
+    virtual void HandleOtRowCellEnter() override;
+    virtual operator std::string() const override;
+};
+
+class UpdateNOK: public IState{
+public:
+    UpdateNOK(Context* context);
+    virtual void HandleVEnter() override;
+    virtual void HandleInvEnter() override;
+    virtual void HandleLastRowGo() override;
+    virtual void HandleOtRowGo() override;
+    virtual void HandleOtRowCellEnter() override;
+    virtual operator std::string() const override;
+};
+
 #endif // STATE_HPP

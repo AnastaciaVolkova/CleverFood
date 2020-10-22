@@ -13,7 +13,9 @@ void NoState::HandleLastRowGo(){
     context_->SetState(context_->GetAddOKState());
 };
 
-void NoState::HandleOtRowGo(){};
+void NoState::HandleOtRowGo(){
+    context_->SetState(context_->GetUpdateOKState());
+};
 
 void NoState::HandleOtRowCellEnter(){};
 
@@ -79,3 +81,44 @@ void AddReady::HandleOtRowCellEnter(){};
 
 AddReady::operator std::string() const {return "AddReady";};
 
+//!Update
+//! UpdateOK
+UpdateOK::UpdateOK(Context* context):IState(context){};
+
+void UpdateOK::HandleVEnter(){};
+
+void UpdateOK::HandleInvEnter(){
+    context_->SetState(context_->GetUpdateNOKState());
+};
+
+void UpdateOK::HandleLastRowGo(){};
+
+void UpdateOK::HandleOtRowGo(){};
+
+void UpdateOK::HandleOtRowCellEnter(){
+    context_->SetState(context_->GetNoState());
+};
+
+UpdateOK::operator std::string() const {return "UpdateOK";};
+
+//!UpdateNOK
+UpdateNOK::UpdateNOK(Context* context):IState(context){};
+
+void UpdateNOK::HandleVEnter(){
+    if (context_->AllOK())
+        context_->SetState(context_->GetUpdateOKState());
+};
+
+void UpdateNOK::HandleInvEnter(){
+    context_->SetState(context_->GetUpdateNOKState());
+};
+
+void UpdateNOK::HandleLastRowGo(){};
+
+void UpdateNOK::HandleOtRowGo(){};
+
+void UpdateNOK::HandleOtRowCellEnter(){
+    context_->SetState(context_->GetNoState());
+};
+
+UpdateNOK::operator std::string() const {return "UpdateNOK";};
