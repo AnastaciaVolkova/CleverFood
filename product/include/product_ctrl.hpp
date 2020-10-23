@@ -90,12 +90,12 @@ public:
     /*
      * \brief Enter to Add State.
      */
-    virtual void EnterAdd() override;
+    virtual void GoToAddState() override;
 
     /*
      *  \brief Go to update state.
      */
-    virtual void StartToUpdate() override;
+    virtual void GoToUpdateState() override;
 
     /*
      * \brief Check if product is ready to be added.

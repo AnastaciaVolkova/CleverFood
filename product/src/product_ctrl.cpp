@@ -130,7 +130,7 @@ bool ProductCtrl::IsDigitF(std::string s) {
     return it == s.end();
 };
 
-void ProductCtrl::EnterAdd() {
+void ProductCtrl::GoToAddState() {
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterAdd: " + context_.PrintCurrentState();
 #endif
@@ -141,7 +141,7 @@ void ProductCtrl::EnterAdd() {
 #endif
 };
 
-void ProductCtrl::StartToUpdate(){
+void ProductCtrl::GoToUpdateState(){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
 #endif

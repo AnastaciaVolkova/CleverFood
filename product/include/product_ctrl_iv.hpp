@@ -18,8 +18,8 @@ public:
     virtual bool CheckProtein(std::string meaning) = 0;
     virtual bool CheckFat(std::string meaning) = 0;
     virtual bool CheckCarbo(std::string meaning) = 0;
-    virtual void EnterAdd() = 0;
-    virtual void StartToUpdate() = 0;
+    virtual void GoToAddState() = 0;
+    virtual void GoToUpdateState() = 0;
     virtual bool IsReadyToAdd() = 0;
     virtual bool IsReadyToUpdate() = 0;
     virtual bool AllOK() = 0;
