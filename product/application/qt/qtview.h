@@ -34,11 +34,14 @@ private slots:
 
     void on_save_btn_pressed();
 
+    void on_product_tbl_itemSelectionChanged();
+
 private:
     Ui::QTView *ui;
     std::unique_ptr<IVProductCtrl> controller_;
     std::unordered_map<std::string, std::vector<std::unique_ptr<QTableWidgetItem>>> cells_;
     void AddNewRow();
     std::vector<std::unique_ptr<QTableWidgetItem>> row_to_add_;
+    int prev_row_;
 };
 #endif // QTVIEW_H

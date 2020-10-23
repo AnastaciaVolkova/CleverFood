@@ -59,6 +59,7 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
 
     AddNewRow();
     ui->product_tbl->blockSignals(false);
+    prev_row_ = ui->product_tbl->currentRow();
 };
 
 void QTView::on_product_tbl_cellChanged(int row, int column)
@@ -129,4 +130,14 @@ void QTView::on_save_btn_pressed()
     controller_->Save();
     ui->status_lbl->setText("Successfully saved");
     ui->status_lbl->setStyleSheet("QLabel{color:green}");
+}
+
+void QTView::on_product_tbl_itemSelectionChanged()
+{
+    if (ui->product_tbl->currentRow() < ui->product_tbl->rowCount()-1){
+        if (prev_row_ != ui->product_tbl->currentRow()){
+            controller_->StartToUpdate();
+            prev_row_ = ui->product_tbl->currentRow();
+        }
+    }
 }
