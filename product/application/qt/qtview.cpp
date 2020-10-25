@@ -39,22 +39,10 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
     ui->product_tbl->setRowCount(records.size());
     ui->product_tbl->setHorizontalHeaderLabels(QStringList({"Product", "Proteins", "Fats", "Carbohydrates"}));
 
-    for (size_t r = 0; r < records.size(); r++){
-        string product_name = records[r][0];
-        if (cells_.find(product_name) == cells_.end()){
-            vector<std::unique_ptr<QTableWidgetItem>> row_w;
-            for (size_t c = 0; c < records[0].size(); c++)
-                row_w.push_back(std::make_unique<QTableWidgetItem>(QString(records[r][c].c_str())));
-            cells_.emplace(make_pair(product_name, std::move(row_w)));
-        } else {
-            for (size_t c = 0; c < records[0].size(); c++)
-                cells_[product_name][c]->setText(QString(records[r][c].c_str()));
-        }
-    }
-
     for (int r = 0; r < ui->product_tbl->rowCount(); r++){
-        for (int c = 0; c < ui->product_tbl->columnCount(); c++)
-            ui->product_tbl->setItem(r, c, cells_[records[r][0]][c].get());
+        for (int c = 0; c < ui->product_tbl->columnCount(); c++){
+            ui->product_tbl->setItem(r, c, new QTableWidgetItem(QString(records[r][c].c_str())));
+        }
     }
 
     AddNewRow();
@@ -101,7 +89,6 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
             if (controller_->EnterProduct()){
                 ui->status_lbl->setText("Successfully added");
                 ui->status_lbl->setStyleSheet("QLabel{color:green}");
-                cells_.emplace(std::make_pair(row_to_add_[0]->text().toStdString(), std::move(row_to_add_)));
                 AddNewRow();
             } else {
                 ui->status_lbl->setText("Product was not added");
@@ -156,4 +143,19 @@ void QTView::on_product_tbl_itemSelectionChanged()
             prev_row_ = currentRow;
         }
     }
+}
+
+void QTView::on_delete_btn_pressed()
+{
+    ui->product_tbl->blockSignals(true);
+    int currentRow = ui->product_tbl->currentRow();
+    if (currentRow != ui->product_tbl->rowCount()-1){
+        std::string name = ui->product_tbl->item(currentRow, 0)->text().toStdString();
+        if (controller_->DeleteProduct(name)){
+            ui->status_lbl->setText("Successfully deleted");
+            ui->status_lbl->setStyleSheet("QLabel{color:green}");
+            ui->product_tbl->removeRow(currentRow);
+        }
+    }
+    ui->product_tbl->blockSignals(false);
 }

@@ -37,6 +37,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="delete_btn">
+      <property name="text">
+       <string>Delete</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="status_lbl">
       <property name="text">
        <string/>
