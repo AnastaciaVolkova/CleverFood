@@ -80,3 +80,10 @@ bool ProductMdl::DeleteProduct(std::string name) {
     size_t n = products_.erase(name);
     return n != 0;
 };
+
+const Product* ProductMdl::GetProduct(std::string name){
+    if (products_.find(name) == products_.end())
+        return nullptr;
+    else
+        return &products_[name];
+};

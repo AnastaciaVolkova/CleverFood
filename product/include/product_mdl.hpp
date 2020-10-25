@@ -56,5 +56,12 @@ public:
     * \return returns true if product was deleted.
     */
     bool DeleteProduct(std::string name);
+
+    /*!
+      * \brief Get product by name.
+      * \param name Name of product to get.
+      * \return returns const pointer to product; nullptr - if no product with this name was found.
+    */
+    const Product* GetProduct(std::string name);
 };
 #endif
