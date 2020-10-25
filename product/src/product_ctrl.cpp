@@ -141,11 +141,15 @@ void ProductCtrl::GoToAddState() {
 #endif
 };
 
-void ProductCtrl::GoToUpdateState(){
+void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) {
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
 #endif
-    context_.HandleLastRowGo();
+    context_.fields_[Context::Fields::kName] = name;
+    context_.fields_[Context::Fields::kProtein] = protein;
+    context_.fields_[Context::Fields::kFat] = fat;
+    context_.fields_[Context::Fields::kCarb] = carbo;
+    context_.HandleOtRowGo();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -252,6 +256,35 @@ bool ProductCtrl::EnterProduct(){
                           context_.fields_[Context::Fields::kProtein],
                           context_.fields_[Context::Fields::kFat],
                           context_.fields_[Context::Fields::kCarb]);
+    else
+        return false;
+};
+
+bool ProductCtrl::SendUpdateProductRequest() {
+#if defined(DEBUG_INFO)
+    std::string debug_info_str = "SendUpdateProductRequest: " + context_.PrintCurrentState();
+#endif
+    context_.HandleAddPressed();
+#if defined(DEBUG_INFO)
+    debug_info_str += "->" + context_.PrintCurrentState();
+    print_debug(debug_info_str);
+#endif
+    const Product* product = model_->GetProduct(context_.fields_[Context::Fields::kName]);
+    if (IsReadyToAdd()){
+        float meaning;
+        meaning = stof(context_.fields_[Context::Fields::kProtein]);
+        if (product->GetProteinGr() != meaning)
+            model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::protein, meaning);
+
+        meaning = stof(context_.fields_[Context::Fields::kFat]);
+        if (product->GetFatGr() != meaning)
+            model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::fet, meaning);
+
+        meaning = stof(context_.fields_[Context::Fields::kCarb]);
+        if (product->GetCarbGr() != meaning)
+            model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::carbohydrate, meaning);
+        return true;
+    }
     else
         return false;
 };

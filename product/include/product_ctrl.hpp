@@ -95,7 +95,7 @@ public:
     /*
      *  \brief Go to update state.
      */
-    virtual void GoToUpdateState() override;
+    virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) override;
 
     /*
      * \brief Check if product is ready to be added.
@@ -145,6 +145,12 @@ public:
     *  \return true if product was entered successfully.
     */
     virtual bool EnterProduct() override;
+
+    /*
+    *  \brief Send request to update product.
+    *  \return true if product was updated successfully.
+    */
+    virtual bool SendUpdateProductRequest() override;
 
 private:
     //! Check if given string can be converted to float.

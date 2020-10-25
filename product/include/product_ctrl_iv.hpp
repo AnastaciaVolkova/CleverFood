@@ -19,7 +19,7 @@ public:
     virtual bool CheckFat(std::string meaning) = 0;
     virtual bool CheckCarbo(std::string meaning) = 0;
     virtual void GoToAddState() = 0;
-    virtual void GoToUpdateState() = 0;
+    virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) = 0;
     virtual bool IsReadyToAdd() = 0;
     virtual bool IsReadyToUpdate() = 0;
     virtual bool AllOK() = 0;
@@ -29,5 +29,6 @@ public:
     virtual bool EnterFat(std::string f) = 0;
     virtual bool EnterCarbo(std::string c) = 0;
     virtual bool EnterProduct() = 0;
+    virtual bool SendUpdateProductRequest() = 0;
 };
 #endif
