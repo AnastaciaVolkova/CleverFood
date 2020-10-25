@@ -64,33 +64,39 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
 
 void QTView::on_product_tbl_cellChanged(int row, int column)
 {
-    if (row == ui->product_tbl->rowCount()-1){
-        qInfo() << "Cell changed event";
-        ui->product_tbl->blockSignals(true);
-        std::string meaning = ui->product_tbl->item(row, column)->text().toStdString();
-        std::vector<bool(IVProductCtrl::*)(std::string)> v{
-            &IVProductCtrl::EnterName,
-            &IVProductCtrl::EnterProtein,
-            &IVProductCtrl::EnterFat,
-            &IVProductCtrl::EnterCarbo,
-        };
-        IVProductCtrl* p = controller_.get();
-        std::string s = ui->product_tbl->item(row, column)->text().toStdString();
-        if (!(p->*v[column])(s)){
-            ui->product_tbl->item(row, column)->setBackground(Qt::red);
-            ui->status_lbl->setText("Invalid value");
-            ui->status_lbl->setStyleSheet("QLabel{color:red}");
+    qInfo() << "Cell changed event";
+
+    ui->product_tbl->blockSignals(true);
+
+    std::vector<bool(IVProductCtrl::*)(std::string)> v{
+        &IVProductCtrl::EnterName,
+        &IVProductCtrl::EnterProtein,
+        &IVProductCtrl::EnterFat,
+        &IVProductCtrl::EnterCarbo,
+    };
+
+    IVProductCtrl* p = controller_.get();
+
+    std::string s = ui->product_tbl->item(row, column)->text().toStdString();
+
+    if (!(p->*v[column])(s)){
+        ui->product_tbl->item(row, column)->setBackground(Qt::red);
+        ui->status_lbl->setText("Invalid value");
+        ui->status_lbl->setStyleSheet("QLabel{color:red}");
+    }
+    else{
+        if (p->AllOK()){
+            ui->status_lbl->setText("All OK");
+            ui->status_lbl->setStyleSheet("QLabel{color:green}");
         }
         else{
-            if (p->AllOK()){
-                ui->status_lbl->setText("All OK");
-                ui->status_lbl->setStyleSheet("QLabel{color:green}");
-            }
-            else{
                 ui->status_lbl->setText("There are errors");
-                ui->status_lbl->setStyleSheet("QLabel{color:red}");}
-            ui->product_tbl->item(row, column)->setBackground(Qt::white);
+                ui->status_lbl->setStyleSheet("QLabel{color:red}");
         }
+        ui->product_tbl->item(row, column)->setBackground(Qt::white);
+    }
+
+    if (row == ui->product_tbl->rowCount()-1){
         if (controller_->IsReadyToAdd()){
             if (controller_->EnterProduct()){
                 ui->status_lbl->setText("Successfully added");
@@ -102,7 +108,9 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
                 ui->status_lbl->setStyleSheet("QLabel{color:red}");
             };
         }
-    };
+    } else {
+
+    }
     ui->product_tbl->blockSignals(false);
 }
 
@@ -134,10 +142,18 @@ void QTView::on_save_btn_pressed()
 
 void QTView::on_product_tbl_itemSelectionChanged()
 {
-    if (ui->product_tbl->currentRow() < ui->product_tbl->rowCount()-1){
-        if (prev_row_ != ui->product_tbl->currentRow()){
-            controller_->GoToUpdateState();
-            prev_row_ = ui->product_tbl->currentRow();
+    int currentRow = ui->product_tbl->currentRow();
+    if (currentRow < ui->product_tbl->rowCount()-1){
+        if (prev_row_ != currentRow){
+            if (controller_->IsReadyToUpdate())
+                controller_->SendUpdateProductRequest();
+            controller_->GoToUpdateState(
+                        ui->product_tbl->item(currentRow, 0)->text().toStdString(),
+                        ui->product_tbl->item(currentRow, 1)->text().toStdString(),
+                        ui->product_tbl->item(currentRow, 2)->text().toStdString(),
+                        ui->product_tbl->item(currentRow, 3)->text().toStdString()
+                        );
+            prev_row_ = currentRow;
         }
     }
 }
