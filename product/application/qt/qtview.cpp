@@ -111,12 +111,8 @@ void QTView::on_product_tbl_cellDoubleClicked(int row, int column)
 void QTView::AddNewRow(){
     ui->product_tbl->setRowCount(ui->product_tbl->rowCount()+1);
 
-    row_to_add_.clear();
-    for (int c = 0; c < ui->product_tbl->columnCount(); c++)
-        row_to_add_.push_back(std::make_unique<QTableWidgetItem>(QString("")));
-
     for (int c = 0; c < ui->product_tbl->columnCount(); c++){
-        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, row_to_add_[c].get());
+        ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, new QTableWidgetItem(QString("")));
     }
 };
 
