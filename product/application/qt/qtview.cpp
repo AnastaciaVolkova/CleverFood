@@ -101,13 +101,6 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
     ui->product_tbl->blockSignals(false);
 }
 
-void QTView::on_product_tbl_cellDoubleClicked(int row, int column)
-{
-    if (row == ui->product_tbl->rowCount()-1){
-        controller_->GoToAddState();
-    }
-}
-
 void QTView::AddNewRow(){
     ui->product_tbl->setRowCount(ui->product_tbl->rowCount()+1);
 
@@ -126,7 +119,9 @@ void QTView::on_save_btn_pressed()
 void QTView::on_product_tbl_itemSelectionChanged()
 {
     int currentRow = ui->product_tbl->currentRow();
-    if (currentRow < ui->product_tbl->rowCount()-1){
+    if (currentRow == ui->product_tbl->rowCount()-1){
+        controller_->GoToAddState();
+    } else{
         if (prev_row_ != currentRow){
             if (controller_->IsReadyToUpdate())
                 controller_->SendUpdateProductRequest();

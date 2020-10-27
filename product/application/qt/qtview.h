@@ -30,8 +30,6 @@ protected:
 private slots:
     void on_product_tbl_cellChanged(int row, int column);
 
-    void on_product_tbl_cellDoubleClicked(int row, int column);
-
     void on_save_btn_pressed();
 
     void on_product_tbl_itemSelectionChanged();
