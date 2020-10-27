@@ -86,7 +86,7 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
 
     if (row == ui->product_tbl->rowCount()-1){
         if (controller_->IsReadyToAdd()){
-            if (controller_->EnterProduct()){
+            if (controller_->SendAddProductRequest()){
                 ui->status_lbl->setText("Successfully added");
                 ui->status_lbl->setStyleSheet("QLabel{color:green}");
                 AddNewRow();
@@ -95,8 +95,6 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
                 ui->status_lbl->setStyleSheet("QLabel{color:red}");
             };
         }
-    } else {
-
     }
     ui->product_tbl->blockSignals(false);
 }

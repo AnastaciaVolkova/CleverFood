@@ -242,7 +242,7 @@ bool ProductCtrl::EnterCarbo(std::string c){
     return is_ok;
 };
 
-bool ProductCtrl::EnterProduct(){
+bool ProductCtrl::SendAddProductRequest(){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
 #endif

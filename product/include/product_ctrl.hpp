@@ -144,7 +144,7 @@ public:
     *  \brief Enter product.
     *  \return true if product was entered successfully.
     */
-    virtual bool EnterProduct() override;
+    virtual bool SendAddProductRequest() override;
 
     /*
     *  \brief Send request to update product.

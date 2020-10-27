@@ -103,7 +103,7 @@ private:
             return;
 
         if (controller_->IsReadyToAdd())
-            if (!controller_->EnterProduct())
+            if (!controller_->SendAddProductRequest())
                 cout << "Was not added";
     };
     void DeleteRoutine() {

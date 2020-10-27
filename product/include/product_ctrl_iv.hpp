@@ -28,7 +28,7 @@ public:
     virtual bool EnterProtein(std::string p) = 0;
     virtual bool EnterFat(std::string f) = 0;
     virtual bool EnterCarbo(std::string c) = 0;
-    virtual bool EnterProduct() = 0;
+    virtual bool SendAddProductRequest() = 0;
     virtual bool SendUpdateProductRequest() = 0;
 };
 #endif
