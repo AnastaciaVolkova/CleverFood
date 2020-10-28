@@ -148,3 +148,7 @@ void QTView::on_delete_btn_pressed()
     }
     ui->product_tbl->blockSignals(false);
 }
+
+void QTView::closeEvent(QCloseEvent *event) {
+    controller_->Save();
+}
