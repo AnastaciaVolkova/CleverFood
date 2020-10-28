@@ -28,6 +28,7 @@ public:
 protected:
     void showEvent(QShowEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 private slots:
     void on_product_tbl_cellChanged(int row, int column);
 

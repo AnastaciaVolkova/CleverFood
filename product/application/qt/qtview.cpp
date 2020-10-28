@@ -25,6 +25,7 @@ QTView::QTView(QWidget *parent)
 
 void QTView::showEvent(QShowEvent *event){
     QWidget::showEvent(event);
+    ui->verticalLayoutWidget->setGeometry(QRect(0,0,this->width(), this->height()));
     controller_->Show();
 };
 
@@ -153,4 +154,8 @@ void QTView::on_delete_btn_pressed()
 
 void QTView::closeEvent(QCloseEvent *event) {
     controller_->Save();
+}
+
+void QTView::resizeEvent(QResizeEvent *event) {
+    ui->verticalLayoutWidget->setGeometry(QRect(0,0,this->width(), this->height()));
 }

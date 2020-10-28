@@ -24,7 +24,7 @@
    </property>
    <layout class="QVBoxLayout" name="productLayout">
     <property name="sizeConstraint">
-     <enum>QLayout::SetMaximumSize</enum>
+     <enum>QLayout::SetNoConstraint</enum>
     </property>
     <item>
      <widget class="QTableWidget" name="product_tbl"/>
