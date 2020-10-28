@@ -149,7 +149,7 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
     context_.fields_[Context::Fields::kProtein] = protein;
     context_.fields_[Context::Fields::kFat] = fat;
     context_.fields_[Context::Fields::kCarb] = carbo;
-    context_.HandleOtRowGo();
+    context_.HandleUDGo();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);

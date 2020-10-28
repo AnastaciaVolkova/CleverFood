@@ -44,7 +44,7 @@ void Context::HandleInvEnter(){cur_state_->HandleInvEnter();};
 
 void Context::HandleLastRowGo(){cur_state_->HandleLastRowGo();};
 
-void Context::HandleOtRowGo(){cur_state_->HandleOtRowGo();};
+void Context::HandleUDGo(){cur_state_->HandleUDGo();};
 
 void Context::HandleOtRowCellEnter(){cur_state_->HandleOtRowCellEnter();};
 

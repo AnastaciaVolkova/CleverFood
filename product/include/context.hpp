@@ -47,7 +47,7 @@ public:
 
     void HandleLastRowGo();
 
-    void HandleOtRowGo();
+    void HandleUDGo();
 
     void HandleOtRowCellEnter();
 

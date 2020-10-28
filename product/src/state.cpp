@@ -13,7 +13,7 @@ void NoState::HandleLastRowGo(){
     context_->SetState(context_->GetAddOKState());
 };
 
-void NoState::HandleOtRowGo(){
+void NoState::HandleUDGo(){
     context_->SetState(context_->GetUpdateOKState());
 };
 
@@ -34,7 +34,9 @@ void AddOK::HandleInvEnter(){
 
 void AddOK::HandleLastRowGo(){};
 
-void AddOK::HandleOtRowGo(){};
+void AddOK::HandleUDGo(){
+    context_->SetState(context_->GetUpdateOKState());
+};
 
 void AddOK::HandleOtRowCellEnter(){
     context_->SetState(context_->GetNoState());
@@ -56,7 +58,9 @@ void AddNOK::HandleInvEnter(){
 
 void AddNOK::HandleLastRowGo(){};
 
-void AddNOK::HandleOtRowGo(){};
+void AddNOK::HandleUDGo(){
+    context_->SetState(context_->GetUpdateOKState());
+};
 
 void AddNOK::HandleOtRowCellEnter(){
     context_->SetState(context_->GetNoState());
@@ -75,7 +79,9 @@ void AddReady::HandleInvEnter(){
 
 void AddReady::HandleLastRowGo(){};
 
-void AddReady::HandleOtRowGo(){};
+void AddReady::HandleUDGo(){
+    context_->SetState(context_->GetUpdateOKState());
+};
 
 void AddReady::HandleOtRowCellEnter(){};
 
@@ -93,7 +99,7 @@ void UpdateOK::HandleInvEnter(){
 
 void UpdateOK::HandleLastRowGo(){};
 
-void UpdateOK::HandleOtRowGo(){};
+void UpdateOK::HandleUDGo(){};
 
 void UpdateOK::HandleOtRowCellEnter(){
     context_->SetState(context_->GetNoState());
@@ -115,7 +121,7 @@ void UpdateNOK::HandleInvEnter(){
 
 void UpdateNOK::HandleLastRowGo(){};
 
-void UpdateNOK::HandleOtRowGo(){};
+void UpdateNOK::HandleUDGo(){};
 
 void UpdateNOK::HandleOtRowCellEnter(){
     context_->SetState(context_->GetNoState());

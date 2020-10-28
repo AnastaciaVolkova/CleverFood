@@ -13,7 +13,7 @@ public:
     virtual void HandleVEnter() = 0;
     virtual void HandleInvEnter() = 0;
     virtual void HandleLastRowGo() = 0;
-    virtual void HandleOtRowGo() = 0;
+    virtual void HandleUDGo() = 0;
     virtual void HandleOtRowCellEnter() = 0;
     virtual operator std::string() const = 0;
 };
@@ -24,7 +24,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
@@ -35,7 +35,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
@@ -46,7 +46,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
@@ -57,7 +57,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
@@ -68,7 +68,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
@@ -79,7 +79,7 @@ public:
     virtual void HandleVEnter() override;
     virtual void HandleInvEnter() override;
     virtual void HandleLastRowGo() override;
-    virtual void HandleOtRowGo() override;
+    virtual void HandleUDGo() override;
     virtual void HandleOtRowCellEnter() override;
     virtual operator std::string() const override;
 };
