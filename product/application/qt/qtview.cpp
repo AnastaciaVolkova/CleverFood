@@ -118,6 +118,7 @@ void QTView::on_product_tbl_itemSelectionChanged()
 {
     int currentRow = ui->product_tbl->currentRow();
     if (currentRow == ui->product_tbl->rowCount()-1){
+        ui->delete_btn->setEnabled(false);
         controller_->GoToAddState();
     } else{
         if (prev_row_ != currentRow){
@@ -131,6 +132,7 @@ void QTView::on_product_tbl_itemSelectionChanged()
                         );
             prev_row_ = currentRow;
         }
+        ui->delete_btn->setEnabled(true);
     }
 }
 
