@@ -97,7 +97,9 @@ void UpdateOK::HandleInvEnter(){
     context_->SetState(context_->GetUpdateNOKState());
 };
 
-void UpdateOK::HandleLastRowGo(){};
+void UpdateOK::HandleLastRowGo(){
+    context_->SetState(context_->GetAddOKState());
+};
 
 void UpdateOK::HandleUDGo(){};
 

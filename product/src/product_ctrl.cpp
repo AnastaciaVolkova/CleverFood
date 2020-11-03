@@ -283,6 +283,7 @@ bool ProductCtrl::SendUpdateProductRequest() {
         meaning = stof(context_.fields_[Context::Fields::kCarb]);
         if (product->GetCarbGr() != meaning)
             model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::carbohydrate, meaning);
+        context_.fields_.clear();
         return true;
     }
     else
