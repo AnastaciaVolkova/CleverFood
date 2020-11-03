@@ -246,18 +246,24 @@ bool ProductCtrl::SendAddProductRequest(){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
 #endif
-    context_.HandleAddPressed();
+    if (IsReadyToAdd()){
+        context_.HandleAddPressed();
 #if defined(DEBUG_INFO)
-    debug_info_str += "->" + context_.PrintCurrentState();
-    print_debug(debug_info_str);
+        debug_info_str += "->" + context_.PrintCurrentState();
+        print_debug(debug_info_str);
 #endif
-    if (IsReadyToAdd())
         return AddProduct(context_.fields_[Context::Fields::kName],
                           context_.fields_[Context::Fields::kProtein],
                           context_.fields_[Context::Fields::kFat],
                           context_.fields_[Context::Fields::kCarb]);
-    else
+    }
+    else{
+#if defined(DEBUG_INFO)
+        debug_info_str += "->" + context_.PrintCurrentState();
+        print_debug(debug_info_str);
+#endif
         return false;
+    }
 };
 
 bool ProductCtrl::SendUpdateProductRequest() {

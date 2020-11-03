@@ -98,12 +98,6 @@ public:
     virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) override;
 
     /*
-     * \brief Check if product is ready to be added.
-     * \return true if it is possible to add product.
-     */
-    virtual bool IsReadyToAdd() override;
-
-    /*
      * \brief Check if product is ready to be updated.
      * \return true if it is possible to update product.
      */
@@ -155,5 +149,11 @@ public:
 private:
     //! Check if given string can be converted to float.
     bool IsDigitF(std::string s);
+
+    /*
+     * \brief Check if product is ready to be added.
+     * \return true if it is possible to add product.
+     */
+    virtual bool IsReadyToAdd();
 };
 #endif
