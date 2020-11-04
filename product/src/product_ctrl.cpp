@@ -33,7 +33,7 @@ using std::smatch;
 #endif
 
 
-ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)) {
+ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)), context_(this) {
     model_ = std::make_unique<ProductMdl>(this);
     string line;
     vector<vector<string>> records;

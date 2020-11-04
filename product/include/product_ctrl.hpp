@@ -11,7 +11,7 @@
 
 class ProductView;
 
-class ProductCtrl :public IMProductCtrl, public IVProductCtrl {
+class ProductCtrl :public IMProductCtrl, public IVProductCtrl, public IContextProductCtrl {
 private:
     Context context_;
     IProductView* view_;

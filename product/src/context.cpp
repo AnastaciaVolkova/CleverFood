@@ -1,7 +1,7 @@
 #include "context.hpp"
 #include <algorithm>
 
-Context::Context(){
+Context::Context(IContextProductCtrl* controller):controller_(controller){
     not_state_ = std::make_shared<NoState>(this);
     add_ok_state_ = std::make_shared<AddOK>(this);
     add_nok_state_ = std::make_shared<AddNOK>(this);
@@ -12,7 +12,7 @@ Context::Context(){
 };
 
 bool Context::AnyError(){
-    return std::any_of(fields_.begin(), fields_.end(), [](auto a){return a.second == "";});
+    return controller_->AnyError();
 };
 
 bool Context::Ready(){

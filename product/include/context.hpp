@@ -6,6 +6,12 @@
 #include <memory>
 #include "state.hpp"
 
+class IContextProductCtrl{
+public:
+    virtual bool AnyError() = 0;
+    virtual ~IContextProductCtrl(){};
+};
+
 class Context{
 public:
     enum class Fields {kName = 0, kProtein, kFat, kCarb} ;
@@ -18,8 +24,9 @@ private:
     std::shared_ptr<AddReady> add_ready_;
     std::shared_ptr<UpdateOK> update_ok_state_;
     std::shared_ptr<UpdateNOK> update_nok_state_;
+    IContextProductCtrl* controller_;
 public:
-    Context();
+    Context(IContextProductCtrl* controller_);
 
     bool AnyError();
 
