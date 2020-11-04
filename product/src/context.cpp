@@ -46,7 +46,7 @@ void Context::HandleAGo(){cur_state_->HandleLastRowGo();};
 
 void Context::HandleUDGo(){cur_state_->HandleUDGo();};
 
-void Context:: HandleAddPressed(){ SetState(not_state_);};
+void Context:: HandleAddRequest(){ SetState(not_state_);};
 
 std::string Context::PrintCurrentState(){
     IState* state = cur_state_.get();

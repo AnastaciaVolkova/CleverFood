@@ -247,7 +247,7 @@ bool ProductCtrl::SendAddProductRequest(){
     std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
 #endif
     if (IsReadyToAdd()){
-        context_.HandleAddPressed();
+        context_.HandleAddRequest();
 #if defined(DEBUG_INFO)
         debug_info_str += "->" + context_.PrintCurrentState();
         print_debug(debug_info_str);
@@ -270,7 +270,7 @@ bool ProductCtrl::SendUpdateProductRequest() {
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "SendUpdateProductRequest: " + context_.PrintCurrentState();
 #endif
-    context_.HandleAddPressed();
+    context_.HandleAddRequest();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);

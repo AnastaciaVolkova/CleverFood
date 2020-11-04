@@ -49,7 +49,7 @@ public:
 
     void HandleUDGo();
 
-    void HandleAddPressed();
+    void HandleAddRequest();
 
     std::string PrintCurrentState();
 };
