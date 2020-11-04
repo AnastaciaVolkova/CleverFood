@@ -259,10 +259,10 @@ bool ProductCtrl::SendAddProductRequest(){
         debug_info_str += "->" + context_.PrintCurrentState();
         print_debug(debug_info_str);
 #endif
-        return AddProduct(context_.fields_[Context::Fields::kName],
-                          context_.fields_[Context::Fields::kProtein],
-                          context_.fields_[Context::Fields::kFat],
-                          context_.fields_[Context::Fields::kCarb]);
+        return AddProduct(view_->GetNameToAdd(),
+                          view_->GetProteinToAdd(),
+                          view_->GetFatToAdd(),
+                          view_->GetCarboToAdd());
     }
     else{
 #if defined(DEBUG_INFO)
