@@ -49,8 +49,6 @@ public:
 
     void HandleUDGo();
 
-    void HandleOtRowCellEnter();
-
     void HandleAddPressed();
 
     std::string PrintCurrentState();

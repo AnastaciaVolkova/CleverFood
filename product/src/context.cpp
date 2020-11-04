@@ -46,8 +46,6 @@ void Context::HandleAGo(){cur_state_->HandleLastRowGo();};
 
 void Context::HandleUDGo(){cur_state_->HandleUDGo();};
 
-void Context::HandleOtRowCellEnter(){cur_state_->HandleOtRowCellEnter();};
-
 void Context:: HandleAddPressed(){ SetState(not_state_);};
 
 std::string Context::PrintCurrentState(){
