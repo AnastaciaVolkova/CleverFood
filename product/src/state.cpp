@@ -48,7 +48,7 @@ AddOK::operator std::string() const {return "AddOK";};
 AddNOK::AddNOK(Context* context):IState(context){};
 
 void AddNOK::HandleVEnter(){
-    if (context_->AnyError())
+    if (!context_->AnyError())
         context_->SetState(context_->GetAddOKState());
 };
 
@@ -113,7 +113,7 @@ UpdateOK::operator std::string() const {return "UpdateOK";};
 UpdateNOK::UpdateNOK(Context* context):IState(context){};
 
 void UpdateNOK::HandleVEnter(){
-    if (context_->AnyError())
+    if (!context_->AnyError())
         context_->SetState(context_->GetUpdateOKState());
 };
 
