@@ -160,7 +160,7 @@ bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
 
 bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
-bool ProductCtrl::AllOK(){return context_.AllOK();};
+bool ProductCtrl::AnyError(){return context_.AnyError();};
 
 bool ProductCtrl::EnterName(std::string n){
 #if defined(DEBUG_INFO)

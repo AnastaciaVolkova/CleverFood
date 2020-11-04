@@ -107,7 +107,7 @@ public:
      * \brief Check if entered data are valid.
      * \return true if all entered data are valid.
      */
-    virtual bool AllOK() override;
+    virtual bool AnyError() override;
 
     /*
     *  \brief Enter name.

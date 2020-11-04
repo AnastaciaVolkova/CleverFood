@@ -74,7 +74,7 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
         ui->status_lbl->setStyleSheet("QLabel{color:red}");
     }
     else{
-        if (p->AllOK()){
+        if (!p->AnyError()){
             ui->status_lbl->setText("All OK");
             ui->status_lbl->setStyleSheet("QLabel{color:green}");
         }

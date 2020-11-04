@@ -21,7 +21,7 @@ private:
 public:
     Context();
 
-    bool AllOK();
+    bool AnyError();
 
     bool Ready();
 

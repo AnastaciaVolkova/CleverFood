@@ -11,8 +11,8 @@ Context::Context(){
     cur_state_ = not_state_;
 };
 
-bool Context::AllOK(){
-    return std::all_of(fields_.begin(), fields_.end(), [](auto a){return a.second != "";});
+bool Context::AnyError(){
+    return std::any_of(fields_.begin(), fields_.end(), [](auto a){return a.second == "";});
 };
 
 bool Context::Ready(){

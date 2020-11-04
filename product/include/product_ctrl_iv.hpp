@@ -21,7 +21,7 @@ public:
     virtual void GoToAddState() = 0;
     virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) = 0;
     virtual bool IsReadyToUpdate() = 0;
-    virtual bool AllOK() = 0;
+    virtual bool AnyError() = 0;
     virtual ~IVProductCtrl() {};
     virtual bool EnterName(std::string n) = 0;
     virtual bool EnterProtein(std::string p) = 0;
