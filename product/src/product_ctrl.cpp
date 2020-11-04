@@ -160,7 +160,14 @@ bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
 
 bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
-bool ProductCtrl::AnyError(){return context_.AnyError();};
+bool ProductCtrl::AnyError(){
+    bool any_error = false;
+    any_error |= !CheckName(view_->GetNameToAdd()) && view_->GetNameToAdd()!="";
+    any_error |= !CheckProtein(view_->GetProteinToAdd()) && view_->GetProteinToAdd() != "";
+    any_error |= !CheckFat(view_->GetFatToAdd()) && view_->GetFatToAdd() != "";
+    any_error |= !CheckCarbo(view_->GetCarboToAdd()) && view_->GetCarboToAdd() != "";
+    return any_error;
+};
 
 bool ProductCtrl::EnterName(std::string n){
 #if defined(DEBUG_INFO)

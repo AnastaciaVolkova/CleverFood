@@ -25,6 +25,10 @@ public:
     ~QTView();
     virtual void Show(std::vector<std::vector<std::string>> records) override;
     virtual void Run()override{};
+    virtual std::string GetNameToAdd() override;
+    virtual std::string GetProteinToAdd() override;
+    virtual std::string GetFatToAdd() override;
+    virtual std::string GetCarboToAdd() override;
 protected:
     void showEvent(QShowEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
