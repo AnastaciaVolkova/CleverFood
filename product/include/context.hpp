@@ -45,7 +45,7 @@ public:
 
     void HandleInvEnter();
 
-    void HandleLastRowGo();
+    void HandleAGo();
 
     void HandleUDGo();
 

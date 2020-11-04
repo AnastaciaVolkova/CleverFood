@@ -134,7 +134,7 @@ void ProductCtrl::GoToAddState() {
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterAdd: " + context_.PrintCurrentState();
 #endif
-    context_.HandleLastRowGo();
+    context_.HandleAGo();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);

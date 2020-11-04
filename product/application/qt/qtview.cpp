@@ -84,23 +84,17 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
         }
         ui->product_tbl->item(row, column)->setBackground(Qt::white);
     }
-
-    if (row == ui->product_tbl->rowCount()-1){
-        if (controller_->SendAddProductRequest()){
-            AddNewRow();
-            ui->status_lbl->setText("Successfully added");
-            ui->status_lbl->setStyleSheet("QLabel{color:green}");
-        };
-    }
     ui->product_tbl->blockSignals(false);
 }
 
 void QTView::AddNewRow(){
+    ui->product_tbl->blockSignals(true);
     ui->product_tbl->setRowCount(ui->product_tbl->rowCount()+1);
 
     for (int c = 0; c < ui->product_tbl->columnCount(); c++){
         ui->product_tbl->setItem(ui->product_tbl->rowCount()-1, c, new QTableWidgetItem(QString("")));
     }
+    ui->product_tbl->blockSignals(false);
 };
 
 void QTView::on_save_btn_pressed()
@@ -118,6 +112,22 @@ void QTView::on_product_tbl_itemSelectionChanged()
         controller_->GoToAddState();
     } else{
         if (prev_row_ != currentRow){
+            if (prev_row_ == ui->product_tbl->rowCount()-1){
+                if (controller_->SendAddProductRequest()){
+                    AddNewRow();
+                    ui->status_lbl->setText("Successfully added");
+                    ui->status_lbl->setStyleSheet("QLabel{color:green}");
+                } else {
+                    ui->status_lbl->setText("Item was not added");
+                    ui->status_lbl->setStyleSheet("QLabel{color:red}");
+                    ui->product_tbl->blockSignals(true);
+                    for (int c = 0; c < ui->product_tbl->columnCount(); c++){
+                        ui->product_tbl->item(prev_row_, c)->setText("");
+                        ui->product_tbl->item(prev_row_, c)->setBackground(Qt::white);
+                    }
+                    ui->product_tbl->blockSignals(false);
+                };
+            }
             if (controller_->IsReadyToUpdate())
                 controller_->SendUpdateProductRequest();
             controller_->GoToUpdateState(
@@ -126,10 +136,10 @@ void QTView::on_product_tbl_itemSelectionChanged()
                         ui->product_tbl->item(currentRow, 2)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 3)->text().toStdString()
                         );
-            prev_row_ = currentRow;
         }
         ui->delete_btn->setEnabled(true);
     }
+    prev_row_ = currentRow;
 }
 
 void QTView::on_delete_btn_pressed()

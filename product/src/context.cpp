@@ -42,7 +42,7 @@ void Context::HandleVEnter(){cur_state_->HandleVEnter();};
 
 void Context::HandleInvEnter(){cur_state_->HandleInvEnter();};
 
-void Context::HandleLastRowGo(){cur_state_->HandleLastRowGo();};
+void Context::HandleAGo(){cur_state_->HandleLastRowGo();};
 
 void Context::HandleUDGo(){cur_state_->HandleUDGo();};
 
