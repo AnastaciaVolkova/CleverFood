@@ -25,7 +25,7 @@ NoState::operator std::string() const {return "NoState";};
 AddOK::AddOK(Context* context):IState(context){};
 
 void AddOK::HandleVEnter(){
-    if (context_->Ready()) context_->SetState(context_->GetAddReady());
+    if (context_->IsReadyToAdd()) context_->SetState(context_->GetAddReady());
 };
 
 void AddOK::HandleInvEnter(){

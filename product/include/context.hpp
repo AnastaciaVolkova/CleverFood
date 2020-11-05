@@ -30,7 +30,7 @@ public:
 
     bool AnyError();
 
-    bool Ready();
+    bool IsReadyToAdd();
 
     bool ReadyToUpdate();
 
