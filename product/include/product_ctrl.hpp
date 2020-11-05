@@ -150,10 +150,11 @@ private:
     //! Check if given string can be converted to float.
     bool IsDigitF(std::string s);
 
+protected:
     /*
      * \brief Check if product is ready to be added.
      * \return true if it is possible to add product.
      */
-    virtual bool IsReadyToAdd();
+    virtual bool IsReadyToAdd() override;
 };
 #endif

@@ -9,6 +9,7 @@
 class IContextProductCtrl{
 public:
     virtual bool AnyError() = 0;
+    virtual bool IsReadyToAdd() = 0;
     virtual ~IContextProductCtrl(){};
 };
 

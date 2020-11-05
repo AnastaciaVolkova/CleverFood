@@ -16,7 +16,7 @@ bool Context::AnyError(){
 };
 
 bool Context::IsReadyToAdd(){
-  return ((fields_.size()==4) && std::all_of(fields_.begin(), fields_.end(), [](auto a){return a.second != "";}));
+  return controller_->IsReadyToAdd();
 };
 
 bool Context::ReadyToUpdate(){
