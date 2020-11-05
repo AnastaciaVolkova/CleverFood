@@ -8,10 +8,10 @@ class IProductView {
 public:
     virtual void Show(std::vector<std::vector<std::string>> records) = 0;
     virtual void Run() = 0;
-    virtual std::string GetNameToAdd() = 0;
-    virtual std::string GetProteinToAdd() = 0;
-    virtual std::string GetFatToAdd() = 0;
-    virtual std::string GetCarboToAdd() = 0;
+    virtual std::string GetName() = 0;
+    virtual std::string GetProtein() = 0;
+    virtual std::string GetFat() = 0;
+    virtual std::string GetCarbo() = 0;
     virtual ~IProductView() {};
 };
 #endif

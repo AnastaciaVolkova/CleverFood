@@ -158,10 +158,10 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 
 bool ProductCtrl::IsReadyToAdd() {
     bool is_ready_to_add = true;
-    is_ready_to_add &= CheckName(view_->GetNameToAdd());
-    is_ready_to_add &= CheckProtein(view_->GetProteinToAdd());
-    is_ready_to_add &= CheckFat(view_->GetFatToAdd());
-    is_ready_to_add &= CheckCarbo(view_->GetCarboToAdd());
+    is_ready_to_add &= CheckName(view_->GetName());
+    is_ready_to_add &= CheckProtein(view_->GetProtein());
+    is_ready_to_add &= CheckFat(view_->GetFat());
+    is_ready_to_add &= CheckCarbo(view_->GetCarbo());
     return is_ready_to_add;
 };
 
@@ -169,10 +169,10 @@ bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
 bool ProductCtrl::AnyError(){
     bool any_error = false;
-    any_error |= !CheckName(view_->GetNameToAdd()) && view_->GetNameToAdd()!="";
-    any_error |= !CheckProtein(view_->GetProteinToAdd()) && view_->GetProteinToAdd() != "";
-    any_error |= !CheckFat(view_->GetFatToAdd()) && view_->GetFatToAdd() != "";
-    any_error |= !CheckCarbo(view_->GetCarboToAdd()) && view_->GetCarboToAdd() != "";
+    any_error |= !CheckName(view_->GetName()) && view_->GetName()!="";
+    any_error |= !CheckProtein(view_->GetProtein()) && view_->GetProtein() != "";
+    any_error |= !CheckFat(view_->GetFat()) && view_->GetFat() != "";
+    any_error |= !CheckCarbo(view_->GetCarbo()) && view_->GetCarbo() != "";
     return any_error;
 };
 
@@ -266,10 +266,10 @@ bool ProductCtrl::SendAddProductRequest(){
         debug_info_str += "->" + context_.PrintCurrentState();
         print_debug(debug_info_str);
 #endif
-        return AddProduct(view_->GetNameToAdd(),
-                          view_->GetProteinToAdd(),
-                          view_->GetFatToAdd(),
-                          view_->GetCarboToAdd());
+        return AddProduct(view_->GetName(),
+                          view_->GetProtein(),
+                          view_->GetFat(),
+                          view_->GetCarbo());
     }
     else{
 #if defined(DEBUG_INFO)
