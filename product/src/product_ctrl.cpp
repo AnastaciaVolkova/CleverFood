@@ -156,7 +156,14 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 #endif
 };
 
-bool ProductCtrl::IsReadyToAdd() {return context_.Ready();};
+bool ProductCtrl::IsReadyToAdd() {
+    bool is_ready_to_add = true;
+    is_ready_to_add &= CheckName(view_->GetNameToAdd());
+    is_ready_to_add &= CheckProtein(view_->GetProteinToAdd());
+    is_ready_to_add &= CheckFat(view_->GetFatToAdd());
+    is_ready_to_add &= CheckCarbo(view_->GetCarboToAdd());
+    return is_ready_to_add;
+};
 
 bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
