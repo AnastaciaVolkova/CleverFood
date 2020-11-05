@@ -289,18 +289,18 @@ bool ProductCtrl::SendUpdateProductRequest() {
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
 #endif
-    const Product* product = model_->GetProduct(context_.fields_[Context::Fields::kName]);
     if (IsReadyToAdd()){
         float meaning;
-        meaning = stof(context_.fields_[Context::Fields::kProtein]);
+        const Product* product = model_->GetProduct(view_->GetName());
+        meaning = stof(view_->GetProtein());
         if (product->GetProteinGr() != meaning)
             model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::protein, meaning);
 
-        meaning = stof(context_.fields_[Context::Fields::kFat]);
+        meaning = stof(view_->GetFat());
         if (product->GetFatGr() != meaning)
             model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::fet, meaning);
 
-        meaning = stof(context_.fields_[Context::Fields::kCarb]);
+        meaning = stof(view_->GetCarbo());
         if (product->GetCarbGr() != meaning)
             model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::carbohydrate, meaning);
         context_.fields_.clear();
