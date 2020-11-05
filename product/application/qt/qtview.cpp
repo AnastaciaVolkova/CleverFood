@@ -129,7 +129,10 @@ void QTView::on_product_tbl_itemSelectionChanged()
                 };
             }
             if (controller_->IsReadyToUpdate())
-                controller_->SendUpdateProductRequest();
+                if (controller_->SendUpdateProductRequest()){
+                    ui->status_lbl->setText("Successfully updated");
+                    ui->status_lbl->setStyleSheet("QLabel{color:green}");
+                };
             controller_->GoToUpdateState(
                         ui->product_tbl->item(currentRow, 0)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 1)->text().toStdString(),
