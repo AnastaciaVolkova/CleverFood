@@ -166,17 +166,17 @@ void QTView::resizeEvent(QResizeEvent *event) {
 }
 
 string QTView::GetName() {
-    return ui->product_tbl->item(ui->product_tbl->rowCount()-1, 0)->text().toStdString();
+    return ui->product_tbl->item(prev_row_, 0)->text().toStdString();
 }
 
 string QTView::GetProtein() {
-    return ui->product_tbl->item(ui->product_tbl->rowCount()-1, 1)->text().toStdString();
+    return ui->product_tbl->item(prev_row_, 1)->text().toStdString();
 }
 
 string QTView::GetFat() {
-    return ui->product_tbl->item(ui->product_tbl->rowCount()-1, 2)->text().toStdString();
+    return ui->product_tbl->item(prev_row_, 2)->text().toStdString();
 }
 
 string QTView::GetCarbo() {
-    return ui->product_tbl->item(ui->product_tbl->rowCount()-1, 3)->text().toStdString();
+    return ui->product_tbl->item(prev_row_, 3)->text().toStdString();
 }
