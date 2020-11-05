@@ -16,7 +16,6 @@ public:
 class Context{
 public:
     enum class Fields {kName = 0, kProtein, kFat, kCarb} ;
-    std::map<Fields, std::string> fields_;
 private:
     std::shared_ptr<IState> cur_state_;
     std::shared_ptr<NoState> not_state_;

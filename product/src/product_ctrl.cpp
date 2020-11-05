@@ -145,11 +145,6 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
 #endif
-    context_.fields_[Context::Fields::kName] = name;
-    context_.fields_[Context::Fields::kProtein] = protein;
-    context_.fields_[Context::Fields::kFat] = fat;
-    context_.fields_[Context::Fields::kCarb] = carbo;
-    context_.HandleUDGo();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -181,14 +176,10 @@ bool ProductCtrl::EnterName(std::string n){
     std::string debug_info_str = "EnterName: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckName(n);
-    if (is_ok){
-        context_.fields_[Context::Fields::kName] = n;
+    if (is_ok)
         context_.HandleVEnter();
-    }
-    else{
-        context_.fields_[Context::Fields::kName] = "";
+    else
         context_.HandleInvEnter();
-    }
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -201,14 +192,10 @@ bool ProductCtrl::EnterProtein(std::string p){
     std::string debug_info_str = "EnterProtein: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckProtein(p);
-    if (is_ok){
-        context_.fields_[Context::Fields::kProtein] = p;
+    if (is_ok)
         context_.HandleVEnter();
-    }
-    else{
-        context_.fields_[Context::Fields::kProtein] = "";
+    else
         context_.HandleInvEnter();
-    }
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -221,14 +208,10 @@ bool ProductCtrl::EnterFat(std::string f) {
     std::string debug_info_str = "EnterFat: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckFat(f);
-    if (is_ok){
-        context_.fields_[Context::Fields::kFat] = f;
+    if (is_ok)
         context_.HandleVEnter();
-    }
-    else{
-        context_.fields_[Context::Fields::kFat] = "";
+    else
         context_.HandleInvEnter();
-    }
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -241,14 +224,10 @@ bool ProductCtrl::EnterCarbo(std::string c){
     std::string debug_info_str = "EnterCarbo: " + context_.PrintCurrentState();
 #endif
     bool is_ok = ProductCtrl::CheckCarbo(c);
-    if (is_ok){
-        context_.fields_[Context::Fields::kCarb] = c;
+    if (is_ok)
         context_.HandleVEnter();
-    }
-    else{
-        context_.fields_[Context::Fields::kCarb] = "";
+    else
         context_.HandleInvEnter();
-    }
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
@@ -303,7 +282,6 @@ bool ProductCtrl::SendUpdateProductRequest() {
         meaning = stof(view_->GetCarbo());
         if (product->GetCarbGr() != meaning)
             model_->UpdateProduct(product->GetName(), ProductMdl::Parameter::carbohydrate, meaning);
-        context_.fields_.clear();
         return true;
     }
     else
