@@ -41,7 +41,7 @@ public:
     * \param p Fet in gram per 100 gram of product
     * \param p Carbohydrate in gram per 100 gram of product
     */
-    bool AddProduct(std::string name, std::string p, std::string f, std::string c) override;
+    bool AddProduct(std::string name, std::string p, std::string f, std::string c);
 
     /*!
     * \brief Update product in products base.
@@ -50,7 +50,7 @@ public:
     * \param meaning New meaning of parameter.
     * \return true if update was sucessfull.
     */
-    bool UpdateProduct(std::string name, Parameter parameter, std::string meaning) override;
+    bool UpdateProduct(std::string name, Parameter parameter, std::string meaning);
 
     /*!
     * \brief Delete product.
