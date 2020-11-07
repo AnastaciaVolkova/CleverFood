@@ -123,7 +123,7 @@ bool ProductCtrl::CheckCarbo(std::string meaning) { return IsDigitF(meaning); };
 
 bool ProductCtrl::IsDigitF(std::string s) {
     size_t n = count_if(s.begin(), s.end(), [](char a) {return (a == ',') || (a == '.'); });
-    if (n >= 2)
+    if ((n >= 2) || (s==""))
         return false;
     auto it = s.begin();
     while ((it != s.end()) && ((*it == '.') | (*it == ',') | (isdigit(*it)))) { it++; };
