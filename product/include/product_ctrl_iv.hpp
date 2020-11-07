@@ -18,7 +18,6 @@ public:
     virtual bool CheckCarbo() = 0;
     virtual void GoToAddState() = 0;
     virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) = 0;
-    virtual bool IsReadyToUpdate() = 0;
     virtual bool AnyError() = 0;
     virtual ~IVProductCtrl() {};
     virtual bool SendAddProductRequest() = 0;

@@ -45,10 +45,13 @@ void QTView::Show(std::vector<std::vector<std::string>> records) {
             ui->product_tbl->setItem(r, c, new QTableWidgetItem(QString(records[r][c].c_str())));
         }
     }
-
-    AddNewRow();
     ui->product_tbl->blockSignals(false);
+    AddNewRow();
+    ui->product_tbl->blockSignals(true);
+    QModelIndex idx = ui->product_tbl->model()->index(0, 0);
+    ui->product_tbl->setCurrentIndex(idx);
     prev_row_ = ui->product_tbl->currentRow();
+    ui->product_tbl->blockSignals(false);
 };
 
 void QTView::on_product_tbl_cellChanged(int row, int column)
@@ -111,10 +114,10 @@ void QTView::on_product_tbl_itemSelectionChanged()
         ui->delete_btn->setEnabled(false);
         controller_->GoToAddState();
     } else{
+        ui->product_tbl->blockSignals(true);
+        QModelIndex idx = ui->product_tbl->model()->index(prev_row_, 0);
+        ui->product_tbl->setCurrentIndex(idx);
         if (prev_row_ != currentRow){
-            ui->product_tbl->blockSignals(true);
-            QModelIndex idx = ui->product_tbl->model()->index(prev_row_, 0);
-            ui->product_tbl->setCurrentIndex(idx);
             if (prev_row_ == ui->product_tbl->rowCount()-1){
                 if (controller_->SendAddProductRequest()){
                     AddNewRow();
@@ -131,22 +134,21 @@ void QTView::on_product_tbl_itemSelectionChanged()
                     ui->product_tbl->blockSignals(false);
                 };
             }
-            idx = ui->product_tbl->model()->index(currentRow, currentCol);
-            ui->product_tbl->setCurrentIndex(idx);
-            if (controller_->IsReadyToUpdate())
-                if (controller_->SendUpdateProductRequest()){
-                    ui->status_lbl->setText("Successfully updated");
-                    ui->status_lbl->setStyleSheet("QLabel{color:green}");
-                };
+            if (controller_->SendUpdateProductRequest()){
+                ui->status_lbl->setText("Successfully updated");
+                ui->status_lbl->setStyleSheet("QLabel{color:green}");
+            }
             controller_->GoToUpdateState(
                         ui->product_tbl->item(currentRow, 0)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 1)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 2)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 3)->text().toStdString()
                         );
-            ui->product_tbl->blockSignals(false);
         }
+        idx = ui->product_tbl->model()->index(currentRow, currentCol);
+        ui->product_tbl->setCurrentIndex(idx);
         ui->delete_btn->setEnabled(true);
+        ui->product_tbl->blockSignals(false);
     }
     prev_row_ = currentRow;
 }

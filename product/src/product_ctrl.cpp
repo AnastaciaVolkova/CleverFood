@@ -159,7 +159,7 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 #endif
 };
 
-bool ProductCtrl::IsReadyToAdd() {
+bool ProductCtrl::RecordIsReady() {
     bool is_ready_to_add = true;
     is_ready_to_add &= CheckName();
     is_ready_to_add &= CheckProtein();
@@ -167,8 +167,6 @@ bool ProductCtrl::IsReadyToAdd() {
     is_ready_to_add &= CheckCarbo();
     return is_ready_to_add;
 };
-
-bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
 bool ProductCtrl::AnyError(){
     bool any_error = false;
@@ -183,7 +181,7 @@ bool ProductCtrl::SendAddProductRequest(){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
 #endif
-    if (IsReadyToAdd()){
+    if (RecordIsReady()){
         context_.HandleAddRequest();
 #if defined(DEBUG_INFO)
         debug_info_str += "->" + context_.PrintCurrentState();
@@ -212,7 +210,7 @@ bool ProductCtrl::SendUpdateProductRequest() {
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
 #endif
-    if (IsReadyToAdd()){
+    if (RecordIsReady()){
         float meaning;
         const Product* product = model_->GetProduct(view_->GetName());
         meaning = stof(view_->GetProtein());

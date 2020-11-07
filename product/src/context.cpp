@@ -15,10 +15,6 @@ bool Context::AnyError(){
     return controller_->AnyError();
 };
 
-bool Context::IsReadyToAdd(){
-  return controller_->IsReadyToAdd();
-};
-
 bool Context::ReadyToUpdate(){
     std::shared_ptr<UpdateOK> s = std::dynamic_pointer_cast<UpdateOK>(cur_state_);
     return (s != nullptr);
