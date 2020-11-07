@@ -145,6 +145,7 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
 #endif
+    context_.HandleUDGo();
 #if defined(DEBUG_INFO)
     debug_info_str += "->" + context_.PrintCurrentState();
     print_debug(debug_info_str);
