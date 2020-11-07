@@ -110,31 +110,6 @@ public:
     virtual bool AnyError() override;
 
     /*
-    *  \brief Enter name.
-    *  \return true if name was entered successfully.
-    */
-    virtual bool EnterName(std::string n) override;
-
-    /*
-    *  \brief Enter protein.
-    *  \return true if protein was entered successfully.
-    */
-    virtual bool EnterProtein(std::string p) override;
-
-    /*
-    *  \brief Enter fat.
-    *  \return true if fat was entered successfully.
-    *
-    */
-    virtual bool EnterFat(std::string f) override;
-
-    /*
-    *  \brief Enter carbohydrate.
-    *  \return true if carbohydrate was entered successfully.
-    */
-    virtual bool EnterCarbo(std::string c) override;
-
-    /*
     *  \brief Enter product.
     *  \return true if product was entered successfully.
     */

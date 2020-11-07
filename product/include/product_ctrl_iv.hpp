@@ -21,10 +21,6 @@ public:
     virtual bool IsReadyToUpdate() = 0;
     virtual bool AnyError() = 0;
     virtual ~IVProductCtrl() {};
-    virtual bool EnterName(std::string n) = 0;
-    virtual bool EnterProtein(std::string p) = 0;
-    virtual bool EnterFat(std::string f) = 0;
-    virtual bool EnterCarbo(std::string c) = 0;
     virtual bool SendAddProductRequest() = 0;
     virtual bool SendUpdateProductRequest() = 0;
 };
