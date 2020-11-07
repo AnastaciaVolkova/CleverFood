@@ -107,11 +107,16 @@ void QTView::on_save_btn_pressed()
 void QTView::on_product_tbl_itemSelectionChanged()
 {
     int currentRow = ui->product_tbl->currentRow();
+    int currentCol = ui->product_tbl->currentColumn();
+
     if (currentRow == ui->product_tbl->rowCount()-1){
         ui->delete_btn->setEnabled(false);
         controller_->GoToAddState();
     } else{
         if (prev_row_ != currentRow){
+            ui->product_tbl->blockSignals(true);
+            QModelIndex idx = ui->product_tbl->model()->index(prev_row_, 0);
+            ui->product_tbl->setCurrentIndex(idx);
             if (prev_row_ == ui->product_tbl->rowCount()-1){
                 if (controller_->SendAddProductRequest()){
                     AddNewRow();
@@ -128,6 +133,8 @@ void QTView::on_product_tbl_itemSelectionChanged()
                     ui->product_tbl->blockSignals(false);
                 };
             }
+            idx = ui->product_tbl->model()->index(currentRow, currentCol);
+            ui->product_tbl->setCurrentIndex(idx);
             if (controller_->IsReadyToUpdate())
                 if (controller_->SendUpdateProductRequest()){
                     ui->status_lbl->setText("Successfully updated");
@@ -139,6 +146,7 @@ void QTView::on_product_tbl_itemSelectionChanged()
                         ui->product_tbl->item(currentRow, 2)->text().toStdString(),
                         ui->product_tbl->item(currentRow, 3)->text().toStdString()
                         );
+            ui->product_tbl->blockSignals(false);
         }
         ui->delete_btn->setEnabled(true);
     }
@@ -169,17 +177,17 @@ void QTView::resizeEvent(QResizeEvent *event) {
 }
 
 string QTView::GetName() {
-    return ui->product_tbl->item(prev_row_, 0)->text().toStdString();
+    return ui->product_tbl->item(ui->product_tbl->currentRow(), 0)->text().toStdString();
 }
 
 string QTView::GetProtein() {
-    return ui->product_tbl->item(prev_row_, 1)->text().toStdString();
+    return ui->product_tbl->item(ui->product_tbl->currentRow(), 1)->text().toStdString();
 }
 
 string QTView::GetFat() {
-    return ui->product_tbl->item(prev_row_, 2)->text().toStdString();
+    return ui->product_tbl->item(ui->product_tbl->currentRow(), 2)->text().toStdString();
 }
 
 string QTView::GetCarbo() {
-    return ui->product_tbl->item(prev_row_, 3)->text().toStdString();
+    return ui->product_tbl->item(ui->product_tbl->currentRow(), 3)->text().toStdString();
 }
