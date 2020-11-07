@@ -10,7 +10,6 @@
 #include <vector>
 #include <regex>
 #include <algorithm>
-#include "context.hpp"
 
 using std::string;
 using std::vector;
@@ -33,7 +32,7 @@ using std::smatch;
 #endif
 
 
-ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)), context_(this) {
+ProductCtrl::ProductCtrl(unique_ptr<StorageI> storage) : storage_(move(storage)){
     model_ = std::make_unique<ProductMdl>(this);
     string line;
     vector<vector<string>> records;
@@ -138,25 +137,9 @@ bool ProductCtrl::IsDigitF(std::string s) {
 };
 
 void ProductCtrl::GoToAddState() {
-#if defined(DEBUG_INFO)
-    std::string debug_info_str = "EnterAdd: " + context_.PrintCurrentState();
-#endif
-    context_.HandleAGo();
-#if defined(DEBUG_INFO)
-    debug_info_str += "->" + context_.PrintCurrentState();
-    print_debug(debug_info_str);
-#endif
 };
 
 void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) {
-#if defined(DEBUG_INFO)
-    std::string debug_info_str = "StartToUpdate: " + context_.PrintCurrentState();
-#endif
-    context_.HandleUDGo();
-#if defined(DEBUG_INFO)
-    debug_info_str += "->" + context_.PrintCurrentState();
-    print_debug(debug_info_str);
-#endif
 };
 
 bool ProductCtrl::RecordIsReady() {
@@ -178,38 +161,18 @@ bool ProductCtrl::AnyError(){
 };
 
 bool ProductCtrl::SendAddProductRequest(){
-#if defined(DEBUG_INFO)
-    std::string debug_info_str = "EnterProduct: " + context_.PrintCurrentState();
-#endif
     if (RecordIsReady()){
-        context_.HandleAddRequest();
-#if defined(DEBUG_INFO)
-        debug_info_str += "->" + context_.PrintCurrentState();
-        print_debug(debug_info_str);
-#endif
         return AddProduct(view_->GetName(),
                           view_->GetProtein(),
                           view_->GetFat(),
                           view_->GetCarbo());
     }
     else{
-#if defined(DEBUG_INFO)
-        debug_info_str += "->" + context_.PrintCurrentState();
-        print_debug(debug_info_str);
-#endif
         return false;
     }
 };
 
 bool ProductCtrl::SendUpdateProductRequest() {
-#if defined(DEBUG_INFO)
-    std::string debug_info_str = "SendUpdateProductRequest: " + context_.PrintCurrentState();
-#endif
-    context_.HandleAddRequest();
-#if defined(DEBUG_INFO)
-    debug_info_str += "->" + context_.PrintCurrentState();
-    print_debug(debug_info_str);
-#endif
     if (RecordIsReady()){
         float meaning;
         const Product* product = model_->GetProduct(view_->GetName());

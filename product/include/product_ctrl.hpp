@@ -5,15 +5,13 @@
 #include "product_ctrl_im.hpp"
 #include "product_view_i.hpp"
 #include "storage_i.hpp"
-#include "context.hpp"
 #include <memory>
 #include <string>
 
 class ProductView;
 
-class ProductCtrl :public IMProductCtrl, public IVProductCtrl, public IContextProductCtrl {
+class ProductCtrl :public IMProductCtrl, public IVProductCtrl{
 private:
-    Context context_;
     IProductView* view_;
     std::unique_ptr<ProductMdl> model_;
     std::unique_ptr<StorageI> storage_;
