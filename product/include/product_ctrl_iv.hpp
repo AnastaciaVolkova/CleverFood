@@ -12,10 +12,10 @@ public:
     virtual void Show() = 0;
     virtual void Save() = 0;
     virtual bool DeleteProduct(std::string name) = 0;
-    virtual bool CheckName(std::string name) = 0;
-    virtual bool CheckProtein(std::string meaning) = 0;
-    virtual bool CheckFat(std::string meaning) = 0;
-    virtual bool CheckCarbo(std::string meaning) = 0;
+    virtual bool CheckName() = 0;
+    virtual bool CheckProtein() = 0;
+    virtual bool CheckFat() = 0;
+    virtual bool CheckCarbo() = 0;
     virtual void GoToAddState() = 0;
     virtual void GoToUpdateState(std::string name, std::string protein, std::string fat, std::string carbo) = 0;
     virtual bool IsReadyToUpdate() = 0;

@@ -64,28 +64,28 @@ public:
     * \param name Given name.
     * \return Return true if a given meaning is correct.
     */
-    bool CheckName(std::string name);
+    bool CheckName() override;
 
     /*
     * \brief Check correctness of a given protein meaning.
     * \param meaning Given protein meaning.
     * \return Return true if a given meaning is correct.
     */
-    bool CheckProtein(std::string meaning);
+    bool CheckProtein() override;
 
     /*
     * \brief Check correctness of a given protein meaning.
     * \param meaning Given fat meaning.
     * \return Return true if a given meaning is correct.
     */
-    bool CheckFat(std::string meaning);
+    bool CheckFat() override;
 
     /*
     * \brief Check correctness of a given protein meaning.
     * \param meaning Given carbohydrate meaning.
     * \return Return true if a given meaning is correct.
     */
-    bool CheckCarbo(std::string meaning);
+    bool CheckCarbo() override;
 
     /*
      * \brief Enter to Add State.

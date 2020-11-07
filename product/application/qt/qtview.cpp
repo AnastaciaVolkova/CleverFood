@@ -57,18 +57,16 @@ void QTView::on_product_tbl_cellChanged(int row, int column)
 
     ui->product_tbl->blockSignals(true);
 
-    std::vector<bool(IVProductCtrl::*)(std::string)> v{
-        &IVProductCtrl::EnterName,
-        &IVProductCtrl::EnterProtein,
-        &IVProductCtrl::EnterFat,
-        &IVProductCtrl::EnterCarbo,
+    std::vector<bool(IVProductCtrl::*)()> v{
+        &IVProductCtrl::CheckName,
+        &IVProductCtrl::CheckProtein,
+        &IVProductCtrl::CheckFat,
+        &IVProductCtrl::CheckCarbo,
     };
 
     IVProductCtrl* p = controller_.get();
 
-    std::string s = ui->product_tbl->item(row, column)->text().toStdString();
-
-    if (!(p->*v[column])(s)){
+    if (!(p->*v[column])()){
         ui->product_tbl->item(row, column)->setBackground(Qt::red);
         ui->status_lbl->setText("Invalid value");
         ui->status_lbl->setStyleSheet("QLabel{color:red}");

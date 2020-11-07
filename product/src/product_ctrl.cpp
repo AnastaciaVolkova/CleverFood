@@ -108,18 +108,25 @@ bool ProductCtrl::DeleteProduct(std::string name) {
     return model_->DeleteProduct(name);
 };
 
-bool ProductCtrl::CheckName(std::string name) {
+bool ProductCtrl::CheckName() {
     regex re("^[a-z,A-Z]+.+");
     smatch sm;
+    string name = view_->GetName();
     bool f = std::regex_match(name, sm, re);
     return f;
 };
 
-bool ProductCtrl::CheckProtein(std::string meaning) { return IsDigitF(meaning); };
+bool ProductCtrl::CheckProtein() {
+    return IsDigitF(view_->GetProtein());
+};
 
-bool ProductCtrl::CheckFat(std::string meaning) { return IsDigitF(meaning); };
+bool ProductCtrl::CheckFat() {
+    return IsDigitF(view_->GetFat());
+};
 
-bool ProductCtrl::CheckCarbo(std::string meaning) { return IsDigitF(meaning); };
+bool ProductCtrl::CheckCarbo() {
+    return IsDigitF(view_->GetCarbo());
+};
 
 bool ProductCtrl::IsDigitF(std::string s) {
     size_t n = count_if(s.begin(), s.end(), [](char a) {return (a == ',') || (a == '.'); });
@@ -154,10 +161,10 @@ void ProductCtrl::GoToUpdateState(std::string name, std::string protein, std::st
 
 bool ProductCtrl::IsReadyToAdd() {
     bool is_ready_to_add = true;
-    is_ready_to_add &= CheckName(view_->GetName());
-    is_ready_to_add &= CheckProtein(view_->GetProtein());
-    is_ready_to_add &= CheckFat(view_->GetFat());
-    is_ready_to_add &= CheckCarbo(view_->GetCarbo());
+    is_ready_to_add &= CheckName();
+    is_ready_to_add &= CheckProtein();
+    is_ready_to_add &= CheckFat();
+    is_ready_to_add &= CheckCarbo();
     return is_ready_to_add;
 };
 
@@ -165,10 +172,10 @@ bool ProductCtrl::IsReadyToUpdate() {return context_.ReadyToUpdate();};
 
 bool ProductCtrl::AnyError(){
     bool any_error = false;
-    any_error |= !CheckName(view_->GetName()) && view_->GetName()!="";
-    any_error |= !CheckProtein(view_->GetProtein()) && view_->GetProtein() != "";
-    any_error |= !CheckFat(view_->GetFat()) && view_->GetFat() != "";
-    any_error |= !CheckCarbo(view_->GetCarbo()) && view_->GetCarbo() != "";
+    any_error |= !CheckName() && view_->GetName()!="";
+    any_error |= !CheckProtein() && view_->GetProtein() != "";
+    any_error |= !CheckFat() && view_->GetFat() != "";
+    any_error |= !CheckCarbo() && view_->GetCarbo() != "";
     return any_error;
 };
 
@@ -176,7 +183,7 @@ bool ProductCtrl::EnterName(std::string n){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterName: " + context_.PrintCurrentState();
 #endif
-    bool is_ok = ProductCtrl::CheckName(n);
+    bool is_ok = ProductCtrl::CheckName();
     if (is_ok)
         context_.HandleVEnter();
     else
@@ -192,7 +199,7 @@ bool ProductCtrl::EnterProtein(std::string p){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterProtein: " + context_.PrintCurrentState();
 #endif
-    bool is_ok = ProductCtrl::CheckProtein(p);
+    bool is_ok = ProductCtrl::CheckProtein();
     if (is_ok)
         context_.HandleVEnter();
     else
@@ -208,7 +215,7 @@ bool ProductCtrl::EnterFat(std::string f) {
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterFat: " + context_.PrintCurrentState();
 #endif
-    bool is_ok = ProductCtrl::CheckFat(f);
+    bool is_ok = ProductCtrl::CheckFat();
     if (is_ok)
         context_.HandleVEnter();
     else
@@ -224,7 +231,7 @@ bool ProductCtrl::EnterCarbo(std::string c){
 #if defined(DEBUG_INFO)
     std::string debug_info_str = "EnterCarbo: " + context_.PrintCurrentState();
 #endif
-    bool is_ok = ProductCtrl::CheckCarbo(c);
+    bool is_ok = ProductCtrl::CheckCarbo();
     if (is_ok)
         context_.HandleVEnter();
     else
