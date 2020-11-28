@@ -23,9 +23,6 @@ public:
 protected:
     void showEvent(QShowEvent *event) override;
 
-private slots:
-    void on_pushButton_pressed();
-
 private:
     Ui::QTView *ui;
     QSqlQueryModel* model_recipes_;

@@ -22,7 +22,7 @@ QTView::QTView(QWidget *parent)
 
     model_recipes_ = new QSqlTableModel();
     model_ingredients_ = new QSqlRelationalTableModel();
-    model_ingredients_->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model_ingredients_->setEditStrategy(QSqlTableModel::OnRowChange);
 
     ui->tbl_recipes->setModel(model_recipes_);
     ui->tbl_ingredients->setModel(model_ingredients_);
@@ -69,14 +69,4 @@ void QTView::onSelectionChanged(const QItemSelection &selected){
 QTView::~QTView()
 {
     delete ui;
-}
-
-
-void QTView::on_pushButton_pressed()
-{
-    qDebug() << model_ingredients_->isDirty();
-    qDebug() << model_ingredients_->submitAll();
-    qDebug() << db.lastError().text();
-    qDebug() << model_ingredients_->isDirty();
-    model_ingredients_->select();
 }
