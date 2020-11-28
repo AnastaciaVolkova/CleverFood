@@ -31,11 +31,11 @@ QTView::QTView(QWidget *parent)
     ui->tbl_ingredients->setItemDelegate(new QSqlRelationalDelegate(ui->tbl_ingredients));
     model_ingredients_->setTable("recipes");
 
-    model_ingredients_->setHeaderData(0, Qt::Horizontal, "recipe");
-    model_ingredients_->setHeaderData(1, Qt::Horizontal, "product");
-    model_ingredients_->setHeaderData(2, Qt::Horizontal, "weight");
-    model_ingredients_->setRelation(1, QSqlRelation("products", "name", "name"));
+    model_ingredients_->setHeaderData(2, Qt::Horizontal, "product");
+    model_ingredients_->setHeaderData(3, Qt::Horizontal, "weight");
+    model_ingredients_->setRelation(2, QSqlRelation("products", "name", "name"));
     ui->tbl_ingredients->hideColumn(0);
+    ui->tbl_ingredients->hideColumn(1);
     model_ingredients_->select();
 
     recipes_selection_model_ = ui->tbl_recipes->selectionModel();
