@@ -20,6 +20,18 @@ QTView::QTView(QWidget *parent)
     if (!db.open())
         qDebug() << db.lastError().text();
 
+    QSqlQuery query;
+
+    query.exec("select * from products where name=\"\"");
+    if (query.size() == 0)
+        if (!query.exec("insert into products(name) values(\"\")"))
+            qDebug() << db.lastError().text();
+
+    query.exec("select * from recipes where name=\"\"");
+    if (query.size() == 0)
+        if (!query.exec("insert into recipes(name, product) values(\"\",\"\")"))
+            qDebug() << db.lastError().text();
+
     model_recipes_ = new QSqlTableModel();
     model_ingredients_ = new QSqlRelationalTableModel();
     model_ingredients_->setEditStrategy(QSqlTableModel::OnRowChange);
