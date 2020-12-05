@@ -32,7 +32,15 @@ QTView::QTView(QWidget *parent)
         if (!query.exec("insert into recipes(name, product) values(\"\",\"\")"))
             qDebug() << db.lastError().text();
 
-    model_recipes_ = new QSqlTableModel();
+
+    select_recipes_list_ = "select recipes.name, \
+            truncate(sum(recipes.weight*(products.protein*4+products.fat*9+products.carbo*4)), 2)  as callories,\
+            truncate(sum(recipes.weight), 2) as weight\
+            from recipes inner join products\
+            on recipes.product = products.name\
+            group by recipes.name";
+
+    model_recipes_ = new QSqlQueryModel();
     model_ingredients_ = new QSqlRelationalTableModel();
     model_ingredients_->setEditStrategy(QSqlTableModel::OnRowChange);
 
@@ -53,17 +61,11 @@ QTView::QTView(QWidget *parent)
     recipes_selection_model_ = ui->tbl_recipes->selectionModel();
 
     connect(recipes_selection_model_, &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionChanged);
+    connect(model_ingredients_,&QAbstractItemModel::dataChanged, this, &QTView::onDataChanged);
 }
 
 void QTView::showEvent(QShowEvent *) {
-    model_recipes_->setQuery(
-                "select recipes.name, \
-                truncate(sum(recipes.weight*(products.protein*4+products.fat*9+products.carbo*4)), 2)  as callories,\
-                truncate(sum(recipes.weight), 2) as weight\
-                from recipes inner join products\
-                on recipes.product = products.name\
-                group by recipes.name"
-                );
+    model_recipes_->setQuery(select_recipes_list_);
 
     QModelIndex index = ui->tbl_recipes->model()->index(0, 0);
     QItemSelectionModel::SelectionFlags flags = QItemSelectionModel::Toggle;
@@ -74,11 +76,32 @@ void QTView::showEvent(QShowEvent *) {
 void QTView::onSelectionChanged(const QItemSelection &selected){
     int row = recipes_selection_model_->currentIndex().row();
     if (row < 0) row = 0;
-    QString recipe = ui->tbl_recipes->model()->index(row, 0).data().toString();
-    model_ingredients_->setFilter("recipes.name=\'" + recipe + "\'");
+    current_recipe_ = ui->tbl_recipes->model()->index(row, 0).data().toString();
+    model_ingredients_->setFilter("recipes.name=\'" + current_recipe_ + "\'");
+    ui->le_recipe_name->setText(current_recipe_);
 };
 
 QTView::~QTView()
 {
     delete ui;
 }
+
+void QTView::on_le_recipe_name_editingFinished()
+{
+    QSqlQuery query;
+    query.prepare("update recipes set name=:new_name where name=:old_name");
+    query.bindValue(":new_name", ui->le_recipe_name->text());
+    query.bindValue(":old_name", current_recipe_);
+    query.exec();
+    model_recipes_->setQuery(select_recipes_list_);
+    int row = recipes_selection_model_->currentIndex().row();
+    if (row < 0) row = 0;
+    current_recipe_ = ui->tbl_recipes->model()->index(row, 0).data().toString();
+    qDebug() << current_recipe_;
+}
+
+void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles){
+    qDebug() << topLeft;
+    qDebug() << bottomRight;
+    model_recipes_->setQuery(select_recipes_list_);
+};

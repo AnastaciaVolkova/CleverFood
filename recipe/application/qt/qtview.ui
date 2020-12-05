@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>QTView</class>
  <widget class="QMainWindow" name="QTView">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,14 +17,28 @@
    <string>QTView</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="0">
-       <widget class="QTableView" name="tbl_recipes"/>
-      </item>
-      <item row="2" column="1">
+      <item row="2" column="2">
        <widget class="QTableView" name="tbl_ingredients"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QTableView" name="tbl_recipes">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="le_recipe_name">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

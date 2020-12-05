@@ -19,9 +19,13 @@ public:
     QTView(QWidget *parent = nullptr);
     ~QTView();
     void onSelectionChanged(const QItemSelection &selected);
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
 
 protected:
     void showEvent(QShowEvent *event) override;
+
+private slots:
+    void on_le_recipe_name_editingFinished();
 
 private:
     Ui::QTView *ui;
@@ -29,5 +33,7 @@ private:
     QSqlRelationalTableModel* model_ingredients_;
     QItemSelectionModel* recipes_selection_model_;
     QSqlDatabase db;
+    QString current_recipe_;
+    QString select_recipes_list_;
 };
 #endif // QTVIEW_H
