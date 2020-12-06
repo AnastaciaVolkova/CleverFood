@@ -12,10 +12,12 @@ CONFIG += c++11
 SOURCES += \
     ../../../application/qt/main.cpp \
     ../../../application/qt/qtview.cpp \
+    ../../../src/ingredients_mdl.cpp
 
 
 HEADERS += \
-    ../../../application/qt/qtview.h
+    ../../../application/qt/qtview.h \
+    ../../../include/ingredients_mdl.hpp
 
 INCLUDEPATH += \
     ../../../include
