@@ -42,7 +42,7 @@ QTView::QTView(QWidget *parent)
 
     model_recipes_ = new QSqlQueryModel();
     model_ingredients_ = new QSqlRelationalTableModel();
-    model_ingredients_->setEditStrategy(QSqlTableModel::OnRowChange);
+    model_ingredients_->setEditStrategy(QSqlTableModel::OnFieldChange);
 
     ui->tbl_recipes->setModel(model_recipes_);
     ui->tbl_ingredients->setModel(model_ingredients_);
