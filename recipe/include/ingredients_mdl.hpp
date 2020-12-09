@@ -7,9 +7,7 @@ class IngredientsModel : public QSqlRelationalTableModel {
     Q_OBJECT
 public:
     IngredientsModel(QObject *parent=nullptr);
-    QVariant data(const QModelIndex& item, int role) const override;
-private:
-    bool IsDigitF(std::string s) const;
+    QVariant data(const QModelIndex& item, int role);
 };
 
 #endif
