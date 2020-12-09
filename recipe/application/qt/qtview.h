@@ -5,7 +5,7 @@
 #include <QSqlTableModel>
 #include <QItemSelectionModel>
 #include <QSqlQuery>
-#include "ingredients_mdl.hpp"
+#include <QSqlRelationalTableModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QTView; }
@@ -30,7 +30,7 @@ private slots:
 private:
     Ui::QTView *ui;
     QSqlQueryModel* model_recipes_;
-    IngredientsModel* model_ingredients_;
+    QSqlRelationalTableModel* model_ingredients_;
     QItemSelectionModel* recipes_selection_model_;
     QSqlDatabase db;
     QString current_recipe_;
