@@ -41,8 +41,8 @@ QTView::QTView(QWidget *parent)
             group by recipes.name";
 
     model_recipes_ = new QSqlQueryModel();
-    model_ingredients_ = new IngredientsModel();
-    model_ingredients_->setEditStrategy(QSqlTableModel::OnFieldChange);
+    model_ingredients_ = new QSqlRelationalTableModel();
+    model_ingredients_->setEditStrategy(QSqlTableModel::OnRowChange);
 
     ui->tbl_recipes->setModel(model_recipes_);
     ui->tbl_ingredients->setModel(model_ingredients_);
