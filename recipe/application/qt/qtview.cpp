@@ -75,10 +75,25 @@ void QTView::showEvent(QShowEvent *) {
 
 void QTView::onSelectionChanged(const QItemSelection &selected){
     int row = recipes_selection_model_->currentIndex().row();
-    if (row < 0) row = 0;
+    if (row < 0) {
+        row = 0;
+        previous_row_ = 0;
+    };
+    if ((previous_row_ == ui->tbl_recipes->model()->rowCount()-1) && (row != previous_row_)){
+        // Check ingredients table
+        bool all_ok = true;
+        QAbstractItemModel* model = ui->tbl_ingredients->model();
+        for (int r = 0; r < model->rowCount(); r++){
+            for (int c = 0; c < model->columnCount(); c++){
+                QString s = model->data(model->index(r, c)).toString();
+                all_ok += (s != "");
+            }
+        }
+    }
     current_recipe_ = ui->tbl_recipes->model()->index(row, 0).data().toString();
     model_ingredients_->setFilter("recipes.name=\'" + current_recipe_ + "\'");
     ui->le_recipe_name->setText(current_recipe_);
+    previous_row_ = row;
 };
 
 QTView::~QTView()
@@ -105,3 +120,18 @@ void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
     qDebug() << bottomRight;
     model_recipes_->setQuery(select_recipes_list_);
 };
+
+void QTView::on_btn_delete_pressed()
+{
+    int row = recipes_selection_model_->currentIndex().row();
+    QString recipe = ui->tbl_recipes->model()->index(row, 0).data().toString();
+    qDebug() << recipe;
+    qDebug() << recipes_selection_model_->currentIndex().row();
+    QSqlQuery query;
+    query.prepare("delete from recipes where name=:name");
+    query.bindValue(":name", recipe);
+    if (!query.exec())
+        qDebug() << db.lastError().text();
+    model_recipes_->setQuery(select_recipes_list_);
+    recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
+}

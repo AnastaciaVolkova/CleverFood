@@ -27,6 +27,8 @@ protected:
 private slots:
     void on_le_recipe_name_editingFinished();
 
+    void on_btn_delete_pressed();
+
 private:
     Ui::QTView *ui;
     QSqlQueryModel* model_recipes_;
@@ -35,5 +37,6 @@ private:
     QSqlDatabase db;
     QString current_recipe_;
     QString select_recipes_list_;
+    int previous_row_;
 };
 #endif // QTVIEW_H
