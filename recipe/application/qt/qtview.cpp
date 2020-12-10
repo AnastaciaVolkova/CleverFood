@@ -61,6 +61,7 @@ QTView::QTView(QWidget *parent)
     recipes_selection_model_ = ui->tbl_recipes->selectionModel();
 
     connect(recipes_selection_model_, &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionChanged);
+    connect(ui->tbl_ingredients->selectionModel(), &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionIngredientsChanged);
     connect(model_ingredients_,&QAbstractItemModel::dataChanged, this, &QTView::onDataChanged);
 }
 
@@ -94,6 +95,11 @@ void QTView::onSelectionChanged(const QItemSelection &selected){
     model_ingredients_->setFilter("recipes.name=\'" + current_recipe_ + "\'");
     ui->le_recipe_name->setText(current_recipe_);
     previous_row_ = row;
+
+    qDebug() << "Recipes" << ui->tbl_recipes->selectionModel()->currentIndex().row() << ", "
+             << ui->tbl_recipes->selectionModel()->currentIndex().column();
+    qDebug() << "Ingredients" << ui->tbl_ingredients->selectionModel()->currentIndex().row() << ", "
+             << ui->tbl_ingredients->selectionModel()->currentIndex().column();
 };
 
 QTView::~QTView()
@@ -116,22 +122,41 @@ void QTView::on_le_recipe_name_editingFinished()
 }
 
 void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles){
-    qDebug() << topLeft;
-    qDebug() << bottomRight;
     model_recipes_->setQuery(select_recipes_list_);
 };
 
 void QTView::on_btn_delete_pressed()
 {
-    int row = recipes_selection_model_->currentIndex().row();
-    QString recipe = ui->tbl_recipes->model()->index(row, 0).data().toString();
-    qDebug() << recipe;
-    qDebug() << recipes_selection_model_->currentIndex().row();
-    QSqlQuery query;
-    query.prepare("delete from recipes where name=:name");
-    query.bindValue(":name", recipe);
-    if (!query.exec())
-        qDebug() << db.lastError().text();
-    model_recipes_->setQuery(select_recipes_list_);
-    recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
+    if ((ui->tbl_ingredients->selectionModel()->currentIndex().row() != -1) &&
+            (ui->tbl_ingredients->selectionModel()->currentIndex().row() != -1)){
+        QString product = ui->tbl_ingredients->model()->index(ui->tbl_ingredients->selectionModel()->currentIndex().row(), 2).data().toString();
+        QString recipe = ui->tbl_recipes->model()->index(recipes_selection_model_->currentIndex().row(), 0).data().toString();
+        qDebug() << product;
+        qDebug() << recipe;
+        QSqlQuery query;
+        query.prepare("delete from recipes where product=:product and name=:name");
+        query.bindValue(":product", product);
+        query.bindValue(":name", recipe);
+        if (!query.exec())
+            qDebug() << db.lastError().text();
+        model_ingredients_->select();
+        ui->tbl_ingredients->selectionModel()->setCurrentIndex(ui->tbl_ingredients->model()->index(0,2), QItemSelectionModel::Select);
+    } else {
+        QString recipe = ui->tbl_recipes->model()->index(recipes_selection_model_->currentIndex().row(), 0).data().toString();
+        qDebug() << recipe;
+        QSqlQuery query;
+        query.prepare("delete from recipes where name=:name");
+        query.bindValue(":name", recipe);
+        if (!query.exec())
+            qDebug() << db.lastError().text();
+        model_recipes_->setQuery(select_recipes_list_);
+        recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
+    }
 }
+
+void QTView::onSelectionIngredientsChanged(const QItemSelection &selected){
+    qDebug() << "Recipes" << ui->tbl_recipes->selectionModel()->currentIndex().row() << ", "
+             << ui->tbl_recipes->selectionModel()->currentIndex().column();
+    qDebug() << "Ingredients" << ui->tbl_ingredients->selectionModel()->currentIndex().row() << ", "
+             << ui->tbl_ingredients->selectionModel()->currentIndex().column();
+};

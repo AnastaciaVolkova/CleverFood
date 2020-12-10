@@ -19,6 +19,7 @@ public:
     QTView(QWidget *parent = nullptr);
     ~QTView();
     void onSelectionChanged(const QItemSelection &selected);
+    void onSelectionIngredientsChanged(const QItemSelection &selected);
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
 
 protected:
