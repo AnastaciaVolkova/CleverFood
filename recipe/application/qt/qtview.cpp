@@ -141,6 +141,13 @@ void QTView::on_btn_delete_pressed()
             qDebug() << db.lastError().text();
         model_ingredients_->select();
         ui->tbl_ingredients->selectionModel()->setCurrentIndex(ui->tbl_ingredients->model()->index(0,2), QItemSelectionModel::Select);
+        query.prepare("select * from recipes where name=:name");
+        query.bindValue(":name", recipe);
+        query.exec();
+        if (query.size() == 0){
+            model_recipes_->setQuery(select_recipes_list_);
+        }
+
     } else {
         QString recipe = ui->tbl_recipes->model()->index(recipes_selection_model_->currentIndex().row(), 0).data().toString();
         qDebug() << recipe;
