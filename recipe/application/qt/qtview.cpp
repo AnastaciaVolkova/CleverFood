@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QSqlRelationalDelegate>
 #include <QSqlQueryModel>
+#include <algorithm>
 
 QTView::QTView(QWidget *parent)
     : QMainWindow(parent)
@@ -123,10 +124,12 @@ void QTView::on_le_recipe_name_editingFinished()
 
 void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles){
     model_recipes_->setQuery(select_recipes_list_);
+    recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
 };
 
 void QTView::on_btn_delete_pressed()
 {
+    // Delete ingredient
     if ((ui->tbl_ingredients->selectionModel()->currentIndex().row() != -1) &&
             (ui->tbl_ingredients->selectionModel()->currentIndex().row() != -1)){
         QString product = ui->tbl_ingredients->model()->index(ui->tbl_ingredients->selectionModel()->currentIndex().row(), 2).data().toString();
@@ -146,9 +149,13 @@ void QTView::on_btn_delete_pressed()
         query.exec();
         if (query.size() == 0){
             model_recipes_->setQuery(select_recipes_list_);
+            ui->tbl_recipes->selectionModel()->setCurrentIndex(ui->tbl_recipes->model()->index(
+                                                                   std::max(0, previous_row_-1),
+                                                                    0),
+                                                               QItemSelectionModel::Select);
         }
 
-    } else {
+    } else { // Delete recipe
         QString recipe = ui->tbl_recipes->model()->index(recipes_selection_model_->currentIndex().row(), 0).data().toString();
         qDebug() << recipe;
         QSqlQuery query;
