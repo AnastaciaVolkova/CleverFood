@@ -164,7 +164,7 @@ void QTView::on_btn_delete_pressed()
         if (!query.exec())
             qDebug() << db.lastError().text();
         model_recipes_->setQuery(select_recipes_list_);
-        recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
+        recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(std::max(0, previous_row_-1), 0), QItemSelectionModel::Select);
     }
 }
 
