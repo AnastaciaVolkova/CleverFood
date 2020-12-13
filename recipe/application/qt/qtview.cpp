@@ -124,7 +124,6 @@ void QTView::on_le_recipe_name_editingFinished()
 
 void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles){
     model_recipes_->setQuery(select_recipes_list_);
-    recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(0,0), QItemSelectionModel::Select);
 };
 
 void QTView::on_btn_delete_pressed()
