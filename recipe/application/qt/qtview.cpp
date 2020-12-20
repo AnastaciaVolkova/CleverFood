@@ -23,17 +23,6 @@ QTView::QTView(QWidget *parent)
 
     QSqlQuery query;
 
-    query.exec("select * from products where name=\"\"");
-    if (query.size() == 0)
-        if (!query.exec("insert into products(name) values(\"\")"))
-            qDebug() << db.lastError().text();
-
-    query.exec("select * from recipes where name=\"\"");
-    if (query.size() == 0)
-        if (!query.exec("insert into recipes(name, product) values(\"\",\"\")"))
-            qDebug() << db.lastError().text();
-
-
     select_recipes_list_ = "select recipes.name, \
             truncate(sum(recipes.weight*(products.protein*4+products.fat*9+products.carbo*4)), 2)  as callories,\
             truncate(sum(recipes.weight), 2) as weight\
