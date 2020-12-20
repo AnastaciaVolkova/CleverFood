@@ -59,7 +59,7 @@ QTView::QTView(const QApplication* app, QWidget *parent)
     query.exec("select * from products where name=\"\"");
     if (query.size() == 0)
         if (!query.exec("insert into products(name) values(\"\")"))
-            qDebug() << db.lastError().text();
+            qDebug() << query.lastError().text();
 }
 
 void QTView::showEvent(QShowEvent *) {
@@ -148,7 +148,7 @@ void QTView::on_btn_delete_pressed()
         query.bindValue(":product", product);
         query.bindValue(":name", recipe);
         if (!query.exec())
-            qDebug() << db.lastError().text();
+            qDebug() << query.lastError().text();
         model_ingredients_->select();
         ui->tbl_ingredients->selectionModel()->setCurrentIndex(ui->tbl_ingredients->model()->index(0,2), QItemSelectionModel::Select);
         query.prepare("select * from recipes where name=:name");
@@ -169,7 +169,7 @@ void QTView::on_btn_delete_pressed()
         query.prepare("delete from recipes where name=:name");
         query.bindValue(":name", recipe);
         if (!query.exec())
-            qDebug() << db.lastError().text();
+            qDebug() << query.lastError().text();
         model_recipes_->setQuery(select_recipes_list_);
         recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(std::max(0, previous_row_-1), 0), QItemSelectionModel::Select);
     }
@@ -204,7 +204,7 @@ void QTView::on_le_new_recipe_name_editingFinished()
     qDebug() << QString(query_str.c_str());
     QSqlQuery query;
     if (!query.exec(QString(query_str.c_str())))
-        qDebug() << db.lastError().text();
+        qDebug() << query.lastError().text();
     current_recipe_ = ui->le_new_recipe_name->text();
     ui->le_recipe_name->setText(ui->le_new_recipe_name->text());
 }
