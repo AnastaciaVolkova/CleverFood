@@ -54,6 +54,12 @@ QTView::QTView(const QApplication* app, QWidget *parent)
     connect(ui->tbl_ingredients->selectionModel(), &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionIngredientsChanged);
     connect(model_ingredients_,&QAbstractItemModel::dataChanged, this, &QTView::onDataChanged);
     connect(app, &QApplication::focusChanged, this, &QTView::onFocusChanged);
+
+    //Insert empty product to products
+    query.exec("select * from products where name=\"\"");
+    if (query.size() == 0)
+        if (!query.exec("insert into products(name) values(\"\")"))
+            qDebug() << db.lastError().text();
 }
 
 void QTView::showEvent(QShowEvent *) {
@@ -82,7 +88,9 @@ void QTView::onSelectionChanged(const QItemSelection &selected){
             }
         }
     }
+    DeleteEmptyRowFromIngredients(current_recipe_.toStdString());
     current_recipe_ = ui->tbl_recipes->model()->index(row, 0).data().toString();
+    AddEmptyRowToIngredients(current_recipe_.toStdString());
     model_ingredients_->setFilter("recipes.name=\'" + current_recipe_ + "\'");
     ui->le_recipe_name->setText(current_recipe_);
     previous_row_ = row;
@@ -95,6 +103,14 @@ void QTView::onSelectionChanged(const QItemSelection &selected){
 
 QTView::~QTView()
 {
+    QSqlQuery query;
+    //Delete empty ingredients from recipes
+    if (!query.exec("delete from recipes where name=\'\' or product=\'\' or weight=\'\'"))
+        qDebug() << query.lastError().text();
+
+    //Delete empty product from products
+    if (!query.exec("delete from products where name=\'\'"))
+        qDebug() << query.lastError().text();
     delete ui;
 }
 
@@ -114,9 +130,8 @@ void QTView::on_le_recipe_name_editingFinished()
 
 void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles){
     model_recipes_->setQuery(select_recipes_list_);
-    qDebug() << "onDataChanged";
-    qDebug() << topLeft.row() << " " << topLeft.column();
-    qDebug() << bottomRight.row() << " " << bottomRight.column();
+    QSqlQuery query;
+    query.exec("select * from recipes where name != \'\' and product != \'\' and weight !=\'\'");
 };
 
 void QTView::on_btn_delete_pressed()
@@ -169,15 +184,10 @@ void QTView::onSelectionIngredientsChanged(const QItemSelection &selected){
 
 void QTView::onFocusChanged ( QWidget * old, QWidget * now ){
     if (now == ui->le_new_recipe_name){
-        //Insert empty product to products
-        QSqlQuery query;
-        query.exec("select * from products where name=\"\"");
-        if (query.size() == 0)
-            if (!query.exec("insert into products(name) values(\"\")"))
-                qDebug() << db.lastError().text();
         //Create recipe with empty ingredient
         AddEmptyRowToIngredients();
         model_ingredients_->setFilter("recipes.name=\'\'");
+        ui->le_recipe_name->setText(ui->le_new_recipe_name->text());
     } else {
         // Delete empty product from produts
         QSqlQuery query;
@@ -195,16 +205,24 @@ void QTView::on_le_new_recipe_name_editingFinished()
     QSqlQuery query;
     if (!query.exec(QString(query_str.c_str())))
         qDebug() << db.lastError().text();
+    current_recipe_ = ui->le_new_recipe_name->text();
+    ui->le_recipe_name->setText(ui->le_new_recipe_name->text());
 }
 
 void QTView::AddEmptyRowToIngredients(std::string name){
-    QSqlQuery query;
     // Create empty ingredients
-    query.exec("select * from recipes where name=\"\"");
-    if (query.size() == 0){
-        QString query_pat = QString("insert into recipes(name, product) values(\'") + QString(name.c_str()) + QString("\', \'\')");
-        qDebug() << query_pat;
-        if (!query.exec(query_pat))
-            qDebug() << db.lastError().text();
-    }
+    QSqlQuery query;
+    QString query_pat = QString("insert into recipes(name, product) values(\'") + QString(name.c_str()) + QString("\', \'\')");
+    qDebug() << query_pat;
+    if (!query.exec(query_pat))
+        qDebug() << query.lastError().text();
 };
+
+void QTView::DeleteEmptyRowFromIngredients(std::string name){
+    QSqlQuery query;
+    // Delete empty product from produts
+    QString query_pat = QString("delete from recipes where name=\'") + QString(name.c_str()) +
+            QString("\' and (product=\'\' or weight=\'\')");
+    if (!query.exec(query_pat))
+        qDebug() << query.lastError().text();
+}
