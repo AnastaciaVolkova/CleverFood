@@ -60,6 +60,7 @@ QTView::QTView(const QApplication* app, QWidget *parent)
     if (query.size() == 0)
         if (!query.exec("insert into products(name) values(\"\")"))
             qDebug() << query.lastError().text();
+    db.commit();
 }
 
 void QTView::showEvent(QShowEvent *) {
@@ -210,13 +211,6 @@ void QTView::onFocusChanged ( QWidget * old, QWidget * now ){
         AddEmptyRowToIngredients();
         model_ingredients_->setFilter("recipes.name=\'\'");
         ui->le_recipe_name->setText(ui->le_new_recipe_name->text());
-    } else {
-        // Delete empty product from produts
-        QSqlQuery query;
-        query.exec("select * from products where name=\"\"");
-        if (query.size() != 0)
-            if (!query.exec("delete from products where name=\"\""))
-                qDebug() << db.lastError().text();
     }
 };
 
@@ -228,6 +222,7 @@ void QTView::on_le_new_recipe_name_editingFinished()
     if (!query.exec(QString(query_str.c_str())))
         qDebug() << query.lastError().text();
     model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
+    model_ingredients_->select();
 }
 
 void QTView::AddEmptyRowToIngredients(std::string name){

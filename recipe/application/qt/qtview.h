@@ -44,6 +44,7 @@ private:
     QString select_recipes_list_;
     int previous_row_;
     void AddEmptyRowToIngredients(std::string name="");
+    void DeleteEmptyRowFromIngredients();
 };
 
 #endif // QTVIEW_H
