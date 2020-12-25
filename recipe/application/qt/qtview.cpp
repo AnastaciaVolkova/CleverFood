@@ -151,6 +151,8 @@ void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
             AddEmptyRowToIngredients(ui->le_new_recipe_name->text().toStdString());
         }
         model_ingredients_->blockSignals(false);
+        model_ingredients_->select();
+        model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
     }
 };
 
@@ -221,8 +223,8 @@ void QTView::on_le_new_recipe_name_editingFinished()
     QSqlQuery query;
     if (!query.exec(QString(query_str.c_str())))
         qDebug() << query.lastError().text();
-    model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
     model_ingredients_->select();
+    model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
 }
 
 void QTView::AddEmptyRowToIngredients(std::string name){
