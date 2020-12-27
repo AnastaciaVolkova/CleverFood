@@ -53,7 +53,6 @@ QTView::QTView(const QApplication* app, QWidget *parent)
     connect(recipes_selection_model_, &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionChanged);
     connect(ui->tbl_ingredients->selectionModel(), &QItemSelectionModel::selectionChanged, this, &QTView::onSelectionIngredientsChanged);
     connect(model_ingredients_,&QAbstractItemModel::dataChanged, this, &QTView::onDataChanged);
-    connect(app, &QApplication::focusChanged, this, &QTView::onFocusChanged);
 
     //Insert empty product to products
     query.exec("select * from products where name=\"\"");
@@ -140,7 +139,7 @@ void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
         model_ingredients_->blockSignals(true);
         QSqlQuery query;
         QString query_pat = QString("select * from recipes where name = \'") +
-                ui->le_new_recipe_name->text() +
+                current_recipe_ +
                 QString("\' and (product = \'\' or weight = 0)");
         qDebug() << query_pat;
         if (!query.exec(query_pat))
@@ -148,12 +147,13 @@ void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
         qDebug() << query.size();
         if (query.size() == 0){
             qDebug() << "onDataChanged";
-            AddEmptyRowToIngredients(ui->le_new_recipe_name->text().toStdString());
+            AddEmptyRowToIngredients(current_recipe_.toStdString());
         }
         model_ingredients_->submitAll();
         model_ingredients_->blockSignals(false);
+        model_recipes_->setQuery(select_recipes_list_);
         model_ingredients_->select();
-        model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
+        model_ingredients_->setFilter(QString("recipes.name=\'") + current_recipe_ + QString("\'"));
     }
 };
 
@@ -205,18 +205,7 @@ void QTView::onSelectionIngredientsChanged(const QItemSelection &selected){
              << ui->tbl_ingredients->selectionModel()->currentIndex().column();
 };
 
-void QTView::onFocusChanged ( QWidget * old, QWidget * now ){
-    if (now == ui->le_new_recipe_name){
-        qDebug() << "onFocusChanged";
-        // Delete empty ingredients of all recipes
-        DeleteEmptyRowFromIngredients();
-        // Create recipe with empty ingredient
-        AddEmptyRowToIngredients();
-        model_ingredients_->setFilter("recipes.name=\'\'");
-        ui->le_recipe_name->setText(ui->le_new_recipe_name->text());
-    }
-};
-
+/*
 void QTView::on_le_new_recipe_name_editingFinished()
 {
     std::string query_str = "update recipes set name=\'" + ui->le_new_recipe_name->text().toStdString() + "\' where name=\'\'";
@@ -227,6 +216,7 @@ void QTView::on_le_new_recipe_name_editingFinished()
     model_ingredients_->select();
     model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
 }
+*/
 
 void QTView::AddEmptyRowToIngredients(std::string name){
     // Create empty ingredients
@@ -245,4 +235,21 @@ void QTView::DeleteEmptyRowFromIngredients(){
 
     if (!query.exec(query_pat))
         qDebug() << query.lastError().text();
+}
+
+void QTView::on_btn_new_clicked()
+{
+    // Delete empty ingredients of all recipes
+    DeleteEmptyRowFromIngredients();
+    // Create recipe with empty ingredient
+    AddEmptyRowToIngredients();
+    model_ingredients_->setFilter("recipes.name=\'\'");
+    model_recipes_->setQuery(select_recipes_list_);
+
+    int i = 0;
+    while((model_recipes_->index(i, 0).data().toString() != "") && ( i < model_recipes_->rowCount()))
+        i++;
+
+    Q_ASSERT(i < model_recipes_->rowCount());
+    recipes_selection_model_->setCurrentIndex(ui->tbl_recipes->model()->index(i, 0), QItemSelectionModel::Select);
 }

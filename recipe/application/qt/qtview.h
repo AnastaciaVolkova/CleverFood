@@ -22,7 +22,6 @@ public:
     void onSelectionChanged(const QItemSelection &selected);
     void onSelectionIngredientsChanged(const QItemSelection &selected);
     void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
-    void onFocusChanged ( QWidget * old, QWidget * now );
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -32,7 +31,7 @@ private slots:
 
     void on_btn_delete_pressed();
 
-    void on_le_new_recipe_name_editingFinished();
+    void on_btn_new_clicked();
 
 private:
     Ui::QTView *ui;
