@@ -150,6 +150,7 @@ void QTView::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottom
             qDebug() << "onDataChanged";
             AddEmptyRowToIngredients(ui->le_new_recipe_name->text().toStdString());
         }
+        model_ingredients_->submitAll();
         model_ingredients_->blockSignals(false);
         model_ingredients_->select();
         model_ingredients_->setFilter(QString("recipes.name=\'") + ui->le_new_recipe_name->text() + QString("\'"));
